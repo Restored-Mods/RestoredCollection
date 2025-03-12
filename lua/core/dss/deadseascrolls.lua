@@ -128,8 +128,8 @@ local function InitDisableMenu()
 	local itemTogglesMenu = {}
 	local orderedItems = {}
 	itemTogglesMenu = {
-		{ str = "choose what items", fsize = 2, nosel = true },
-		{ str = "show up", fsize = 2, nosel = true },
+		{str = 'choose what items show up', fsize = 2, nosel = true},
+        {str = '(disabled - in blacklist)', fsize = 2, nosel = true},
 		{ str = "", fsize = 2, nosel = true },
 	}
 
