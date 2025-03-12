@@ -192,8 +192,8 @@ local function InitDisableMenu()
     local itemTogglesMenu = {}
     local orderedItems = {}
     itemTogglesMenu = {
-        {str = 'choose what items', fsize = 2, nosel = true},
-        {str = 'show up', fsize = 2, nosel = true},
+        {str = 'choose what items show up', fsize = 2, nosel = true},
+        {str = '(disabled - in blacklist)', fsize = 2, nosel = true},
         {str = '', fsize = 2, nosel = true},
     }
 
@@ -297,6 +297,91 @@ local function InitDisableMenu()
         itemTogglesMenu[#itemTogglesMenu+1] = collectibleOption
     end
     return itemTogglesMenu
+end
+
+local function ReInitImGuiBlacklist()
+    if not Isaac.IsInGame() and ImGui.ElementExists("restoredCollectionItemsBlacklistSettings") then 
+        ImGui.RemoveElement("restoredCollectionItemsBlacklistSettings")
+        if ImGui.ElementExists("restoredCollectionItemsBlacklistWindow") then
+            ImGui.RemoveWindow("restoredCollectionItemsBlacklistWindow")
+        end
+    elseif Isaac.IsInGame() and not ImGui.ElementExists("restoredCollectionItemsBlacklistSettings") then
+        if ImGui.ElementExists("restoredCollectionItemsBlacklistSettings") then
+            ImGui.RemoveElement("restoredCollectionItemsBlacklistSettings")
+        end
+
+        if not ImGui.ElementExists("restoredCollectionItemsBlacklistWindow") then
+            ImGui.CreateWindow("restoredCollectionItemsBlacklistWindow", "Restored Collection items blacklist")
+        end
+
+        ImGui.AddElement("restoredCollectionMenu", "restoredCollectionItemsBlacklistSettings", ImGuiElement.MenuItem, "\u{f05e} Items blacklist")
+
+        ImGui.LinkWindowToElement("restoredCollectionItemsBlacklistWindow", "restoredCollectionItemsBlacklistSettings")
+
+        ImGui.SetWindowSize("restoredCollectionItemsBlacklistWindow", 350, 600)
+
+        local orderedItems = {}
+
+        local itemConfig = Isaac.GetItemConfig()
+        ---@type ItemConfigItem[]
+        for _, collectible in pairs(RestoredCollection.Enums.CollectibleType) do
+            if collectible ~= RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MELTED_CANDLE then
+                local collectibleConf = itemConfig:GetCollectible(collectible)
+                orderedItems[#orderedItems+1] = collectibleConf
+            end
+        end
+        table.sort(orderedItems, function (a, b)
+            return RemoveZeroWidthSpace(a.Name) < RemoveZeroWidthSpace(b.Name)
+        end)
+
+        for _, collectible in pairs(orderedItems) do
+            local tooltipStr = "Enable "..RemoveZeroWidthSpace(collectible.Name).."\nin item pools"
+
+            local elemName = "restoredCollection"..string.gsub(collectible.Name, " ", "").."Blacklist"
+            if ImGui.ElementExists(elemName) then
+                ImGui.RemoveElement(elemName)
+            end
+
+            if ImGui.ElementExists("toolTip"..elemName) then
+                ImGui.RemoveElement("toolTip"..elemName)
+            end
+            
+            ImGui.AddCheckbox("restoredCollectionItemsBlacklistWindow", elemName, RemoveZeroWidthSpace(collectible.Name), function (val)
+                    if not TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "DisabledItems") then
+                        TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "DisabledItems", {})
+                    end
+                    local disabledItems = TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "DisabledItems")
+                    for indexItem, disabledItem in ipairs(disabledItems) do
+                        if disabledItem == GetItemsEnum(collectible.ID) then
+                            if val then
+                                table.remove(disabledItems, indexItem)
+                            end
+                            break
+                        end
+                    end
+                    
+                    if not val then
+                        table.insert(disabledItems, GetItemsEnum(collectible.ID))
+                    end
+                    TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "DisabledItems", disabledItems)
+                    TSIL.SaveManager.SaveToDisk()
+                    end,
+                    true
+                )
+
+            ImGui.SetTooltip(elemName, tooltipStr)
+            ImGui.AddCallback(elemName, ImGuiCallback.Render, function()
+                local val = true
+                for indexItem, disabledItem in ipairs(TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "DisabledItems")) do
+                    if disabledItem == GetItemsEnum(collectible.ID) then
+                        val = false
+                        break
+                    end
+                end
+                ImGui.UpdateData(elemName, ImGuiData.Value, val)
+            end)
+        end
+    end
 end
 
 local function InitImGuiMenu()
@@ -432,82 +517,6 @@ local function InitImGuiMenu()
         ImGui.UpdateData("restoredCollectionSettingsMaxsHeads", ImGuiData.Value, TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "MaxsHead") > 1)
     end)
     
-
-    if ImGui.ElementExists("restoredCollectionItemsBlacklistSettings") then
-        ImGui.RemoveElement("restoredCollectionItemsBlacklistSettings")
-    end
-
-    if not ImGui.ElementExists("restoredCollectionItemsBlacklistWindow") then
-        ImGui.CreateWindow("restoredCollectionItemsBlacklistWindow", "Restored Collection items blacklist")
-    end
-
-    ImGui.AddElement("restoredCollectionMenu", "restoredCollectionItemsBlacklistSettings", ImGuiElement.MenuItem, "\u{f05e} Items blacklist")
-
-    ImGui.LinkWindowToElement("restoredCollectionItemsBlacklistWindow", "restoredCollectionItemsBlacklistSettings")
-
-    ImGui.SetWindowSize("restoredCollectionItemsBlacklistWindow", 350, 600)
-
-    local orderedItems = {}
-
-    local itemConfig = Isaac.GetItemConfig()
-    ---@type ItemConfigItem[]
-    for _, collectible in pairs(RestoredCollection.Enums.CollectibleType) do
-        if collectible ~= RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MELTED_CANDLE then
-            local collectibleConf = itemConfig:GetCollectible(collectible)
-            orderedItems[#orderedItems+1] = collectibleConf
-        end
-    end
-    table.sort(orderedItems, function (a, b)
-        return RemoveZeroWidthSpace(a.Name) < RemoveZeroWidthSpace(b.Name)
-    end)
-
-    for _, collectible in pairs(orderedItems) do
-        local tooltipStr = "Enable "..RemoveZeroWidthSpace(collectible.Name).."\nin item pools"
-
-        local elemName = "restoredCollection"..string.gsub(collectible.Name, " ", "").."Blacklist"
-        if ImGui.ElementExists(elemName) then
-            ImGui.RemoveElement(elemName)
-        end
-
-        if ImGui.ElementExists("toolTip"..elemName) then
-            ImGui.RemoveElement("toolTip"..elemName)
-        end
-        
-        ImGui.AddCheckbox("restoredCollectionItemsBlacklistWindow", elemName, RemoveZeroWidthSpace(collectible.Name), function (val)
-                if not TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "DisabledItems") then
-                    TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "DisabledItems", {})
-                end
-                local disabledItems = TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "DisabledItems")
-                for indexItem, disabledItem in ipairs(disabledItems) do
-                    if disabledItem == GetItemsEnum(collectible.ID) then
-                        if val then
-                            table.remove(disabledItems, indexItem)
-                        end
-                        break
-                    end
-                end
-                
-                if not val then
-                    table.insert(disabledItems, GetItemsEnum(collectible.ID))
-                end
-                TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "DisabledItems", disabledItems)
-                TSIL.SaveManager.SaveToDisk()
-                end,
-                true
-            )
-
-        ImGui.SetTooltip(elemName, tooltipStr)
-        ImGui.AddCallback(elemName, ImGuiCallback.Render, function()
-            local val = true
-            for indexItem, disabledItem in ipairs(TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "DisabledItems")) do
-                if disabledItem == GetItemsEnum(collectible.ID) then
-                    val = false
-                    break
-                end
-            end
-            ImGui.UpdateData(elemName, ImGuiData.Value, val)
-        end)
-    end
 end
 
 
@@ -922,6 +931,8 @@ DeadSeaScrollsMenu.AddMenu(modMenuName, {
 
 if REPENTOGON then
     InitImGuiMenu()
+    RestoredCollection:AddCallback(ModCallbacks.MC_MAIN_MENU_RENDER, ReInitImGuiBlacklist)
+    RestoredCollection:AddCallback(ModCallbacks.MC_POST_RENDER, ReInitImGuiBlacklist)
 end
 
 RestoredCollection:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.LATE + 10, function()
