@@ -25,34 +25,34 @@
 	<sound name="Ancient Revelation">
 		<sample weight="1" path="funny/Ancient Revelation.wav" />
 	</sound>
-	<sound name="Beth's Heart">
+	<sound name="​Beth's Heart">
 		<sample weight="1" path="funny/Beth's Heart.wav" />
 	</sound>
-	<sound name="Blank Bombs">
+	<sound name="​Blank Bombs">
 		<sample weight="1" path="funny/Blank Bombs.wav" />
 	</sound>
-	<sound name="Book of Despair">
+	<sound name="​Book of Despair">
 		<sample weight="1" path="funny/Book of Despair.wav" />
 	</sound>
-	<sound name="Book of Illusions">
+	<sound name="​Book of Illusions">
 		<sample weight="1" path="funny/Book of Illusions.wav" />
 	</sound>
-	<sound name="Bowl of Tears">
+	<sound name="​Bowl of Tears">
 		<sample weight="1" path="funny/Bowl of Tears.wav" />
 	</sound>
-	<sound name="Checked Mate">
+	<sound name="​Checked Mate">
 		<sample weight="1" path="funny/Checked Mate.wav" />
 	</sound>
-	<sound name="Dice Bombs">
+	<sound name="​Dice Bombs">
 		<sample weight="1" path="funny/Dice Bombs.wav" />
 	</sound>
 	<sound name="Donkey Jawbone">
 		<sample weight="1" path="funny/Donkey Jawbone.wav" />
 	</sound>
-	<sound name="Keeper's Rope">
+	<sound name="​Keeper's Rope">
 		<sample weight="1" path="funny/Keeper's Rope.wav" />
 	</sound>
-	<sound name="Lucky Seven">
+	<sound name="​Lucky Seven">
 		<sample weight="1" path="funny/Lucky Seven.wav" />
 	</sound>
 	<sound name="Lunch Box">
@@ -67,16 +67,16 @@
 	<sound name="Ol' Lopper">
 		<sample weight="1" path="funny/Ol' Lopper.wav" />
 	</sound>
-	<sound name="Pacifist">
+	<sound name="​Pacifist">
 		<sample weight="1" path="funny/Pacifist.wav" />
 	</sound>
-	<sound name="Pill Crusher">
+	<sound name="​Pill Crusher">
 		<sample weight="1" path="funny/Pill Crusher.wav" />
 	</sound>
-	<sound name="Safety Bombs">
+	<sound name="​Safety Bombs">
 		<sample weight="1" path="funny/Safety Bombs.wav" />
 	</sound>
-	<sound name="Stone Bombs">
+	<sound name="​Stone Bombs">
 		<sample weight="1" path="funny/Stone Bombs.wav" />
 	</sound>
 	<sound name="Voodoo Pin">

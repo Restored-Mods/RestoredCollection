@@ -41,7 +41,7 @@ Translations:AddTranslation("collectible", RestoredCollection.Enums.CollectibleT
 Translations:AddTranslation("trinket", RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC, "Игровой кальмар", "Подтекающий приятель", "ru")
 
 --spa
---Translations:AddTranslation("collectible", RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS, "Stone Bombs", "Rock blast +5 bombs", "spa")
+--Translations:AddTranslation("collectible", RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS, "​Stone Bombs", "Rock blast +5 bombs", "spa")
 Translations:AddTranslation("collectible", RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BLANK_BOMBS, "Bombas de fogueo", "Entra al sótano", "Спускаемся в подвал", "spa")
 Translations:AddTranslation("collectible", RestoredCollection.Enums.CollectibleType.COLLECTIBLE_CHECKED_MATE, "Rey en jaque", "Amigo ajedrezado", "spa")
 Translations:AddTranslation("collectible", RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DICE_BOMBS, "Bombas de dado", "+5 bombas, cambia tus objetos", "spa")
@@ -58,8 +58,8 @@ Translations:AddTranslation("collectible", RestoredCollection.Enums.CollectibleT
 for i = 0, 5 do
     --Translations:AddTranslation("collectible", RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX - i, "Lunch Box", "Portable buffet", "spa")
 end
---Translations:AddTranslation("collectible", RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_DESPAIR, "Book of Despair", "Temporary tears up", "spa")
---Translations:AddTranslation("collectible", RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOWL_OF_TEARS, "Bowl of Tears", "Splash!", "spa")
+--Translations:AddTranslation("collectible", RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_DESPAIR, "​Book of Despair", "Temporary tears up", "spa")
+--Translations:AddTranslation("collectible", RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOWL_OF_TEARS, "​Bowl of Tears", "Splash!", "spa")
 Translations:AddTranslation("collectible", RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS, "Libro de las ilusiones", "Un ejército de ti", "spa")
 Translations:AddTranslation("collectible", RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PILL_CRUSHER, "Triturador de píldoras", "¡Dáselas a todos!", "spa")
 Translations:AddTranslation("collectible", RestoredCollection.Enums.CollectibleType.COLLECTIBLE_VOODOO_PIN, "Pin de vudú", "Comparte tu dolor", "spa")

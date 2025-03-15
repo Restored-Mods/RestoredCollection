@@ -14,7 +14,7 @@ EID:addIcon("IllusionHeart", "Icon", 2, 10, 9, 1, 1, iconSprite)
 --Stone Bombs
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS,
     "{{Bomb}} +5 Bombs#Bombs create rock waves in all 4 cardinal directions#The rock waves can damage enemies, destroy objects, and reveal secret rooms",
-    "Stone Bombs", "en_us")
+    "​Stone Bombs", "en_us")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS,
     "{{Bomb}} +5 Bombas#Las bombas colocadas ahora generan olas de piedra en los 4 puntos cardinales al explotar#Las olas de piedra pueden dañar enemigos, destruir objetos y revelar salas secretas",
     "Bombas de Piedra", "spa")
@@ -29,7 +29,7 @@ EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BO
 --Blank Bombs
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BLANK_BOMBS,
     "{{Bomb}} +5 Bombs#Bombs explode instantly, -50% bomb damage#Press {{ButtonRT}} + {{ButtonLB}} to place bombs normally#The player is immune from their own bombs#Bombs destroy enemy projectiles and knock back enemies",
-    "Blank Bombs", "en_us")
+    "​Blank Bombs", "en_us")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BLANK_BOMBS,
     "{{Bomb}} +5 Bombas#Las bombas explotan inmediatamente. -50% daño de bomba#Pulsa {{ButtonRT}} + {{ButtonLB}} para poner bombas normales#El jugador es inmune a sus bombas#Las bombas que exploten eliminarán los disparos enemigos y empujarán a los enemigos cercanos",
     "Bombas de Fogueo", "spa")
@@ -46,10 +46,10 @@ EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BLANK_BO
 --Checked Mate
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_CHECKED_MATE,
     "Spawns a familiar that moves by jumping from tile to tile, dealing 20 damage to nearby enemies and 40 damage to enemies directly landed on",
-    "Checked Mate", "en_us")
+    "​Checked Mate", "en_us")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_CHECKED_MATE,
     "Создает фамильяра, который перемещается, прыгая с места на место, нанося 20 урона возле врагов и 40 урона при приземлении прямо на врагов",
-    "Checked Mate", "ru")
+    "​Checked Mate", "ru")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_CHECKED_MATE,
     "Genera un Rey de Ajedréz que saltará de cuadro en cuadro#Inflige 20 puntos de daño en área cada vez que aterriza#Si la pieza aterriza directamente sobre un enemigo, inflige 40 puntos de daño",
     "Rey en jaque", "spa")
@@ -70,7 +70,7 @@ end
 --Dice Bombs
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DICE_BOMBS,
     "{{Bomb}} +5 Bombs#Bombs reroll pedestal items within its explosion radius#Has a 25% chance to destroy items instead of rerolling them#Holding certain dice actives will add additional effects",
-    "Dice Bombs")
+    "​Dice Bombs")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DICE_BOMBS,
     "{{Bomb}} +5 бомб#Бомбы меняют артефакты на пьедесталах в радиусе взрыва#25% шанс уничтожить пьедестал вместо замены артефакта#Имея определенные кубики, добавляются дополнительные еффекты",
     "Бомбы-кубики", "ru")
@@ -84,7 +84,7 @@ EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DICE_BOM
     "{{Bomb}} +5 Bombs#爆炸将重置爆炸范围内的基座物品#持有某些骰子物品将添加额外效果", "骰子炸弹", "zh_cn")
 --Book of Despair
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_DESPAIR,
-    "↑ {{Blank}} {{Tears}} +100% Tears up when used#Less effective for each concecutive use in the same room", "Book of Despair", "en_us")
+    "↑ {{Blank}} {{Tears}} +100% Tears up when used#Less effective for each concecutive use in the same room", "​Book of Despair", "en_us")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_DESPAIR,
     "↑ {{Blank}} {{Tears}} Lágrimas +100% al usarlo#El efecto es menos efectivo con cada uso en la misma habitación",
     "El Libro de la Desesperación", "spa")
@@ -99,7 +99,7 @@ EID:assignTransformation("collectible", RestoredCollection.Enums.CollectibleType
 
 --Bowl of Tears
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOWL_OF_TEARS,
-    "Fires a cluster of tears#Each tear shot by Isaac increases item charge by one", "Bowl of Tears", "en_us")
+    "Fires a cluster of tears#Each tear shot by Isaac increases item charge by one", "​Bowl of Tears", "en_us")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOWL_OF_TEARS,
     "Otorga una recarga por cada lágrima que dispare el jugador#Al usarse, dispara una ráfaga de lágrimas en la dirección seleccionada",
     "Tazón de Lágrimas", "spa")
@@ -188,7 +188,7 @@ local BHDescPt_Br =
 local BHDescZh_cn =
 "{{Throwable}} 生成一个可投掷的跟班#储存魂心和黑心作为道具的充能，最多6次充能#{HalfSoulHeart}}: 1次充能#{{SoulHeart}}: 2次充能#{{BlackHeart}}: 3次充能#按{{ButtonRT}}为激活 道具提供充能"
 
-EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BETHS_HEART, BHDescEng, "Beth's Heart", "en_us")
+EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BETHS_HEART, BHDescEng, "​Beth's Heart", "en_us")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BETHS_HEART, BHDescSpa, "El corazón de Beth",
     "spa")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BETHS_HEART, BHDescRu, "Сердце Вифании", "ru")
@@ -208,7 +208,7 @@ local BOIDescPt_Br =
 local BOIDescZh_cn =
 "使用时生成一个幻影克隆#幻影克隆与你相同并且一击即死"
 
-EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS, BOIDesc, "Book of Illusions",
+EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS, BOIDesc, "​Book of Illusions",
     "en_us")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS, BOIDescSpa,
     "El Libro de las ilusiones", "spa")
@@ -249,7 +249,7 @@ pt_br = "↓ {{Luck}} -2 sorte caso não esteja jogando como {{player14}} Keeper
 zn_cn = "↓ {{Luck}} 如果不是{{Player14}} 店长或{{Player33}} 里店长则-2幸运#{{Coin}} 当怪物生成时，它们有25%的几率包含1-3个硬币，可以通过对它们造成伤害来提取#{{Player14}} 作为店长时，怪物有16.7%的几率包含1-2个硬币#{{Player33}} 作为里店长时，怪物有12.5%的几率包含1个硬币#!!! 硬币在3秒后消失",
 }
 
-EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_KEEPERS_ROPE, KeepersRopeDescEng, "Keeper's Rope")
+EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_KEEPERS_ROPE, KeepersRopeDescEng, "​Keeper's Rope")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_KEEPERS_ROPE, KeepersRopeDescRu,
     "Веревка Хранителя", "ru")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_KEEPERS_ROPE, KeepersRopeDescSpa,
@@ -295,7 +295,7 @@ local SevendescPt_Br =
 local SevendescZh_cn =
 "当玩家的任何掉落物数量以7结尾时，玩家有机会发射金色眼泪，击中怪物时生成特殊老虎机"
 
-EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN, Sevendesc, "Lucky Seven")
+EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN, Sevendesc, "​Lucky Seven")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN, SevendescRu, "Счастливая семерка",
     "ru")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN, SevendescSpa, "7 de la suerte",
@@ -317,7 +317,7 @@ local PacdescPt_Br =
 local PacdescZh_cn =
 "根据上一层未清理的房间数量，在下一层开始时给予掉落物奖励"
 
-EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST, Pacdesc, "Pacifist")
+EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST, Pacdesc, "​Pacifist")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST, PacdescRu, "Пацифист", "ru")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST, PacdescSpa, "Pacifista", "spa")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST, PacdescPt_Br, "Pacifista", "pt_br")
@@ -336,7 +336,7 @@ local PCDescPt_Br =
 local PCDescZh_cn =
 "{{Pill}} 拾取时给予一个随机药丸#持有时增加药丸掉落率#消耗当前持有的药丸并根据药丸类型对整个房间施加效果"
 
-EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PILL_CRUSHER, PCDesc, "Pill Crusher", "en_us")
+EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PILL_CRUSHER, PCDesc, "​Pill Crusher", "en_us")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PILL_CRUSHER, PCDescSpa, "Triturador de Pildoras",
     "spa")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PILL_CRUSHER, PCDescRu, "Дробилка пилюль", "ru")
@@ -352,7 +352,7 @@ local SBDescRu = "{{Bomb}} +5 бомб#Размещенные бомбы не в
 local SBDescPt_Br = "{{Bombs}} +5 Bombas#Bombas não irão explodir até o jogador sair de sua área de explosão"
 local SBDescZh_cn = "{{Bomb}} +5 炸弹#放置的炸弹直到玩家离开爆炸范围才会爆炸"
 
-EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_SAFETY_BOMBS, SBDesc, "Safety Bombs")
+EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_SAFETY_BOMBS, SBDesc, "​Safety Bombs")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_SAFETY_BOMBS, SBDescSpa, "Bombas de Seguridad",
     "spa")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_SAFETY_BOMBS, SBDescRu, "Безопасные бомбы", "ru")
