@@ -157,10 +157,10 @@ function PillCrusherLocal:UsePillCrusher(_, rng, player)
 		sfx:Play(SoundEffect.SOUND_BONE_BREAK)
 	end
 
-	--player:UsePill(-1, 1, UseFlag.USE_NOANIM | UseFlag.USE_NOANNOUNCER)
-	if REPENTOGON then
+	player:UsePill(Isaac.GetPillEffectByName("Blank Pill Effect"), PillColor.PILL_NULL, UseFlag.USE_NOANIM | UseFlag.USE_NOANNOUNCER | UseFlag.USE_NOHUD)
+	--[[if REPENTOGON then
 		Game():SetBloom(30, 1)
-	end
+	end]]
 	
 	if showName then
 		hud:ShowItemText(name, "")

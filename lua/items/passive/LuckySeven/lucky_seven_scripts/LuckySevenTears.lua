@@ -43,7 +43,7 @@ RestoredCollection:AddCallback(ModCallbacks.MC_POST_TEAR_RENDER, LuckySevenTears
 
 ---@param effect EntityEffect
 function LuckySevenTears:LuckyTearSparkle(effect)
-    if not effect.Parent or effect.Parent:IsDead() then
+    if not effect.Parent or not effect.Parent:ToTear() or effect.Parent:IsDead() then
         effect:Remove()
     end
     effect.m_Height = effect.Parent:ToTear().Height
