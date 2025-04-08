@@ -177,3 +177,19 @@ RestoredCollection:AddCallback(
     ModCallbacks.MC_ENTITY_TAKE_DMG,
     GameSquid.OnEntityDamage
 )
+
+---@param florian EntityNPC
+function GameSquid:SpawnSquid(florian)
+    if florian.Variant ~= 2 then
+        return
+    end
+    for __,pickup in ipairs(Isaac.FindByType(5, PickupVariant.PICKUP_KEY)) do
+        pickup = pickup:ToPickup()
+        ---@cast pickup EntityPickup
+        if (pickup.Position - florian.Position):Length() <= 60 and pickup.FrameCount == 0 then
+            pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC, true, true, false)
+            break
+        end
+    end
+end
+RestoredCollection:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, GameSquid.SpawnSquid, EntityType.ENTITY_BABY)
