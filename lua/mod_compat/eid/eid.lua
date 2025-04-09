@@ -42,7 +42,7 @@ EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_CHECKED_
     "Checked Mate", "en_us")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_CHECKED_MATE,
     "Создает фамильяра, который перемещается, прыгая с места на место, нанося 20 урона возле врагов и 40 урона при приземлении прямо на врагов",
-    "Checked Mate", "ru")
+    "Шахматная фигура", "ru")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_CHECKED_MATE,
     "Genera un Rey de Ajedréz que saltará de cuadro en cuadro#Inflige 20 puntos de daño en área cada vez que aterriza#Si la pieza aterriza directamente sobre un enemigo, inflige 40 puntos de daño",
     "Rey en jaque", "spa")
@@ -452,11 +452,11 @@ EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_TAMMYS_T
 
 --Game Squid
 EID:addTrinket(RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC,
-    "{{Slow}} 8% chance to a shoot slowing tear that leaves black creep on impact #{{Luck}} 100% chance at 18 luck")
+    "{{Slow}} 8% chance to a shoot slowing tear that leaves black creep on impact #{{Luck}} 100% chance at 18 luck", "Game Sqiud", "en_us")
 EID:addTrinket(RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC,
     "{{Slow}} 8% шанс выстрелить замедляющей слезой, которая оставляет черную лужу при столкновении", "Игровой кальмар", "ru")
 EID:addTrinket(RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC,
-    "{{Slow}} 8% de disparar una lágrima ralentizada que deja un charco negro cuando impacta", "", "spa")
+    "{{Slow}} 8% de disparar una lágrima ralentizada que deja un charco negro cuando impacta", "Juego de calamar", "spa")
 EID:addTrinket(RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC,
     "{{Slow}} 8% de chance de disparar uma lágrima que desascelera e deixa uma poça preta no impacto", "Lula dos Games", "pt_br")
 EID:addTrinket(RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC,
