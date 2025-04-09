@@ -144,7 +144,7 @@ function LunchBoxLocal:Use(collectible, rng, player, useflag, slot, customvardat
         end
         return {Discharge = false, Remove = remove, ShowAnim = true}
     end
-    return {Discharge = true, Remove = remove, ShowAnim = true}
+    return {Discharge = true, Remove = true, ShowAnim = true}
 end
 RestoredCollection:AddCallback(ModCallbacks.MC_USE_ITEM, LunchBoxLocal.Use, RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX)
 if not REPENTOGON then

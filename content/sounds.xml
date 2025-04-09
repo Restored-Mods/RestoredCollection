@@ -46,7 +46,7 @@
 	<sound name="​Dice Bombs">
 		<sample weight="1" path="funny/Dice Bombs.wav" />
 	</sound>
-	<sound name="Donkey Jawbone">
+	<sound name="​Donkey Jawbone">
 		<sample weight="1" path="funny/Donkey Jawbone.wav" />
 	</sound>
 	<sound name="​Keeper's Rope">
@@ -58,10 +58,10 @@
 	<sound name="Lunch Box">
 		<sample weight="1" path="funny/Lunch Box.wav" />
 	</sound>
-	<sound name="Max's Head">
+	<sound name="​Max's Head">
 		<sample weight="1" path="funny/Max's Head.wav" />
 	</sound>
-	<sound name="Menorah">
+	<sound name="​Menorah">
 		<sample weight="1" path="funny/Menorah.wav" />
 	</sound>
 	<sound name="Ol' Lopper">
@@ -79,16 +79,16 @@
 	<sound name="​Stone Bombs">
 		<sample weight="1" path="funny/Stone Bombs.wav" />
 	</sound>
-	<sound name="Voodoo Pin">
+	<sound name="​Voodoo Pin">
 		<sample weight="1" path="funny/Voodoo Pin.wav" />
 	</sound>
-	<sound name="Pumpkin Mask">
+	<sound name="​Pumpkin Mask">
 		<sample weight="1" path="funny/Pumpkin Mask.wav" />
 	</sound>
 	<sound name="Melted Candle">
 		<sample weight="1" path="funny/Melted Candle.wav" />
 	</sound>
-	<sound name="Tammy's Tail">
+	<sound name="​Tammy's Tail">
 		<sample weight="1" path="funny/Tammy's Tail.wav" />
 	</sound>
 </sounds>
