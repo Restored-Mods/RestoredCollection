@@ -31,6 +31,16 @@ local function HeartGfxSuffix(var, hud)
     return suf
 end
 
+local function ChangeUIHeartsAnim(var)
+    local animfile = "gfx/ui/ui_remix_hearts"..HeartGfxSuffix(var, true)
+                    
+    for _, heart in pairs({"HEART_IMMORTAL", "HEART_SUN"}) do
+        if CustomHealthAPI.PersistentData.HealthDefinitions[heart] then
+            CustomHealthAPI.PersistentData.HealthDefinitions[heart].AnimationFilename = animfile..".anm2"
+        end
+    end
+end
+
 local modMenuName = "Restored Collection"
 -- Those functions were taken from Balance Mod, just to make things easier 
 	local BREAK_LINE = {str = "", fsize = 1, nosel = true}
@@ -414,15 +424,7 @@ local function InitImGuiMenu()
     ImGui.AddCombobox("restoredCollectionSettingsWindow", "restoredCollectionSettingsHeartsStyle", "Hearts sprites", function(index, val)
         local var = index + 1
         TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "HeartStyleRender", var)
-        local animfile = "gfx/ui/ui_remix_hearts"
-        
-            animfile = animfile..HeartGfxSuffix(var, true)
-        
-        for _, heart in pairs({"HEART_IMMORTAL", "HEART_SUN"}) do
-            if CustomHealthAPI.PersistentData.HealthDefinitions[heart] then
-                CustomHealthAPI.PersistentData.HealthDefinitions[heart].AnimationFilename = animfile..".anm2"
-            end
-        end
+        ChangeUIHeartsAnim(var)
         TSIL.SaveManager.SaveToDisk()
     end, {
         "Vanilla",
@@ -445,7 +447,7 @@ local function InitImGuiMenu()
     
     ImGui.AddCheckbox("restoredCollectionSettingsWindow", "restoredCollectionSettingsActGivesImmortalHearts", "Act of Contrition gives Immortal Heart", function(val)
         local newOption = val and 1 or 2
-        UpdateActOfContritionEncyclopedia(val)
+        UpdateActOfContritionEncyclopedia(val == 1)
         TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "ActOfContritionImmortal", newOption)
         TSIL.SaveManager.SaveToDisk()
     end, true)
@@ -597,13 +599,7 @@ local restoreditemsdirectory = {
                 -- The "store" function for a button should save the button's setting (passed in as the first argument) to save data!
                 store = function(var)
                     TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "HeartStyleRender", var)
-                    local animfile = "gfx/ui/ui_remix_hearts"..HeartGfxSuffix(var, true)
-                    
-                    for _, heart in pairs({"HEART_IMMORTAL", "HEART_SUN"}) do
-                        if CustomHealthAPI.PersistentData.HealthDefinitions[heart] then
-                            CustomHealthAPI.PersistentData.HealthDefinitions[heart].AnimationFilename = animfile..".anm2"
-                        end
-                    end
+                    ChangeUIHeartsAnim(var)
                 end,
 
                 -- A simple way to define tooltips is using the "strset" tag, where each string in the table is another line of the tooltip
@@ -936,7 +932,8 @@ if REPENTOGON then
 end
 
 RestoredCollection:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.LATE + 10, function()
-    UpdateActOfContritionEncyclopedia(TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "ActOfContritionImmortal"))
+    UpdateActOfContritionEncyclopedia(TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "ActOfContritionImmortal") == 1)
+    ChangeUIHeartsAnim(TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "HeartStyleRender"))
 end)
 
 include("lua.core.dss.changelog")
