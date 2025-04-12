@@ -1,5 +1,5 @@
 # Restored Collection
-Relics thought to be lost have been found, and are now in the basement! Restored Items Pack is a collection of Team Compliance's mods restoring items, pickups, and more from Antibirth to Repentance, featuring 23 items, a trinket, and 3 pickups!
+Relics thought to be lost have been found, and are now in the basement! Restored Collection is a collection of Team Compliance's mods restoring items, pickups, and more from Antibirth to Repentance, featuring 23 items, a trinket, and 3 pickups!
 
 ![](https://i.imgur.com/fu8tO7l.png)
 
