@@ -24,4 +24,6 @@
 	<costume id="27" anm2path="restored_tammystail.anm2" type="passive" />
 	<!-- Dice Bombs -->
 	<costume id="3" anm2path="costume_dice_bombs.anm2" type="passive" />
+	<!-- Blank Bombs -->
+	<costume id="1" anm2path="restored_blankbomb_costume.anm2" type="passive" />
 </costumes>
