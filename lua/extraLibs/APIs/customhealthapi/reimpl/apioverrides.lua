@@ -1,7 +1,6 @@
 local isEvaluateCacheFunction = 0
 
 function CustomHealthAPI.Helper.AddPreEvaluateCacheCallback()
----@diagnostic disable-next-line: param-type-mismatch
 	Isaac.AddPriorityCallback(CustomHealthAPI.Mod, ModCallbacks.MC_EVALUATE_CACHE, -1 * math.huge, CustomHealthAPI.Mod.PreEvaluateCacheCallback, -1) 
 end
 table.insert(CustomHealthAPI.CallbacksToAdd, CustomHealthAPI.Helper.AddPreEvaluateCacheCallback)
@@ -16,7 +15,6 @@ function CustomHealthAPI.Mod:PreEvaluateCacheCallback()
 end
 
 function CustomHealthAPI.Helper.AddPostEvaluateCacheCallback()
----@diagnostic disable-next-line: param-type-mismatch
 	Isaac.AddPriorityCallback(CustomHealthAPI.Mod, ModCallbacks.MC_EVALUATE_CACHE, math.huge, CustomHealthAPI.Mod.PostEvaluateCacheCallback, -1)
 end
 table.insert(CustomHealthAPI.CallbacksToAdd, CustomHealthAPI.Helper.AddPostEvaluateCacheCallback)
@@ -150,8 +148,8 @@ then
 
 	if CustomHealthAPI.PersistentData.OverriddenFunctions.AddCollectible == nil then
 		CustomHealthAPI.PersistentData.OverriddenFunctions.AddCollectible = META0.AddCollectible
-		function META:AddCollectible(item, charge, firstTimePickingUp, slot, varData, pool)
-			CustomHealthAPI.Helper.HookFunctions.AddCollectible(self, item, charge, firstTimePickingUp, slot, varData, pool)
+		function META:AddCollectible(item, charge, firstTimePickingUp, slot, varData)
+			CustomHealthAPI.Helper.HookFunctions.AddCollectible(self, item, charge, firstTimePickingUp, slot, varData)
 		end
 	end
 
@@ -443,10 +441,10 @@ CustomHealthAPI.Helper.HookFunctions.AddBrokenHearts = function(player, hp)
 	end
 end
 
-CustomHealthAPI.Helper.HookFunctions.AddCollectible = function(player, item, charge, firstTimePickingUp, slot, varData, pool)
+CustomHealthAPI.Helper.HookFunctions.AddCollectible = function(player, item, charge, firstTimePickingUp, slot, varData, unk)
 	if player:GetPlayerType() == PlayerType.PLAYER_THESOUL_B then
 		if player:GetOtherTwin() ~= nil then
-			return CustomHealthAPI.Helper.HookFunctions.AddCollectible(player:GetOtherTwin(), item, charge, firstTimePickingUp, slot, varData, pool)
+			return CustomHealthAPI.Helper.HookFunctions.AddCollectible(player:GetOtherTwin(), item, charge, firstTimePickingUp, slot, varData, unk)
 		end
 	end
 	
@@ -472,7 +470,7 @@ CustomHealthAPI.Helper.HookFunctions.AddCollectible = function(player, item, cha
 	                                                                  firstTimePickingUp or firstTimePickingUp == nil, 
 	                                                                  slot or ActiveSlot.SLOT_PRIMARY, 
 	                                                                  varData or 0,
-	                                                                  pool or ItemPoolType.POOL_TREASURE)
+	                                                                  unk or 0)
 	
 	if CustomHealthAPI then
 		if not CustomHealthAPI.Helper.PlayerIsIgnored(player) and firstTimePickingUp then
@@ -770,7 +768,7 @@ CustomHealthAPI.Helper.HookFunctions.GetEffectiveMaxHearts = function(player)
 	end
 	
 	if CustomHealthAPI and not CustomHealthAPI.Helper.PlayerIsIgnored(player) then
-		if CustomHealthAPI.Helper.PlayerIsSoulHeartOnly(player, true) then
+		if CustomHealthAPI.PersistentData.CharactersThatConvertMaxHealth[player:GetPlayerType()] then
 			return 0
 		end
 	

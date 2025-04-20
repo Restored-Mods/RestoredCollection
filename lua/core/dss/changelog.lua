@@ -1,17 +1,14 @@
 local modname = "Restored Collection"
 
-DeadSeaScrollsMenu.AddChangelog(modname, "v1.20",[[{{FSIZE2}}added
-- dice bombs costume
+DeadSeaScrollsMenu.AddChangelog(modname, "v1.20",[[{{FSIZE2}}removed
+- immortal, sun and illusion
+hearts
 
-{{FSIZE2}}updated
-- custom health api version 0.96
+- immortal and sun clots
 
 {{FSIZE2}}fixed
 - deserted hearts not working with
 lunch box
-
-- immortal and sun clots not
-functioning
 
 - possible error when continuing run
 

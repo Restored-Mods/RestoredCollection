@@ -2,13 +2,6 @@ if not EID then return end
 local Helpers = RestoredCollection.Helpers
 -- Mod Icon (TODO)
 EID:setModIndicatorName("Restored Collection")
-local iconSprite = Sprite()
-iconSprite:Load("gfx/eid_restored_icon.anm2", true)
---EID:addIcon("Restored Items Icon", "Icon", 0, 10, 9, 1, 1, iconSprite)
---EID:setModIndicatorIcon("Restored Items Icons")
-EID:addIcon("ImmortalHeart", "Icon", 0, 10, 9, 1, 1, iconSprite)
-EID:addIcon("SunHeart", "Icon", 1, 10, 9, 1, 1, iconSprite)
-EID:addIcon("IllusionHeart", "Icon", 2, 10, 9, 1, 1, iconSprite)
 
 -- Items
 --Stone Bombs
@@ -154,15 +147,15 @@ end
 
 --Ancient Revelation
 local AncientDesc =
-"Grants flight#{{ImmortalHeart}} +2 Immortal Hearts#↑ {{Blank}} {{Shotspeed}} +0.48 Shot Speed#↑ {{Blank}} {{Tears}} +1 Tears#Spectral tears#Tears turn 90 degrees to target enemies that they may have missed"
+"Grants flight#{{SoulHeart}} +2 Soul Hearts#↑ {{Blank}} {{Shotspeed}} +0.48 Shot Speed#↑ {{Blank}} {{Tears}} +1 Tears#Spectral tears#Tears turn 90 degrees to target enemies that they may have missed"
 local AncientDescRu =
-"Даёт полёт#{{ImmortalHeart}} +2 бессмертных сердца#↑ {{Blank}} {{Shotspeed}} +0.48 к скорости полёта слезы#↑ {{Blank}} {{Tears}} +1 к скорострельности#Спектральные слёзы#Слёзы поворачиваются на 90 градусов, чтобы попасть во врагов, которых они могли пропустить"
+"Даёт полёт#{{SoulHeart}} +2 синих сердца#↑ {{Blank}} {{Shotspeed}} +0.48 к скорости полёта слезы#↑ {{Blank}} {{Tears}} +1 к скорострельности#Спектральные слёзы#Слёзы поворачиваются на 90 градусов, чтобы попасть во врагов, которых они могли пропустить"
 local AncientDescSpa =
-"Otorga vuelo#{{ImmortalHeart}} +2 Corazones inmortales#↑ {{Blank}} {{Shotspeed}} Vel. de tiro +0.48#↑ {{Blank}} {{Tears}} Lágrimas +1#Lágrimas espectrales#Las lágrimas girarán en 90 grados hacia un enemigo si es que fallan"
+"Otorga vuelo#{{SoulHeart}} +2 Corazones de alma#↑ {{Blank}} {{Shotspeed}} Vel. de tiro +0.48#↑ {{Blank}} {{Tears}} Lágrimas +1#Lágrimas espectrales#Las lágrimas girarán en 90 grados hacia un enemigo si es que fallan"
 local AncientDescPt_Br =
-"Concede voo#{{ImmortalHeart}} +2 Corações imortais#↑ {{Blank}} {{Shotspeed}} +0.48 Vel. de tiro#↑ {{Blank}} {{Tears}} +1 Lágrimas#Lágrimas espectrais#Lágrimas viram 90 graus para atingir inimigos que elas não acertaram"
+"Concede voo#{{SoulHeart}} +2 Corações de alma#↑ {{Blank}} {{Shotspeed}} +0.48 Vel. de tiro#↑ {{Blank}} {{Tears}} +1 Lágrimas#Lágrimas espectrais#Lágrimas viram 90 graus para atingir inimigos que elas não acertaram"
 local AncientDescZh_Cn =
-"获得飞行能力#{{ImmortalHeart}} +2 不朽之心#↑ {{Blank}} {{Shotspeed}} +0.48 泪速#↑ {{Blank}} {{Tears}} +1 射速#幽灵眼泪#眼泪转向90度以瞄准未击中的敌人"
+"获得飞行能力#{{SoulHeart}} +2 魂心#↑ {{Blank}} {{Shotspeed}} +0.48 泪速#↑ {{Blank}} {{Tears}} +1 射速#幽灵眼泪#眼泪转向90度以瞄准未击中的敌人"
 
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_ANCIENT_REVELATION, AncientDesc,
     "Ancient Revelation", "en_us")
@@ -208,7 +201,7 @@ local BOIDescPt_Br =
 local BOIDescZh_cn =
 "使用时生成一个幻影克隆#幻影克隆与你相同并且一击即死"
 
-EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS, BOIDesc, "​Book of Illusions",
+EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS, BOIDesc, "Book of Illusions",
     "en_us")
 EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS, BOIDescSpa,
     "El Libro de las ilusiones", "spa")
@@ -459,11 +452,11 @@ EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_TAMMYS_T
 
 --Game Squid
 EID:addTrinket(RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC,
-    "{{Slow}} 8% chance to a shoot slowing tear that leaves black creep on impact #{{Luck}} 100% chance at 18 luck", "Game Sqiud")
+    "{{Slow}} 8% chance to a shoot slowing tear that leaves black creep on impact #{{Luck}} 100% chance at 18 luck", "Game Sqiud", "en_us")
 EID:addTrinket(RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC,
     "{{Slow}} 8% шанс выстрелить замедляющей слезой, которая оставляет черную лужу при столкновении", "Игровой кальмар", "ru")
 EID:addTrinket(RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC,
-    "{{Slow}} 8% de disparar una lágrima ralentizada que deja un charco negro cuando impacta", "", "spa")
+    "{{Slow}} 8% de disparar una lágrima ralentizada que deja un charco negro cuando impacta", "Juego de calamar", "spa")
 EID:addTrinket(RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC,
     "{{Slow}} 8% de chance de disparar uma lágrima que desascelera e deixa uma poça preta no impacto", "Lula dos Games", "pt_br")
 EID:addTrinket(RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC,
@@ -478,18 +471,3 @@ EID:addGoldenTrinketMetadata(RestoredCollection.Enums.TrinketType.TRINKET_GAME_S
     "↑ +3% de chance por cada multiplicador de trinkets", nil, nil, "pt_br")
 EID:addGoldenTrinketMetadata(RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC,
     "↑每个饰品乘数上限+3%", nil, nil, "zh_cn")
-
-local function ActOfContritionConditions(descObj)
-    return descObj.ObjType == 5 and descObj.ObjVariant == 100 and descObj.ObjSubType == CollectibleType.COLLECTIBLE_ACT_OF_CONTRITION and TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "ActOfContritionImmortal") == 1
-end
-
-local function ActOfContritionModifierCallback(descObj)
-    descObj.Description = descObj.Description:gsub("Eternal", "Immortal")
-    descObj.Description = descObj.Description:gsub("вечное", "бессмертное")
-    descObj.Description = descObj.Description:gsub("eterno", "inmortales")
-    descObj.Description = descObj.Description:gsub("Eterno", "imortais")
-    descObj.Description = descObj.Description:gsub("永恒之心", "不朽之心")
-    return descObj
-end
-
-EID:addDescriptionModifier("Immortal Act of Contrition Modifier", ActOfContritionConditions, ActOfContritionModifierCallback)

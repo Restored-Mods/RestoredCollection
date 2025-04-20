@@ -1,4 +1,4 @@
-local localversion = 1.1
+local localversion = 1.0
 local name = "Sun Hearts API"
 
 local function load()
@@ -7,10 +7,7 @@ local function load()
     ComplianceSun.Loaded = false
 
     function ComplianceSun.GetSunHeartsNum(player)
-        if player:GetPlayerType() == PlayerType.PLAYER_THEFORGOTTEN then
-            player = player:GetSubPlayer()
-        end
-        return player ~= nil and CustomHealthAPI.Library.GetHPOfKey(player, "HEART_SUN") or 0
+        return CustomHealthAPI.Library.GetHPOfKey(player, "HEART_SUN")
     end
     
     function ComplianceSun.AddSunHearts(player, hp)

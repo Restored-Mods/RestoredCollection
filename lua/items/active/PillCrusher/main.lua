@@ -158,7 +158,7 @@ function PillCrusherLocal:UsePillCrusher(_, rng, player)
 	end
 
 	player:UsePill(Isaac.GetPillEffectByName("Blank Pill Effect"), PillColor.PILL_NULL, UseFlag.USE_NOANIM | UseFlag.USE_NOANNOUNCER | UseFlag.USE_NOHUD)
-	--[[if REPENTOGON then
+    --[[if REPENTOGON then
 		Game():SetBloom(30, 1)
 	end]]
 	

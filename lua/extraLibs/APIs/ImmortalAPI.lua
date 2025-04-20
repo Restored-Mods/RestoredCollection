@@ -1,4 +1,4 @@
-local localversion = 1.1
+local localversion = 1.0
 local name = "Immortal Hearts API"
 
 local function load()
@@ -10,7 +10,7 @@ local function load()
         if player:GetPlayerType() == PlayerType.PLAYER_THEFORGOTTEN then
             player = player:GetSubPlayer()
         end
-        return player ~= nil and CustomHealthAPI.Library.GetHPOfKey(player, "HEART_IMMORTAL") or 0
+        return CustomHealthAPI.Library.GetHPOfKey(player, "HEART_IMMORTAL")
     end
     
     function ComplianceImmortal.GetImmortalHearts(player)

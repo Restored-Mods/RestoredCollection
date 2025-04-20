@@ -88,8 +88,9 @@ function CustomHealthAPI.Helper.TriggerGoldHeartsOld(p, numTrigger)
 	local numBone = CustomHealthAPI.PersistentData.OverriddenFunctions.GetBoneHearts(player)
 	local numGolden = CustomHealthAPI.PersistentData.OverriddenFunctions.GetGoldenHearts(player)
 	
-	if not (CustomHealthAPI.Helper.PlayerIsRedHealthless(player, true) or 
-	        CustomHealthAPI.Helper.PlayerIsSoulHeartOnly(player))
+	if not (CustomHealthAPI.PersistentData.CharactersThatCantHaveRedHealth[player:GetPlayerType()] or 
+	        CustomHealthAPI.PersistentData.CharactersThatConvertMaxHealth[player:GetPlayerType()] or
+	        CustomHealthAPI.Helper.PlayerIsTheSoul(player))
 	then
 		CustomHealthAPI.Helper.AddBasegameGoldenHealthWithoutModifiers(player, -99)
 		CustomHealthAPI.Helper.AddBasegameRedHealthWithoutModifiers(player, -99)

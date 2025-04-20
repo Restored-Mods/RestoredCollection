@@ -3,18 +3,6 @@ local Enums = {}
 Enums.MouseClick = {LEFT = 0, RIGHT = 1, WHEEL = 2, BACK = 3, FORWARD = 4}
 
 Enums.Entities = {
-					IMMORTAL_HEART_CHARGE = 
-					{
-						Type = Isaac.GetEntityTypeByName("Immortal Heart Charge"),
-						Variant = Isaac.GetEntityVariantByName("Immortal Heart Charge"),
-						SubType = 0
-					},
-					IMMORTAL_HEART_BREAK = 
-					{
-						Type = Isaac.GetEntityTypeByName("Immortal Heart Break"),
-						Variant = Isaac.GetEntityVariantByName("Immortal Heart Break"),
-						SubType = 0
-					},
 					BLANK_EXPLOSION_EFFECT =
 					{
 						Type = Isaac.GetEntityTypeByName("Blank Explosion"),
@@ -104,22 +92,10 @@ Enums.Familiars =
 									Variant = Isaac.GetEntityVariantByName("​Checked Mate"),
 									SubType = 0
 								},
-					IMMORTAL_CLOT =
-								{
-									Type = Isaac.GetEntityTypeByName("Immortal Baby"),
-									Variant = Isaac.GetEntityVariantByName("Immortal Baby"),
-									SubType = 0
-								},
-					SUN_CLOT =
-								{
-									Type = Isaac.GetEntityTypeByName("Sun Baby"),
-									Variant = Isaac.GetEntityVariantByName("Sun Baby"),
-									SubType = 0
-								},
 					BETHS_HEART = 
 								{
 									Type = Isaac.GetEntityTypeByName("​Beth's Heart"),
-									Variant = Isaac.GetEntityVariantByName("​Beth's Heart"),
+                                    Variant = Isaac.GetEntityVariantByName("​Beth's Heart"),
 									SubType = 0
 								},
 					MENORAH =   {
@@ -145,24 +121,24 @@ Enums.TearVariant = {
 Enums.CollectibleType = 
 					{
 						COLLECTIBLE_STONE_BOMBS = Isaac.GetItemIdByName("​Stone Bombs"),
-						COLLECTIBLE_BLANK_BOMBS = Isaac.GetItemIdByName("​Blank Bombs"),
-						COLLECTIBLE_CHECKED_MATE = Isaac.GetItemIdByName("​Checked Mate"),
-						COLLECTIBLE_DICE_BOMBS = Isaac.GetItemIdByName("​Dice Bombs"),
+                        COLLECTIBLE_BLANK_BOMBS = Isaac.GetItemIdByName("​Blank Bombs"),
+                        COLLECTIBLE_CHECKED_MATE = Isaac.GetItemIdByName("​Checked Mate"),
+                        COLLECTIBLE_DICE_BOMBS = Isaac.GetItemIdByName("​Dice Bombs"),
 						COLLECTIBLE_DONKEY_JAWBONE = Isaac.GetItemIdByName("​Donkey Jawbone"),
 						COLLECTIBLE_MENORAH = Isaac.GetItemIdByName("​Menorah"),
 						COLLECTIBLE_ANCIENT_REVELATION = Isaac.GetItemIdByName("Ancient Revelation"),
 						COLLECTIBLE_BETHS_HEART = Isaac.GetItemIdByName("​Beth's Heart"),
-						COLLECTIBLE_KEEPERS_ROPE = Isaac.GetItemIdByName("​Keeper's Rope"),
-						COLLECTIBLE_LUCKY_SEVEN = Isaac.GetItemIdByName("​Lucky Seven"),
-						COLLECTIBLE_PACIFIST = Isaac.GetItemIdByName("​Pacifist"),
-						COLLECTIBLE_SAFETY_BOMBS = Isaac.GetItemIdByName("​Safety Bombs"),
+                        COLLECTIBLE_KEEPERS_ROPE = Isaac.GetItemIdByName("​Keeper's Rope"),
+                        COLLECTIBLE_LUCKY_SEVEN = Isaac.GetItemIdByName("​Lucky Seven"),
+                        COLLECTIBLE_PACIFIST = Isaac.GetItemIdByName("​Pacifist"),
+                        COLLECTIBLE_SAFETY_BOMBS = Isaac.GetItemIdByName("​Safety Bombs"),
 						COLLECTIBLE_OL_LOPPER = Isaac.GetItemIdByName("Ol' Lopper"),
 						COLLECTIBLE_MAXS_HEAD = Isaac.GetItemIdByName("​Max's Head"),
 						COLLECTIBLE_LUNCH_BOX = Isaac.GetItemIdByName("Lunch Box"),
 						COLLECTIBLE_BOOK_OF_DESPAIR = Isaac.GetItemIdByName("​Book of Despair"),
-						COLLECTIBLE_BOWL_OF_TEARS = Isaac.GetItemIdByName("​Bowl of Tears"),
-						COLLECTIBLE_BOOK_OF_ILLUSIONS = Isaac.GetItemIdByName("​Book of Illusions"),
-						COLLECTIBLE_PILL_CRUSHER = Isaac.GetItemIdByName("​Pill Crusher"),
+                        COLLECTIBLE_BOWL_OF_TEARS = Isaac.GetItemIdByName("​Bowl of Tears"),
+                        COLLECTIBLE_BOOK_OF_ILLUSIONS = Isaac.GetItemIdByName("​Book of Illusions"),
+                        COLLECTIBLE_PILL_CRUSHER = Isaac.GetItemIdByName("​Pill Crusher"),
 						COLLECTIBLE_VOODOO_PIN = Isaac.GetItemIdByName("​Voodoo Pin"),
 						COLLECTIBLE_PUMPKIN_MASK = Isaac.GetItemIdByName("​Pumpkin Mask"),
 						COLLECTIBLE_MELTED_CANDLE = Isaac.GetItemIdByName("Melted Candle"),
@@ -173,28 +149,6 @@ Enums.TrinketType = {
 						TRINKET_GAME_SQUID_TC = Isaac.GetTrinketIdByName("​Game Squid"),
 					}
 
-Enums.Pickups = 
-				{
-					Hearts = 
-							{
-								HEART_IMMORTAL = REPENTOGON and Isaac.GetEntitySubTypeByName("Immortal Heart") or 902,
-								HEART_SUN = REPENTOGON and Isaac.GetEntitySubTypeByName("Sun Heart") or 910,
-								HEART_ILLUSION = REPENTOGON and Isaac.GetEntitySubTypeByName("Illusion Heart") or 9000,
-							},
-				}
-
-Enums.SFX =
-				{
-					Hearts =
-							{
-								IMMORTAL_PICKUP = Isaac.GetSoundIdByName("immortal"),
-								IMMORTAL_BREAK = Isaac.GetSoundIdByName("ImmortalHeartBreak"),
-								SUN_PICKUP = Isaac.GetSoundIdByName("PickupSun"),
-								SUN_BREAK = Isaac.GetSoundIdByName("SunBreak"),
-								ILLUSION_PICKUP = Isaac.GetSoundIdByName("PickupIllusion"),
-							},
-				}
-
 BombFlagsAPI.AddNewCustomBombFlag("STONE_BOMB", Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS)
 BombFlagsAPI.AddNewCustomBombFlag("BLANK_BOMB", Enums.CollectibleType.COLLECTIBLE_BLANK_BOMBS)
 BombFlagsAPI.AddNewCustomBombFlag("DICE_BOMB", Enums.CollectibleType.COLLECTIBLE_DICE_BOMBS)
@@ -203,30 +157,28 @@ BombFlagsAPI.AddNewCustomBombFlag("SAFETY_BOMB", Enums.CollectibleType.COLLECTIB
 if REPENTOGON then
 	Enums.GiantBook = {
 		BOOK_OF_DESPAIR = Isaac.GetGiantBookIdByName("​Book of Despair"),
-		BOOK_OF_ILLUSIONS = Isaac.GetGiantBookIdByName("​Book of Illusions"),
+        BOOK_OF_ILLUSIONS = Isaac.GetGiantBookIdByName("​Book of Illusions"),
 	}
 	Enums.Achievements = {
-		DONKEY_JAWBONE = Isaac.GetAchievementIdByName("​Donkey Jawbone"),
+		DONKEY_JAWBONE = Isaac.GetAchievementIdByName("Donkey Jawbone"),
 		ANCIENT_REVELATION = Isaac.GetAchievementIdByName("Ancient Revelation"),
 		BETHS_HEART = Isaac.GetAchievementIdByName("​Beth's Heart"),
-		KEEPERS_ROPE = Isaac.GetAchievementIdByName("​Keeper's Rope"),
-		BLANK_BOMBS = Isaac.GetAchievementIdByName("​Blank Bombs"),
-		BOOK_OF_DESPAIR = Isaac.GetAchievementIdByName("​Book of Despair"),
-		BOOK_OF_ILLUSIONS = Isaac.GetAchievementIdByName("​Book of Illusions"),
-		BOWL_OF_TEARS = Isaac.GetAchievementIdByName("​Bowl of Tears"),
-		DICE_BOMBS = Isaac.GetAchievementIdByName("​Dice Bombs"),
-		ILLUSION_HEART = Isaac.GetAchievementIdByName("Illusion Heart"),
-		IMMORTAL_HEART = Isaac.GetAchievementIdByName("Immortal Heart"),
+        KEEPERS_ROPE = Isaac.GetAchievementIdByName("​Keeper's Rope"),
+        BLANK_BOMBS = Isaac.GetAchievementIdByName("​Blank Bombs"),
+        BOOK_OF_DESPAIR = Isaac.GetAchievementIdByName("​Book of Despair"),
+        BOOK_OF_ILLUSIONS = Isaac.GetAchievementIdByName("​Book of Illusions"),
+        BOWL_OF_TEARS = Isaac.GetAchievementIdByName("​Bowl of Tears"),
+        DICE_BOMBS = Isaac.GetAchievementIdByName("​Dice Bombs"),
 		LUCKY_SEVEN = Isaac.GetAchievementIdByName("​Lucky Seven"),
 		LUNCH_BOX = Isaac.GetAchievementIdByName("Lunch Box"),
-		MAXS_HEAD = Isaac.GetAchievementIdByName("​Max's Head"),
-		MENORAH = Isaac.GetAchievementIdByName("​Menorah"),
+		MAXS_HEAD = Isaac.GetAchievementIdByName("Max's Head"),
+		MENORAH = Isaac.GetAchievementIdByName("Menorah"),
 		PACIFIST = Isaac.GetAchievementIdByName("​Pacifist"),
-		PILL_CRUSHER = Isaac.GetAchievementIdByName("​Pill Crusher"),
-		SAFETY_BOMBS = Isaac.GetAchievementIdByName("​Safety Bombs"),
-		STONE_BOMBS = Isaac.GetAchievementIdByName("​Stone Bombs"),
-		TAMMYS_HEAD = Isaac.GetAchievementIdByName("​Tammy's Tail"),
-		VOODOO_PIN = Isaac.GetAchievementIdByName("​Voodoo Pin"),
+        PILL_CRUSHER = Isaac.GetAchievementIdByName("​Pill Crusher"),
+        SAFETY_BOMBS = Isaac.GetAchievementIdByName("​Safety Bombs"),
+        STONE_BOMBS = Isaac.GetAchievementIdByName("​Stone Bombs"),
+		TAMMYS_HEAD = Isaac.GetAchievementIdByName("Tammy's Tail"),
+		VOODOO_PIN = Isaac.GetAchievementIdByName("Voodoo Pin"),
 	}
 end
 

@@ -1,5 +1,5 @@
 # Restored Collection
-Relics thought to be lost have been found, and are now in the basement! Restored Collection is a collection of Team Compliance's mods restoring items, pickups, and more from Antibirth to Repentance, featuring 23 items, a trinket, and 3 pickups!
+Relics thought to be lost have been found, and are now in the basement! Restored Collection is a collection of Team Compliance's mods restoring items, pickups, and more from Antibirth to Repentance, featuring 23 items and 1 trinket!
 
 ![](https://i.imgur.com/fu8tO7l.png)
 
@@ -7,7 +7,6 @@ Relics thought to be lost have been found, and are now in the basement! Restored
 
 - 23 collectibles to discover, ranging from items cut from Antibirth to items based on old design documents.
 - 1 new squishy trinket!
-- 3 new heart pickups, each with their own abilities!
 - Ancient variations of already existing items, which function how they did before being changed.
 
 ![](https://i.imgur.com/4wDKe1V.png)
@@ -15,8 +14,6 @@ Relics thought to be lost have been found, and are now in the basement! Restored
 **The following mods are included in some form within the Restored Collection, and should not be used in conjuntion with it:**
 - Antibirth Item Pack by [Team Compliance](https://steamcommunity.com/profiles/76561198374458982)
 - The Lost Items Pack by [Team Compliance](https://steamcommunity.com/profiles/76561198374458982)
-- Immortal Hearts by [Team Compliance](https://steamcommunity.com/profiles/76561198374458982)
-- Sun Hearts by [Team Compliance](https://steamcommunity.com/profiles/76561198374458982)
 - All individual item mods by [Team Compliance](https://steamcommunity.com/profiles/76561198374458982)
 
 ![](https://i.imgur.com/SK84PpX.png)
