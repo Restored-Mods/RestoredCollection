@@ -3,7 +3,7 @@ Relics thought to be lost have been found, and are now in the basement! Restored
 
 ![](https://i.imgur.com/fu8tO7l.png)
 
-![](https://i.imgur.com/2nl7gVV.png)
+![](https://i.imgur.com/7ChA4FX.png)
 
 - 23 collectibles to discover, ranging from items cut from Antibirth to items based on old design documents.
 - 1 new squishy trinket!
