@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
-    <name>Restored Collection (No hearts)</name>
-    <directory>restored collection (no hearts)</directory>
+    <name>Restored Collection</name>
+    <directory>restored collection</directory>
+    <id>3246021872</id>
     <description>Relics thought to be lost have been found, and are now in the basement! Restored Collection is a collection items, pickups, and more, restored from Antibirth to Repentance, featuring 23 items and 1 trinket!
 
 [img]https://i.imgur.com/KgZIMJX.png[/img]
@@ -24,7 +25,7 @@ BrakeDude, Pandora, Akad, Sillst, fly_6, im_tem, Thicco Catto, ALDAR, chug all t
 [code][u]Public Entertainment Networked Interactive Software[/u] - For the original Antibirth mod as well as the content and concepts that this mod builds off of
 
 </description>
-    <version>1.20</version>
+    <version>1.21</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Items"/>
