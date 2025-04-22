@@ -31,7 +31,7 @@ function DonkeyJawbone:PlayerHurt(TookDamage, DamageAmount, DamageFlags, DamageS
 				---@cast multiShotParams MultiShotParams
 				data.ExtraSpins = multiShotParams:GetNumTears()
 			else
-				data.ExtraSpins = data.ExtraSpins + (Helpers.GetEntityData(player).MenorahFlames and Helpers.GetEntityData(player).MenorahFlames or 0)
+				data.ExtraSpins = data.ExtraSpins + (RestoredCollection:RunSave(player).MenorahFlames and RestoredCollection:RunSave(player).MenorahFlames or 0)
 				local startMax = player:GetCollectibleNum(CollectibleType.COLLECTIBLE_20_20)
 				if player:GetCollectibleNum(CollectibleType.COLLECTIBLE_INNER_EYE) > 0 then
 					startMax = startMax + player:GetCollectibleNum(CollectibleType.COLLECTIBLE_INNER_EYE) + 2 - (startMax > 0 and 1 or 0)

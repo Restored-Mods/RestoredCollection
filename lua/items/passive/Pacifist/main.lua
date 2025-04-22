@@ -35,7 +35,7 @@ local TimeSparing = 0
 
 local function GetPacifistLevel()
 	local level = game:GetLevel()
-	local pacifistLevels = TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "PacifistLevels")
+	local pacifistLevels = RestoredCollection:RunSave()["PacifistLevels"]
 	for _, pacifistLevel in ipairs(pacifistLevels) do
 		if pacifistLevel.stage == level:GetStage() and
 		pacifistLevel.ascent == level:IsAscent() then

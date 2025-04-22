@@ -12,6 +12,10 @@ end
 include("lua.helpers.Helpers")
 include("lua.extraLibs.hellfirejuneMSHack")
 
+RestoredCollection.SaveManager = include("lua.core.save_manager")
+RestoredCollection.SaveManager.Init(RestoredCollection)
+include("lua.core.saving_system")
+
 --apis
 include("lua.extraLibs.APIs.custom_shockwave_api")
 include("lua.extraLibs.APIs.custom_bomb_flags")
@@ -23,7 +27,6 @@ include("lua.extraLibs.APIs.DiceBombsAPI")
 --core
 include("lua.core.enums")
 include("lua.core.globals")
-include("lua.core.save_manager")
 include("lua.core.customhealth")
 include("lua.core.dss.deadseascrolls")
 include("lua.core.BlockDisabledItems")
@@ -65,7 +68,7 @@ include("lua.items.passive.TammysTail.main")
 include("lua.items.trinkets.GameSquid.main")
 
 --pickups
-include("lua.entities.illusions.main")
+--include("lua.entities.illusions.main")
 
 --mod compatibility
 include("lua.mod_compat.eid.eid")

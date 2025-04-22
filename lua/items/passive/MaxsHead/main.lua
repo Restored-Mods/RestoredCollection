@@ -69,7 +69,7 @@ RestoredCollection:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, MaxsHead.Upda
 
 ---@param player EntityPlayer
 local function SpanwMaxHead(player)
-    if TSIL.Random.GetRandomInt(0, 100) <= 15 and TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "MaxsHead") > 1 then
+    if TSIL.Random.GetRandomInt(0, 100) <= 15 and RestoredCollection:GetDefaultFileSave("MaxsHead") > 1 then
         local eff = Isaac.Spawn(EntityType.ENTITY_EFFECT, RestoredCollection.Enums.Entities.MAXS_HEAD.Variant, 0, player.Position, Vector.Zero, player):ToEffect()
         ---@cast eff EntityEffect
         eff:AddEntityFlags(EntityFlag.FLAG_PERSISTENT)

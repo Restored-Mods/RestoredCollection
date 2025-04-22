@@ -13,7 +13,7 @@ local TeleportAnimFrames = {
 }
 
 local function NewTeleRoom()
-	local monsterTeleTable = TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "MonsterTeleTable")
+	local monsterTeleTable = RestoredCollection:FloorSave()["MonsterTeleTable"]
 	if #monsterTeleTable <= 0 then return end
 
 	local roomIDX = Game():GetLevel():GetCurrentRoomDesc().ListIndex
@@ -63,14 +63,14 @@ local function CleanRoom()
     local level = Game():GetLevel()
 	local currentRoomIndex = level:GetCurrentRoomDesc().ListIndex
 	local newMonsterTeleTable = {}
-	local monsterTeleTable = TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "MonsterTeleTable")
+	local monsterTeleTable = RestoredCollection:FloorSave()["MonsterTeleTable"]
 	for _, teleMonster in ipairs(monsterTeleTable) do
 		if teleMonster.RoomIDX ~= currentRoomIndex then
 			newMonsterTeleTable[#newMonsterTeleTable+1] = teleMonster
 		end
 	end
 
-	TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "MonsterTeleTable", newMonsterTeleTable)
+	RestoredCollection:FloorSave()["MonsterTeleTable"] = newMonsterTeleTable
 end
 
 
@@ -146,7 +146,7 @@ local function TeleportMonsterAnim(_, npc)
 				end
 
 				local chosenTeleroom = possibleTeleRooms[rng:RandomInt(#possibleTeleRooms) + 1]
-				local monsterTeleTable = TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "MonsterTeleTable")
+				local monsterTeleTable = RestoredCollection:FloorSave()["MonsterTeleTable"]
 				table.insert(monsterTeleTable, {
 					RoomIDX = chosenTeleroom,
 					Type = npc.Type,
@@ -156,7 +156,7 @@ local function TeleportMonsterAnim(_, npc)
 					Seed = npc.InitSeed,
 					HitPoints = npc.HitPoints
 				})
-				TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "MonsterTeleTable", monsterTeleTable)
+				RestoredCollection:FloorSave()["MonsterTeleTable"] = monsterTeleTable
 			end
 
 			npc:Remove()

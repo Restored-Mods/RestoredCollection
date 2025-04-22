@@ -1,12 +1,17 @@
-local Helpers = RestoredCollection.Helpers
-local localversion = 1.0
+local localversion = 1.1
 local game = Game()
 local hud = game:GetHUD()
+local sfx = SFXManager()
 
-local function load(data)
-	IllusionMod = RegisterMod("Illusion Hearts API", 1)
+local function load(prevData)
+	IllusionMod = RegisterMod("Illusion API", 1)
 	IllusionMod.Version = localversion
     IllusionMod.Loaded = false
+	IllusionMod.InstaDeath = false
+	IllusionMod.CanPlaceBomb = false
+	IllusionMod.PerfectIllusion = false
+	local IllusionCallbacks = {}
+	local EntityData = {}
 
 	local TransformationItems = {
 		[PlayerForm.PLAYERFORM_DRUGS] = Isaac.GetItemIdByName("Spun transform"),
@@ -47,11 +52,15 @@ local function load(data)
 
 	}
 
-	if data ~= nil then
-		TransformationItems = data.TransformationItems or TransformationItems
-		ForbiddenItems = data.ForbiddenItems or ForbiddenItems
-		ForbiddenTrinkets = data.ForbiddenTrinkets or ForbiddenTrinkets
-		ForbiddenPCombos = data.ForbiddenPCombos or ForbiddenPCombos
+	if prevData ~= nil then
+		TransformationItems = prevData.TransformationItems or TransformationItems
+		ForbiddenItems = prevData.ForbiddenItems or ForbiddenItems
+		ForbiddenTrinkets = prevData.ForbiddenTrinkets or ForbiddenTrinkets
+		ForbiddenPCombos = prevData.ForbiddenPCombos or ForbiddenPCombos
+		EntityData = prevData.EntityData
+		IllusionMod.InstaDeath = prevData.InstaDeath or false
+		IllusionMod.CanPlaceBomb = prevData.CanPlaceBomb or false
+		IllusionMod.PerfectIllusion = prevData.PerfectIllusion or false
 	end
 	
 	local function BlackList(collectible)
@@ -249,6 +258,55 @@ local function load(data)
 		table.insert(ForbiddenCharacters,{PlayerType = type, PlayerTypeToChange = changeType})
 	end
 
+	local function GetPlayerIndex(player)
+		local id = 1
+		if player:GetPlayerType() == PlayerType.PLAYER_LAZARUS2_B then
+			id = 2
+		end
+		return player:GetCollectibleRNG(id):GetSeed()
+	end
+
+	function IllusionMod.GetData(entity)
+		if entity then
+			if entity:ToPlayer() then
+				local player = entity:ToPlayer()
+				if player:GetPlayerType() == PlayerType.PLAYER_THESOUL_B then
+					player = player:GetOtherTwin()
+				end
+				if not player then return nil end
+				local index = tostring(GetPlayerIndex(player))
+				if not EntityData["PLAYER_"..index] then
+					EntityData["PLAYER_"..index] = {}
+				end
+				return EntityData["PLAYER_"..index]
+			elseif entity:ToFamiliar() then
+				local index = tostring(entity:ToFamiliar().InitSeed)
+				if not EntityData["FAMILIAR_"..index] then
+					EntityData["FAMILIAR_"..index] = {}
+				end
+				return EntityData["FAMILIAR_"..index]
+			end
+		end
+		return nil
+	end
+
+	function IllusionMod.RemoveData(entity)
+		if entity then
+			if entity:ToPlayer() then
+				local player = entity:ToPlayer()
+				if player:GetPlayerType() == PlayerType.PLAYER_THESOUL_B then
+					player = player:GetOtherTwin()
+				end
+				if not player then return nil end
+				local index = tostring(GetPlayerIndex(player))
+				EntityData["PLAYER_"..index] = nil
+			elseif entity:ToFamiliar() then
+				local index = tostring(entity:ToFamiliar().InitSeed)
+				EntityData["FAMILIAR_"..index] = nil
+			end
+		end
+	end
+
 	---@param player EntityPlayer
 	---@param isIllusion boolean
 	---@param addWisp boolean
@@ -272,9 +330,8 @@ local function load(data)
 		local newPlayerIndex = game:GetNumPlayers() - 1
 		local illusionPlayer = Isaac.GetPlayer(newPlayerIndex)
 
-		local data = Helpers.GetEntityData(illusionPlayer)
+		local data = IllusionMod.GetData(illusionPlayer)
 		if not data then return nil end
-
 		if playerType == PlayerType.PLAYER_LAZARUS_B or playerType == PlayerType.PLAYER_LAZARUS2_B then
 			playerType = PlayerType.PLAYER_ISAAC
 			local costume
@@ -290,8 +347,7 @@ local function load(data)
 			illusionPlayer:AddNullCostume(costume)
 		end
 		playerType = ChangeCharacter(playerType)
-		if (TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "PerfectIllusion") == 2
-		or playerType < 41) then
+		if (IllusionMod.PerfectIllusion	or playerType < 41) then
 			illusionPlayer:ChangePlayerType(playerType)
 		else
 			illusionPlayer:ChangePlayerType(PlayerType.PLAYER_ISAAC)
@@ -310,7 +366,7 @@ local function load(data)
 			SetIllusionHealth(illusionPlayer)
 
 			if playerType == PlayerType.PLAYER_THEFORGOTTEN_B then
-				local twinData = Helpers.GetEntityData(illusionPlayer:GetOtherTwin())
+				local twinData = IllusionMod.GetData(illusionPlayer:GetOtherTwin())
 				if not twinData then return end
 
 				twinData.IsIllusion = true
@@ -322,7 +378,7 @@ local function load(data)
 
 		if addWisp then
 			local wisp = player:AddWisp(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS, player.Position)
-			local wispData = Helpers.GetEntityData(wisp)
+			local wispData = IllusionMod.GetData(wisp)
 
 			wispData.isIllusion = true
 			wispData.illusionId = illusionPlayer:GetCollectibleRNG(1):GetSeed()
@@ -354,13 +410,280 @@ local function load(data)
 	end
 
 	function IllusionMod.GetTablesData()
-		return {TransformationItems = TransformationItems, ForbiddenItems = ForbiddenItems, ForbiddenTrinkets = ForbiddenTrinkets, ForbiddenPCombos = ForbiddenPCombos}
+		return {TransformationItems = TransformationItems, ForbiddenItems = ForbiddenItems, ForbiddenTrinkets = ForbiddenTrinkets, ForbiddenPCombos = ForbiddenPCombos, EntityData = EntityData, InstaDeath = IllusionMod.InstaDeath, CanPlaceBomb = IllusionMod.CanPlaceBomb, PerfectIllusion = IllusionMod.PerfectIllusion}
 	end
 
-	function IllusionMod:ModReset()
+	function IllusionMod.GetSaveData()
+		return EntityData
+	end
+
+	function IllusionMod.LoadSaveData(data)
+		EntityData = data
+	end
+
+	local function AddCallback(callback, func, ...)
+		table.insert(IllusionCallbacks, {Callback = callback, Function = func, Param = {...}})
+	end
+
+	function IllusionMod.UnloadCallbacks()
+		for _, callback in pairs(IllusionCallbacks) do
+			IllusionMod:RemoveCallback(callback.Callback, callback.Function)
+		end
+	end
+
+	function IllusionMod.LoadCallbacks()
+		for _, callback in pairs(IllusionCallbacks) do
+			IllusionMod:AddCallback(callback.Callback, callback.Function, table.unpack(callback.Param))
+		end
+	end
+
+	function IllusionMod.ReloadCallbacks()
+		IllusionMod.UnloadCallbacks()
+		IllusionMod.LoadCallbacks()
+	end
+
+	local function ModReset()
         IllusionMod.Loaded = false
     end
-    IllusionMod:AddCallback(ModCallbacks.MC_PRE_MOD_UNLOAD, IllusionMod.ModReset)
+    IllusionMod:AddCallback(ModCallbacks.MC_PRE_MOD_UNLOAD, ModReset)
+
+
+	local function InstaDeath(p)
+		if IllusionMod.InstaDeath then
+			p:GetSprite():SetLastFrame()
+			p:ChangePlayerType(PlayerType.PLAYER_THELOST)
+			local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, -1, p.Position, Vector.Zero, p)
+			local sColor = poof:GetSprite().Color
+			local color = Color(sColor.R, sColor.G, sColor.B, 0.7, 0.518, 0.15, 0.8)
+			local s = poof:GetSprite()
+			s.Color = color
+			sfx:Play(SoundEffect.SOUND_BLACK_POOF)
+		end
+		IllusionMod.KillIllusion(p, IllusionMod.InstaDeath)
+	end
+	
+	local function ModdedDeathCheck(p)
+		local offset = (p:GetPlayerType() ~= PlayerType.PLAYER_THEFORGOTTEN or p:GetPlayerType() ~= PlayerType.PLAYER_THEFORGOTTEN_B) and Vector(30 * p.SpriteScale.X,0) or Vector.Zero
+		if sussydeath then
+			offset = Vector.Zero
+		end
+		return offset
+	end
+	
+	
+	---@param p EntityPlayer
+	local function UpdateClones(_, p)
+		local data = IllusionMod.GetData(p)
+		if not data then return end
+		if data.IsIllusion then
+			p:GetData().Died = true -- Gruesome death mod check to avoid crash
+			if p:IsDead()  then
+				--p.Visible = false
+				if p:GetPlayerType() ~= PlayerType.PLAYER_THELOST and p:GetPlayerType() ~= PlayerType.PLAYER_THELOST_B 
+				and p:GetPlayerType() ~= PlayerType.PLAYER_THESOUL_B then
+					p:GetSprite():SetLayerFrame(PlayerSpriteLayer.SPRITE_GHOST,0)
+				end
+				if p:GetSprite():IsFinished() and p:GetSprite():GetAnimation():match("Death") == "Death" or IllusionMod.InstaDeath then
+					p:GetSprite():SetLastFrame()
+					if IllusionMod.InstaDeath then
+						sfx:Stop(SoundEffect.SOUND_ISAACDIES)
+					end
+					if p:GetPlayerType() ~= PlayerType.PLAYER_THELOST and p:GetPlayerType() ~= PlayerType.PLAYER_THELOST_B and
+					p:GetPlayerType() ~= PlayerType.PLAYER_THESOUL and p:GetPlayerType() ~= PlayerType.PLAYER_THESOUL_B  and p:GetPlayerType() ~= PlayerType.PLAYER_THEFORGOTTEN_B
+					and not p:GetEffects():HasNullEffect(NullItemID.ID_LOST_CURSE) then
+						p:ChangePlayerType(PlayerType.PLAYER_THELOST)
+						local offset = ModdedDeathCheck(p)
+						
+						if not SMW_Death then
+							local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, -1, p.Position + offset, Vector.Zero, p)
+							local sColor = poof:GetSprite().Color
+							local color = Color(sColor.R, sColor.G, sColor.B, 0.7, 0.518, 0.15, 0.8)
+							local s = poof:GetSprite()
+							s.Color = color
+							sfx:Play(SoundEffect.SOUND_BLACK_POOF)
+						end
+					end
+				end
+			end
+			if not p:IsDead() then
+				if p.Parent and (not p.Parent:Exists() or p.Parent:IsDead()) then
+					InstaDeath(p)
+				end
+			end
+			p:GetEffects():RemoveCollectibleEffect(CollectibleType.COLLECTIBLE_HOLY_MANTLE)
+		end
+	end
+	AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, UpdateClones)
+	
+	local function CloneRoomUpdate()
+		for i = 0, game:GetNumPlayers()-1 do
+			local p = Isaac.GetPlayer(i)
+			local data = IllusionMod.GetData(p)
+			if not data then return end
+			if data.IsIllusion and p:IsDead() then
+				p:GetSprite():SetLastFrame()
+				p:ChangePlayerType(PlayerType.PLAYER_THELOST)
+				Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, -1, p.Position, Vector.Zero, p)
+			end
+		end
+	end
+	AddCallback(ModCallbacks.MC_POST_NEW_ROOM, CloneRoomUpdate)
+	
+		---@param p EntityPlayer
+	local function CloneColor(_, p, _)
+		local d = IllusionMod.GetData(p)
+		if not d then return end
+		if d.IsIllusion then
+			--local color = Color(0.518, 0.22, 1, 0.45)
+			local sColor = p:GetSprite().Color
+			local color = Color(sColor.R, sColor.G, sColor.B, 0.45, 0.518, 0.15, 0.8)
+			local s = p:GetSprite()
+			s.Color = color
+			if p:GetBoneHearts() > 0 and not (p:GetPlayerType() == PlayerType.PLAYER_THEFORGOTTEN or REPENTOGON and p:GetHealthType() == HealthType.BONE) then
+				p:AddBoneHearts(-p:GetBoneHearts())
+			end
+			if p:GetGoldenHearts() > 0 then
+				p:AddGoldenHearts(-p:GetGoldenHearts())
+			end
+			if p:GetEternalHearts() > 0 then
+				p:AddEternalHearts(-p:GetEternalHearts())
+			end
+			if p.Parent and p.Parent:ToPlayer() and p.Parent:ToPlayer().MoveSpeed ~= p.MoveSpeed then
+				p:AddCacheFlags(CacheFlag.CACHE_SPEED)
+				p:EvaluateItems()
+			end
+		end
+	end
+	AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, CloneColor)
+	
+	local function Cache(_, player,cache)
+		local d = IllusionMod.GetData(player)
+		if not d then return end
+		if d.IsIllusion then
+			if d.TaintedLazA == true then
+				if cache == CacheFlag.CACHE_RANGE then
+					player.TearRange = player.TearRange - 80
+				end
+			elseif d.TaintedLazB == true then
+				if cache == CacheFlag.CACHE_DAMAGE then
+					player.Damage = player.Damage * 1.50
+				elseif cache == CacheFlag.CACHE_FIREDELAY then
+					player.MaxFireDelay = player.MaxFireDelay + 1
+				elseif cache == CacheFlag.CACHE_LUCK then
+					player.Luck = player.Luck - 2
+				end
+			end
+			if cache == CacheFlag.CACHE_SPEED then
+				local parent = player.Parent
+				if parent and parent:ToPlayer() then
+					player.MoveSpeed = parent:ToPlayer().MoveSpeed
+				end
+			end
+		end
+	end
+	AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Cache)
+	
+	local function preIllusionWhiteFlame(_, p, collider)
+		if collider.Type == EntityType.ENTITY_FIREPLACE and collider.Variant == 4 then
+			local d = IllusionMod.GetData(p)
+			if not d then return end
+			if d.IsIllusion then--or p.Parent then
+				InstaDeath(p)
+			end
+		end
+	end
+	AddCallback(ModCallbacks.MC_PRE_PLAYER_COLLISION, preIllusionWhiteFlame)
+	
+	local function onEntityTakeDamage(_, tookDamage)
+		local data = IllusionMod.GetData(tookDamage)
+		if not data then return end
+		if data.IsIllusion then
+			if data.hasWisp then return false end
+			--doples always die in one hit, so the hud looks nicer. ideally i'd just get rid of the hud but that doesnt seem possible
+			local player = tookDamage:ToPlayer()
+			InstaDeath(player)
+			return false
+		end
+	end
+	AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, onEntityTakeDamage, EntityType.ENTITY_PLAYER)
+	
+	local function AfterDeath(_, e)
+		if e and e:ToPlayer() then
+			if e:ToPlayer():GetPlayerType() ~= PlayerType.PLAYER_THESOUL_B then
+				local data = IllusionMod.GetData(e)
+				if data and data.isIllusion then
+					IllusionMod.RemoveData(e)
+				end
+			end
+		end
+	end
+	AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, AfterDeath)
+	
+	local function DarkEsau(_, e)
+		if e.SpawnerEntity and e.SpawnerEntity:ToPlayer() then
+			local p = e.SpawnerEntity:ToPlayer()
+			local d = IllusionMod.GetData(p)
+			if not d then return end
+			if d.IsIllusion then
+				local s = e:GetSprite().Color
+				local color = Color(s.R, s.G, s.B, 0.45,0.518, 0.15, 0.8)
+				local s = e:GetSprite()
+				s.Color = color
+			end
+		end
+	end
+	AddCallback(ModCallbacks.MC_POST_NPC_RENDER, DarkEsau, EntityType.ENTITY_DARK_ESAU)
+	
+	local function Familiar(_, e)
+		if e.SpawnerEntity and e.SpawnerEntity:ToPlayer() then
+			local p = e.SpawnerEntity:ToPlayer()
+			local d = IllusionMod.GetData(p)
+			if not d then return end
+			if d.IsIllusion then
+				local s = e:GetSprite()
+				s.Color = Color(s.Color.R, s.Color.G, s.Color.B, 0.45,0.518, 0.15, 0.8)
+			end
+		end
+	end
+	AddCallback(ModCallbacks.MC_POST_FAMILIAR_RENDER, Familiar)
+	
+	local function Knife(k)
+		if k.SpawnerEntity and k.SpawnerEntity:ToPlayer() then
+			local p = k.SpawnerEntity:ToPlayer()
+			local d = IllusionMod.GetData(p)
+			if not d then return end
+			if d.IsIllusion then
+				local s = k:GetSprite()
+				s.Color = Color(s.Color.R, s.Color.G, s.Color.B, 0.45,0.518, 0.15, 0.8)
+			end
+		end
+	end
+	AddCallback(ModCallbacks.MC_POST_KNIFE_RENDER, Knife)
+	
+	local function ClonesControls(_, entity,hook,action)
+		if entity ~= nil and entity.Type == EntityType.ENTITY_PLAYER and not IllusionMod.CanPlaceBomb then
+			local p = entity:ToPlayer()
+			local d = IllusionMod.GetData(p)
+			if not d then return end
+			if d.IsIllusion then
+				if (hook == InputHook.GET_ACTION_VALUE or hook == InputHook.IS_ACTION_PRESSED) and p:GetSprite():IsPlaying("Appear") then
+					return hook == InputHook.GET_ACTION_VALUE and 0 or false
+				end
+				if hook == InputHook.IS_ACTION_TRIGGERED and (action == ButtonAction.ACTION_BOMB or action == ButtonAction.ACTION_PILLCARD or
+				action == ButtonAction.ACTION_ITEM or p:GetSprite():IsPlaying("Appear")) then
+					return false
+				end
+			end
+		end
+	end
+	AddCallback(ModCallbacks.MC_INPUT_ACTION, ClonesControls)
+
+	local function Load(_, isLoading)
+		if not isLoading then
+			EntityData = {}
+		end
+	end
+	AddCallback(ModCallbacks.MC_POST_GAME_STARTED, Load)
 
 	if RedBaby then
 		IllusionMod.AddForbiddenChar(RedBaby.enums.PlayerType.RED_BABY_A, PlayerType.PLAYER_BLUEBABY)
@@ -369,6 +692,7 @@ local function load(data)
 
 	print("[".. IllusionMod.Name .."]", "is loaded. Version "..IllusionMod.Version)
 	IllusionMod.Loaded = true
+	IllusionMod.LoadCallbacks()
 end
 
 if IllusionMod then
@@ -379,6 +703,7 @@ if IllusionMod then
 			print("[".. IllusionMod.Name .."]", " found old script V" .. IllusionMod.Version .. ", found new script V" .. localversion .. ". replacing...")
 		end
 		local data = IllusionMod.GetTablesData()
+		IllusionMod.UnloadCallbacks()
 		IllusionMod = nil
 		load(data)
 	end

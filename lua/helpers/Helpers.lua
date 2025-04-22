@@ -220,57 +220,6 @@ function Helpers.GetPlayerIndex(player)
 	return player:GetCollectibleRNG(id):GetSeed()
 end
 
-function Helpers.GetEntityData(entity)
-	if entity then
-		if entity:ToPlayer() then
-			local data = TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "PlayerData")
-			local player = entity:ToPlayer()
-			if player:GetPlayerType() == PlayerType.PLAYER_THESOUL_B then
-				player = player:GetOtherTwin()
-			end
-			if not player then return nil end
-			local index = tostring(Helpers.GetPlayerIndex(player))
-			if not data[index] then
-				data[index] = {}
-			end
-			if not data[index].BethsHeartIdentifier then
-				data[index].BethsHeartIdentifier = tonumber(index)
-			end
-			return data[index]
-		elseif entity:ToFamiliar() then
-			local data = TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "FamiliarData")
-			local index = tostring(entity:ToFamiliar().InitSeed)
-			if not data[index] then
-				data[index] = {}
-			end
-			return data[index]
-		end
-	end
-	return nil
-end
-
-function Helpers.RemoveEntityData(entity)
-	if entity then
-		local index
-		if entity:ToPlayer() then
-			local data = TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "PlayerData")
-			local player = entity:ToPlayer()
-			if player:GetPlayerType() == PlayerType.PLAYER_THESOUL_B then
-				player = player:GetOtherTwin()
-			end
-			if not player then return nil end
-			index = tostring(Helpers.GetPlayerIndex(player))
-			--local data = TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "PlayerData")
-			data[index] = nil
-		elseif entity:ToFamiliar() then
-			local data = TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "FamiliarData")
-			index = tostring(entity:ToFamiliar().InitSeed)
-			--local data = TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "FamiliarData")
-			data[index] = nil
-		end
-	end
-end
-
 function Helpers.GetBombExplosionRadius(bomb)
 	local damage = bomb.ExplosionDamage
 	local radiusMult = bomb.RadiusMultiplier
@@ -503,9 +452,6 @@ function Helpers.TurnEnemyIntoGoldenMachine(enemy, player, rng)
     data.SlotPlayer = player
     data.LuckySevenSlotObject:__Init(luckySevenSlotEntity)
     luckySevenSlotEntity:AddEntityFlags(EntityFlag.FLAG_NO_QUERY)
-
-	local slots = TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "LuckySevenSlotsInRoom")
-	
 
     local sparkles = Isaac.Spawn(EntityType.ENTITY_EFFECT, RestoredCollection.Enums.Entities.LUCKY_SEVEN_MACHINE_SPARKLES.Variant, 0, luckySevenSlotEntity.Position, Vector.Zero, luckySevenSlotEntity)
     sparkles.DepthOffset = 20
@@ -792,7 +738,7 @@ end
 ---@param item CollectibleType | integer
 ---@return boolean
 function Helpers.IsItemDisabled(item)
-	for _, disabledItem in ipairs(TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "DisabledItems")) do
+	for _, disabledItem in ipairs(RestoredCollection:GetDefaultFileSave("DisabledItems")) do
         if item == RestoredCollection.Enums.CollectibleType[disabledItem] then
             return true
         end

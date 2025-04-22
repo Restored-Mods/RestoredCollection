@@ -119,12 +119,12 @@ function PillCrusherLocal:UsePillCrusher(_, rng, player)
 
 	local showName = itemPool:IsPillIdentified(pillColorToCheckEffect)
 
-	local lastPill = TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "LastPillUsed")
+	local lastPill = RestoredCollection:RunSave()["LastPillUsed"]
 	if pillEffect == PillEffect.PILLEFFECT_VURP and lastPill >= 0 then
 		pillEffect = lastPill
-		TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "LastPillUsed", PillEffect.PILLEFFECT_VURP)
+		RestoredCollection:RunSave()["LastPillUsed"] = PillEffect.PILLEFFECT_VURP
 	else
-		TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "LastPillUsed", pillEffect)
+		RestoredCollection:RunSave()["LastPillUsed"] = pillEffect
 	end
 
 	local crushedPillEffect = PillCrusher:GetPillCrusherEffect(pillEffect)

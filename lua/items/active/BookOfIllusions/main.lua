@@ -12,7 +12,7 @@ function IllusionModLocal:onUseBookOfIllusions(_, _, player, flags)
 	
 	sfx:Play(SoundEffect.SOUND_BOOK_PAGE_TURN_12, 1, 0, false, 1)
 
-	IllusionMod:addIllusion(player, true, player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES))
+	IllusionMod:addIllusion(player, true, player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES), RestoredCollection:GetDefaultFileSave("PerfectIllusion") == 2)
 
 	-- returning any values interrupts any callbacks that come after it
 	if flags & UseFlag.USE_NOANIM == 0 then

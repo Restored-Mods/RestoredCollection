@@ -123,7 +123,7 @@ function BowlOfTears:BowlShoot(player)
 			end
 			local charge = Isaac.GetItemConfig():GetCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOWL_OF_TEARS).MaxCharges
 			for _ = 1, TSIL.Random.GetRandomInt(10, 16) do
-				local tear = player:FireTear(player.Position, (shootVector * player.ShotSpeed):Rotated(TSIL.Random.GetRandomInt(-10, 10)) * TSIL.Random.GetRandomInt(10, 16) + player.Velocity, false, true, false, player)
+				local tear = player:FireTear(player.Position, (shootVector * player.ShotSpeed):Rotated(TSIL.Random.GetRandomInt(-10, 10)) * TSIL.Random.GetRandomInt(10, 16) + player:GetTearMovementInheritance(shootVector), false, true, false, player)
 				tear.FallingSpeed = TSIL.Random.GetRandomInt(-15, -3)
                 tear.Height = TSIL.Random.GetRandomInt(-60, -40)
                 tear.FallingAcceleration = TSIL.Random.GetRandomFloat(0.5, 0.6)

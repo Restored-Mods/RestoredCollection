@@ -3,7 +3,7 @@ local Helpers = RestoredCollection.Helpers
 
 local function EnemyHpUp(_, enemy)
     local hpEnemy
-    for _, hpUpDownEnemy in ipairs(TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "HPUpDownEnemies")) do
+    for _, hpUpDownEnemy in ipairs(RestoredCollection:RunSave()["HPUpDownEnemies"]) do
         if hpUpDownEnemy.Type == enemy.Type and
         hpUpDownEnemy.Variant == enemy.Variant and
         hpUpDownEnemy.SubType == enemy.SubType then
@@ -23,7 +23,7 @@ RestoredCollection:AddCallback(ModCallbacks.MC_POST_NPC_INIT, EnemyHpUp)
 
 PillCrusher:AddPillCrusherEffect(PillEffect.PILLEFFECT_HEALTH_UP, "Health Up",
 function (_, _, _, isHorse)
-    local HPUpDownEnemies = TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "HPUpDownEnemies")
+    local HPUpDownEnemies = RestoredCollection:RunSave()["HPUpDownEnemies"]
     for _,enemy in ipairs(Helpers.GetEnemies(false)) do
         local mult = isHorse and 2 or 1
         enemy.MaxHitPoints = enemy.MaxHitPoints + 15 * mult

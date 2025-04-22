@@ -55,14 +55,14 @@ end
 
 function KeepersRope:Rope(player)
 	local BeastFight = game:GetLevel():GetAbsoluteStage() == LevelStage.STAGE8 and game:GetRoom():GetType() == RoomType.ROOM_DUNGEON
-	local hasMorphedKeepersRope = TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "HasMorphedKeepersRope")
+	local hasMorphedKeepersRope = RestoredCollection:RunSave()["HasMorphedKeepersRope"]
 	if not hasMorphedKeepersRope then
 		for _, _ in ipairs(Isaac.FindByType(5,100,RestoredCollection.Enums.CollectibleType.COLLECTIBLE_KEEPERS_ROPE)) do
-			TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "HasMorphedKeepersRope", true)
+			RestoredCollection:RunSave()["HasMorphedKeepersRope"] = true
 		end
 	end
 	if player:HasCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_KEEPERS_ROPE) and not hasMorphedKeepersRope then
-		TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "HasMorphedKeepersRope", true)
+		RestoredCollection:RunSave()["HasMorphedKeepersRope"] = true
 		--[[if not BeastFight and not player:IsDead() then
 			if not GetRope(player, true) then
 				local rope = Isaac.Spawn(EntityType.ENTITY_EFFECT, RestoredCollection.Enums.Entities.KEEPERS_ROPE.Variant, 0, player.Position, Vector.Zero, player):ToEffect()
@@ -233,7 +233,7 @@ end
 RestoredCollection:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, KeepersRope.NoSoap)
 
 function KeepersRope:RopeReplacement(keeper)
-	if not TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "HasMorphedKeepersRope") then
+	if not RestoredCollection:RunSave()["HasMorphedKeepersRope"] then
 		for __,pickup in ipairs(Isaac.FindByType(5,100)) do
 			pickup = pickup:ToPickup()
 			if (pickup.Position - keeper.Position):Length() <= 10 and pickup.FrameCount == 0 and

@@ -29,11 +29,11 @@ end
 local MenuProvider = {}
 
 local function GetDSSOptions()
-	return TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "DSS")
+	return RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
 end
 
 function MenuProvider.SaveSaveData()
-	TSIL.SaveManager.SaveToDisk()
+	RestoredCollection.SaveManager.Save()
 end
 
 function MenuProvider.GetPaletteSetting()
@@ -124,15 +124,10 @@ local function GetItemsEnum(id)
 	return ""
 end
 
-local function InitDisableMenu()
-	local itemTogglesMenu = {}
-	local orderedItems = {}
-	itemTogglesMenu = {
-		{str = 'choose what items show up', fsize = 2, nosel = true},
-        {str = '(disabled - in blacklist)', fsize = 2, nosel = true},
-		{ str = "", fsize = 2, nosel = true },
-	}
+local orderedItems = {}
 
+local function InitBlacklistItems()
+	orderedItems = {}
 	local itemConfig = Isaac.GetItemConfig()
 	---@type ItemConfigItem[]
 	for _, collectible in pairs(RestoredCollection.Enums.CollectibleType) do
@@ -142,6 +137,17 @@ local function InitDisableMenu()
 	table.sort(orderedItems, function(a, b)
 		return RemoveZeroWidthSpace(a.Name) < RemoveZeroWidthSpace(b.Name)
 	end)
+end
+
+InitBlacklistItems()
+
+local function InitDisableMenu()
+	local itemTogglesMenu = {}
+	itemTogglesMenu = {
+		{str = 'choose what items show up', fsize = 2, nosel = true},
+        {str = '(disabled - in blacklist)', fsize = 2, nosel = true},
+		{ str = "", fsize = 2, nosel = true },
+	}
 
 	for _, collectible in pairs(orderedItems) do
 		local split = SplitStr(string.lower(collectible.Name))
@@ -178,12 +184,8 @@ local function InitDisableMenu()
 			-- The "load" function for a button should return what its current setting should be
 			-- This generally means looking at your mod's save data, and returning whatever setting you have stored
 			load = function()
-				if not TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "DisabledItems") then
-					TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "DisabledItems", {})
-				end
-
 				for _, disabledItem in
-					ipairs(TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "DisabledItems"))
+					ipairs(RestoredCollection:GetDefaultFileSave("DisabledItems"))
 				do
 					if disabledItem == GetItemsEnum(collectible.ID) then
 						return 2
@@ -195,10 +197,7 @@ local function InitDisableMenu()
 			-- When the menu is closed, "store" will be called on all settings-buttons
 			-- The "store" function for a button should save the button's setting (passed in as the first argument) to save data!
 			store = function(var)
-				if not TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "DisabledItems") then
-					TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "DisabledItems", {})
-				end
-				local disabledItems = TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "DisabledItems")
+				local disabledItems = RestoredCollection:GetDefaultFileSave("DisabledItems")
 				for index, disabledItem in ipairs(disabledItems) do
 					if disabledItem == GetItemsEnum(collectible.ID) then
 						if var == 1 then
@@ -211,7 +210,6 @@ local function InitDisableMenu()
 				if var == 2 then
 					table.insert(disabledItems, GetItemsEnum(collectible.ID))
 				end
-				TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "DisabledItems", disabledItems)
 			end,
 
 			-- A simple way to define tooltips is using the "strset" tag, where each string in the table is another line of the tooltip
@@ -239,19 +237,191 @@ local function InitDisableMenu()
 	return itemTogglesMenu
 end
 
-local function InitImGuiMenu()
-	TSIL.SaveManager.LoadFromDisk()
+local function UpdateImGuiMenu(IsDataInitialized)
+	if IsDataInitialized then
 
+		if ImGui.ElementExists("restotredCollectionSettingsNoWay") then
+			ImGui.RemoveElement("restotredCollectionSettingsNoWay")
+		end
+
+		if ImGui.ElementExists("restotredCollectionBlacklistNoWay") then
+			ImGui.RemoveElement("restotredCollectionBlacklistNoWay")
+		end
+
+		if ImGui.ElementExists("restoredCollectionSettingsIllusionPlaceBombs") then
+			ImGui.RemoveElement("restoredCollectionSettingsIllusionPlaceBombs")
+		end
+
+		ImGui.AddCheckbox(
+			"restoredCollectionSettingsWindow",
+			"restoredCollectionSettingsIllusionPlaceBombs",
+			"Can illusions place bombs?",
+			function(val)
+				IllusionMod.CanPlaceBomb = val
+			end,
+			false
+		)
+
+		if ImGui.ElementExists("restoredCollectionSettingsIllusionPerfect") then
+			ImGui.RemoveElement("restoredCollectionSettingsIllusionPerfect")
+		end
+
+		ImGui.AddCheckbox(
+			"restoredCollectionSettingsWindow",
+			"restoredCollectionSettingsIllusionPerfect",
+			"Create perfect Illusion for modded characters?",
+			function(val)
+				IllusionMod.PerfectIllusion = val
+			end,
+			false
+		)
+
+		if ImGui.ElementExists("restoredCollectionSettingsIllusionInstaDeath") then
+			ImGui.RemoveElement("restoredCollectionSettingsIllusionInstaDeath")
+		end
+
+		ImGui.AddCheckbox(
+			"restoredCollectionSettingsWindow",
+			"restoredCollectionSettingsIllusionInstaDeath",
+			"Illusion insta death",
+			function(val)
+				IllusionMod.InstaDeath = val
+			end,
+			false
+		)
+		ImGui.SetTooltip(
+			"restoredCollectionSettingsIllusionInstaDeath",
+			"Illusions skip death animation and removed immediately"
+		)
+
+		if ImGui.ElementExists("restoredCollectionSettingsMaxsHeads") then
+			ImGui.RemoveElement("restoredCollectionSettingsMaxsHeads")
+		end
+
+		ImGui.AddCheckbox(
+			"restoredCollectionSettingsWindow",
+			"restoredCollectionSettingsMaxsHeads",
+			"Max's Head Emoji",
+			function(val)
+				local newOption = val and 2 or 1
+				RestoredCollection:AddDefaultFileSave("MaxsHead", newOption)
+			end,
+			false
+		)
+		ImGui.SetTooltip("restoredCollectionSettingsMaxsHeads", "Allow Max's head emojis appear when shooting tears.")
+
+		ImGui.AddCallback("restoredCollectionMenu", ImGuiCallback.Render, function()
+			ImGui.UpdateData(
+				"restoredCollectionSettingsIllusionPlaceBombs",
+				ImGuiData.Value,
+				IllusionMod.CanPlaceBomb
+			)
+			ImGui.UpdateData(
+				"restoredCollectionSettingsIllusionPerfect",
+				ImGuiData.Value,
+				IllusionMod.PerfectIllusion
+			)
+			ImGui.UpdateData(
+				"restoredCollectionSettingsIllusionInstaDeath",
+				ImGuiData.Value,
+				IllusionMod.InstaDeath
+			)
+			ImGui.UpdateData(
+				"restoredCollectionSettingsMaxsHeads",
+				ImGuiData.Value,
+				RestoredCollection:GetDefaultFileSave("MaxsHead") > 1
+			)
+		end)
+
+		for _, collectible in pairs(orderedItems) do
+			local tooltipStr = "Enable " .. RemoveZeroWidthSpace(collectible.Name) .. "\nin item pools"
+
+			local elemName = "restoredCollection" .. string.gsub(collectible.Name, " ", "") .. "Blacklist"
+			if ImGui.ElementExists(elemName) then
+				ImGui.RemoveElement(elemName)
+			end
+
+			ImGui.AddCheckbox(
+				"restoredCollectionItemsBlacklistWindow",
+				elemName,
+				RemoveZeroWidthSpace(collectible.Name),
+				function(val)
+					local disabledItems = RestoredCollection:GetDefaultFileSave("DisabledItems")
+					for indexItem, disabledItem in ipairs(disabledItems) do
+						if disabledItem == GetItemsEnum(collectible.ID) then
+							if val then
+								table.remove(disabledItems, indexItem)
+							end
+							break
+						end
+					end
+
+					if not val then
+						table.insert(disabledItems, GetItemsEnum(collectible.ID))
+					end
+				end,
+				true
+			)
+
+			ImGui.SetTooltip(elemName, tooltipStr)
+			ImGui.AddCallback(elemName, ImGuiCallback.Render, function()
+				local val = true
+				for indexItem, disabledItem in
+					ipairs(RestoredCollection:GetDefaultFileSave("DisabledItems"))
+				do
+					if disabledItem == GetItemsEnum(collectible.ID) then
+						val = false
+						break
+					end
+				end
+				ImGui.UpdateData(elemName, ImGuiData.Value, val)
+			end)
+		end
+	else
+
+		ImGui.RemoveCallback("restoredCollectionMenu", ImGuiCallback.Render)
+
+		for _, collectible in pairs(orderedItems) do
+			local elemName = "restoredCollection" .. string.gsub(collectible.Name, " ", "") .. "Blacklist"
+			if ImGui.ElementExists(elemName) then
+				ImGui.RemoveCallback(elemName, ImGuiCallback.Render)
+				ImGui.RemoveElement(elemName)
+			end
+		end
+
+		if ImGui.ElementExists("restoredCollectionSettingsIllusionPlaceBombs") then
+			ImGui.RemoveElement("restoredCollectionSettingsIllusionPlaceBombs")
+		end
+
+		if ImGui.ElementExists("restoredCollectionSettingsIllusionPerfect") then
+			ImGui.RemoveElement("restoredCollectionSettingsIllusionPerfect")
+		end
+
+		if ImGui.ElementExists("restoredCollectionSettingsIllusionInstaDeath") then
+			ImGui.RemoveElement("restoredCollectionSettingsIllusionInstaDeath")
+		end
+
+		if ImGui.ElementExists("restoredCollectionSettingsMaxsHeads") then
+			ImGui.RemoveElement("restoredCollectionSettingsMaxsHeads")
+		end
+
+		if not ImGui.ElementExists("restotredCollectionSettingsNoWay") then
+			ImGui.AddText("restoredCollectionSettingsWindow", "Options will be available after loading the game.", true, "restotredCollectionSettingsNoWay")
+		end
+
+		if not ImGui.ElementExists("restotredCollectionBlacklistNoWay") then
+			ImGui.AddText("restoredCollectionItemsBlacklistWindow", "Options will be available after loading the game.", true, "restotredCollectionBlacklistNoWay")
+		end
+	end
+end
+
+local function InitImGuiMenu()
 	if not ImGui.ElementExists("RestoredMods") then
 		ImGui.CreateMenu("RestoredMods", "Restored Mods")
 	end
 
 	if not ImGui.ElementExists("restoredCollectionMenu") then
 		ImGui.AddElement("RestoredMods", "restoredCollectionMenu", ImGuiElement.Menu, "Restored Collection")
-	end
-
-	if not ImGui.ElementExists("restoredCollectionSettingsWindow") then
-		ImGui.CreateWindow("restoredCollectionSettingsWindow", "Restored Collection settings")
 	end
 
 	if not ImGui.ElementExists("restoredCollectionSettings") then
@@ -263,192 +433,31 @@ local function InitImGuiMenu()
 		)
 	end
 
-	ImGui.LinkWindowToElement("restoredCollectionSettingsWindow", "restoredCollectionSettings")
+	if not ImGui.ElementExists("restoredCollectionSettingsWindow") then
+		ImGui.CreateWindow("restoredCollectionSettingsWindow", "Restored Collection settings")
 
-	ImGui.SetWindowSize("restoredCollectionSettingsWindow", 600, 420)
+		ImGui.LinkWindowToElement("restoredCollectionSettingsWindow", "restoredCollectionSettings")
 
-	if ImGui.ElementExists("restoredCollectionSettingsHeartsStyle") then
-		ImGui.RemoveElement("restoredCollectionSettingsHeartsStyle")
+		ImGui.SetWindowSize("restoredCollectionSettingsWindow", 600, 420)
 	end
 
-	if ImGui.ElementExists("restoredCollectionSettingsIllusionPlaceBombs") then
-		ImGui.RemoveElement("restoredCollectionSettingsIllusionPlaceBombs")
-	end
-
-	ImGui.AddCheckbox(
-		"restoredCollectionSettingsWindow",
-		"restoredCollectionSettingsIllusionPlaceBombs",
-		"Can illusions place bombs?",
-		function(val)
-			local newOption = val and 2 or 1
-			TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "IllusionClonesPlaceBombs", newOption)
-			TSIL.SaveManager.SaveToDisk()
-		end,
-		false
-	)
-
-	if ImGui.ElementExists("restoredCollectionSettingsIllusionPerfect") then
-		ImGui.RemoveElement("restoredCollectionSettingsIllusionPerfect")
-	end
-
-	ImGui.AddCheckbox(
-		"restoredCollectionSettingsWindow",
-		"restoredCollectionSettingsIllusionPerfect",
-		"Create perfect Illusion for modded characters?",
-		function(val)
-			local newOption = val and 2 or 1
-			TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "PerfectIllusion", newOption)
-			TSIL.SaveManager.SaveToDisk()
-		end,
-		false
-	)
-
-	if ImGui.ElementExists("restoredCollectionSettingsIllusionInstaDeath") then
-		ImGui.RemoveElement("restoredCollectionSettingsIllusionInstaDeath")
-	end
-
-	ImGui.AddCheckbox(
-		"restoredCollectionSettingsWindow",
-		"restoredCollectionSettingsIllusionInstaDeath",
-		"Illusion insta death",
-		function(val)
-			local newOption = val and 2 or 1
-			TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "IllusionInstaDeath", newOption)
-			TSIL.SaveManager.SaveToDisk()
-		end,
-		false
-	)
-	ImGui.SetTooltip(
-		"restoredCollectionSettingsIllusionInstaDeath",
-		"Illusions skip death animation and removed immediately"
-	)
-
-	if ImGui.ElementExists("restoredCollectionSettingsMaxsHeads") then
-		ImGui.RemoveElement("restoredCollectionSettingsMaxsHeads")
-	end
-
-	ImGui.AddCheckbox(
-		"restoredCollectionSettingsWindow",
-		"restoredCollectionSettingsMaxsHeads",
-		"Max's Head Emoji",
-		function(val)
-			local newOption = val and 2 or 1
-			TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "MaxsHead", newOption)
-			TSIL.SaveManager.SaveToDisk()
-		end,
-		false
-	)
-	ImGui.SetTooltip("restoredCollectionSettingsMaxsHeads", "Allow Max's head emojis appear when shooting tears.")
-
-	ImGui.AddCallback("restoredCollectionMenu", ImGuiCallback.Render, function()
-		ImGui.UpdateData(
-			"restoredCollectionSettingsIllusionPlaceBombs",
-			ImGuiData.Value,
-			TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "IllusionClonesPlaceBombs") > 1
+	if not ImGui.ElementExists("restoredCollectionItemsBlacklistSettings") then
+		ImGui.AddElement(
+			"restoredCollectionMenu",
+			"restoredCollectionItemsBlacklistSettings",
+			ImGuiElement.MenuItem,
+			"\u{f05e} Items blacklist"
 		)
-		ImGui.UpdateData(
-			"restoredCollectionSettingsIllusionPerfect",
-			ImGuiData.Value,
-			TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "PerfectIllusion") > 1
-		)
-		ImGui.UpdateData(
-			"restoredCollectionSettingsIllusionInstaDeath",
-			ImGuiData.Value,
-			TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "IllusionInstaDeath") > 1
-		)
-		ImGui.UpdateData(
-			"restoredCollectionSettingsMaxsHeads",
-			ImGuiData.Value,
-			TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "MaxsHead") > 1
-		)
-	end)
-
-	if ImGui.ElementExists("restoredCollectionItemsBlacklistSettings") then
-		ImGui.RemoveElement("restoredCollectionItemsBlacklistSettings")
 	end
 
 	if not ImGui.ElementExists("restoredCollectionItemsBlacklistWindow") then
 		ImGui.CreateWindow("restoredCollectionItemsBlacklistWindow", "Restored Collection items blacklist")
+		ImGui.LinkWindowToElement("restoredCollectionItemsBlacklistWindow", "restoredCollectionItemsBlacklistSettings")
+
+		ImGui.SetWindowSize("restoredCollectionItemsBlacklistWindow", 350, 600)
 	end
 
-	ImGui.AddElement(
-		"restoredCollectionMenu",
-		"restoredCollectionItemsBlacklistSettings",
-		ImGuiElement.MenuItem,
-		"\u{f05e} Items blacklist"
-	)
 
-	ImGui.LinkWindowToElement("restoredCollectionItemsBlacklistWindow", "restoredCollectionItemsBlacklistSettings")
-
-	ImGui.SetWindowSize("restoredCollectionItemsBlacklistWindow", 350, 600)
-
-	local orderedItems = {}
-
-	local itemConfig = Isaac.GetItemConfig()
-	---@type ItemConfigItem[]
-	for _, collectible in pairs(RestoredCollection.Enums.CollectibleType) do
-		if collectible ~= RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MELTED_CANDLE then
-			local collectibleConf = itemConfig:GetCollectible(collectible)
-			orderedItems[#orderedItems + 1] = collectibleConf
-		end
-	end
-	table.sort(orderedItems, function(a, b)
-		return RemoveZeroWidthSpace(a.Name) < RemoveZeroWidthSpace(b.Name)
-	end)
-
-	for _, collectible in pairs(orderedItems) do
-		local tooltipStr = "Enable " .. RemoveZeroWidthSpace(collectible.Name) .. "\nin item pools"
-
-		local elemName = "restoredCollection" .. string.gsub(collectible.Name, " ", "") .. "Blacklist"
-		if ImGui.ElementExists(elemName) then
-			ImGui.RemoveElement(elemName)
-		end
-
-		if ImGui.ElementExists("toolTip" .. elemName) then
-			ImGui.RemoveElement("toolTip" .. elemName)
-		end
-
-		ImGui.AddCheckbox(
-			"restoredCollectionItemsBlacklistWindow",
-			elemName,
-			RemoveZeroWidthSpace(collectible.Name),
-			function(val)
-				if not TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "DisabledItems") then
-					TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "DisabledItems", {})
-				end
-				local disabledItems = TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "DisabledItems")
-				for indexItem, disabledItem in ipairs(disabledItems) do
-					if disabledItem == GetItemsEnum(collectible.ID) then
-						if val then
-							table.remove(disabledItems, indexItem)
-						end
-						break
-					end
-				end
-
-				if not val then
-					table.insert(disabledItems, GetItemsEnum(collectible.ID))
-				end
-				TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "DisabledItems", disabledItems)
-				TSIL.SaveManager.SaveToDisk()
-			end,
-			true
-		)
-
-		ImGui.SetTooltip(elemName, tooltipStr)
-		ImGui.AddCallback(elemName, ImGuiCallback.Render, function()
-			local val = true
-			for indexItem, disabledItem in
-				ipairs(TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "DisabledItems"))
-			do
-				if disabledItem == GetItemsEnum(collectible.ID) then
-					val = false
-					break
-				end
-			end
-			ImGui.UpdateData(elemName, ImGuiData.Value, val)
-		end)
-	end
 end
 
 -- Creating a menu like any other DSS menu is a simple process.
@@ -502,11 +511,11 @@ local restoreditemsdirectory = {
 				variable = "IllusionClonesPlaceBombs",
 
 				load = function()
-					return TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "IllusionClonesPlaceBombs") or 1
+					return IllusionMod.CanPlaceBomb and 2 or 1
 				end,
 
 				store = function(newOption)
-					TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "IllusionClonesPlaceBombs", newOption)
+					IllusionMod.CanPlaceBomb = newOption == 2
 				end,
 
 				tooltip = { strset = { "can illusions", "place bombs?" } },
@@ -520,11 +529,11 @@ local restoreditemsdirectory = {
 				variable = "PerfectIllusion",
 
 				load = function()
-					return TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "PerfectIllusion") or 1
+					return IllusionMod.PerfectIllusion and 2 or 1
 				end,
 
 				store = function(newOption)
-					TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "PerfectIllusion", newOption)
+					IllusionMod.PerfectIllusion = newOption == 2
 				end,
 
 				tooltip = { strset = { "create perfect", "illusions for", "modded", "characters?" } },
@@ -538,11 +547,11 @@ local restoreditemsdirectory = {
 				variable = "IllusionInstaDeath",
 
 				load = function()
-					return TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "IllusionInstaDeath") or 1
+					return IllusionMod.InstaDeath and 2 or 1
 				end,
 
 				store = function(newOption)
-					TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "IllusionInstaDeath", newOption)
+					IllusionMod.InstaDeath = newOption == 2
 				end,
 
 				tooltip = { strset = { "illusions skip", "death animation", "and removed", "immediately" } },
@@ -568,11 +577,11 @@ local restoreditemsdirectory = {
 				variable = "MaxsHeadsEmojis",
 
 				load = function()
-					return TSIL.SaveManager.GetPersistentVariable(RestoredCollection, "MaxsHead") or 1
+					return RestoredCollection:GetDefaultFileSave("MaxsHead") or 1
 				end,
 
 				store = function(newOption)
-					TSIL.SaveManager.SetPersistentVariable(RestoredCollection, "MaxsHead", newOption)
+					RestoredCollection:AddDefaultFileSave("MaxsHead", newOption)
 				end,
 
 				tooltip = { strset = { "allow max's", "head emojis to", "appear when", "shooting tears" } },
@@ -705,6 +714,12 @@ DeadSeaScrollsMenu.AddMenu(modMenuName, {
 
 if REPENTOGON then
 	InitImGuiMenu()
+	UpdateImGuiMenu(false)
+	local function LoadSaveFile()
+		UpdateImGuiMenu(Isaac.IsInGame())
+	end
+	RestoredCollection:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.LATE, LoadSaveFile)
+	RestoredCollection:AddPriorityCallback(ModCallbacks.MC_PRE_GAME_EXIT, CallbackPriority.LATE, LoadSaveFile)
 end
 
 include("lua.core.dss.changelog")
