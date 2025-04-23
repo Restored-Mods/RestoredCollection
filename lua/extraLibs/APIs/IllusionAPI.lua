@@ -418,11 +418,15 @@ local function load(prevData)
 	end
 
 	function IllusionMod.LoadSaveData(data)
-		EntityData = data
+		EntityData = type(data) == "table" and data or {}
 	end
 
 	local function AddCallback(callback, func, ...)
 		table.insert(IllusionCallbacks, {Callback = callback, Function = func, Param = {...}})
+	end
+
+	local function AddPriorityCallback(callback, priority, func, ...)
+		table.insert(IllusionCallbacks, {Callback = callback, Function = func, Priority = priority, Param = {...}})
 	end
 
 	function IllusionMod.UnloadCallbacks()
@@ -433,7 +437,11 @@ local function load(prevData)
 
 	function IllusionMod.LoadCallbacks()
 		for _, callback in pairs(IllusionCallbacks) do
-			IllusionMod:AddCallback(callback.Callback, callback.Function, table.unpack(callback.Param))
+			if callback.Priority ~= nil then
+				IllusionMod:AddPriorityCallback(callback.Callback, callback.Priority, callback.Function, table.unpack(callback.Param))
+			else
+				IllusionMod:AddCallback(callback.Callback, callback.Function, table.unpack(callback.Param))
+			end
 		end
 	end
 
@@ -593,6 +601,18 @@ local function load(prevData)
 		end
 	end
 	AddCallback(ModCallbacks.MC_PRE_PLAYER_COLLISION, preIllusionWhiteFlame)
+
+	local function prePickupCollision(_, pickup, collider)
+		if collider and collider:ToPlayer() then
+			local player = collider:ToPlayer()
+			local d = IllusionMod.GetData(player)
+			if not d then return end
+			if d.IsIllusion then--or p.Parent then
+				return true
+			end
+		end
+	end
+	AddPriorityCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, CallbackPriority.EARLY, prePickupCollision)
 	
 	local function onEntityTakeDamage(_, tookDamage)
 		local data = IllusionMod.GetData(tookDamage)

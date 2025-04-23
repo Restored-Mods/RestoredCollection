@@ -28,68 +28,78 @@ end
 -- Every MenuProvider function below must have its own implementation in your mod, in order to handle menu save data.
 local MenuProvider = {}
 
-local function GetDSSOptions()
-	return RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
-end
-
 function MenuProvider.SaveSaveData()
 	RestoredCollection.SaveManager.Save()
 end
 
 function MenuProvider.GetPaletteSetting()
-	return GetDSSOptions().MenuPalette or {}
+    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+    return dssSave and dssSave.MenuPalette or nil
 end
 
 function MenuProvider.SavePaletteSetting(var)
-	GetDSSOptions().MenuPalette = var
+    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+    dssSave.MenuPalette = var
 end
 
 function MenuProvider.GetGamepadToggleSetting()
-	return GetDSSOptions().GamepadToggle
+    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+    return dssSave and dssSave.GamepadToggle or nil
 end
 
 function MenuProvider.SaveGamepadToggleSetting(var)
-	GetDSSOptions().GamepadToggle = var
+    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+    dssSave.GamepadToggle = var
 end
 
 function MenuProvider.GetMenuKeybindSetting()
-	return GetDSSOptions().MenuKeybind
+    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+    return dssSave and dssSave.MenuKeybind or nil
 end
 
 function MenuProvider.SaveMenuKeybindSetting(var)
-	GetDSSOptions().MenuKeybind = var
+    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+    dssSave.MenuKeybind = var
 end
 
 function MenuProvider.GetMenuHintSetting()
-	return GetDSSOptions().MenuHint
+    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+    return dssSave and dssSave.MenuHint or nil
 end
 
 function MenuProvider.SaveMenuHintSetting(var)
-	GetDSSOptions().MenuHint = var
+    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+    dssSave.MenuHint = var
 end
 
 function MenuProvider.GetMenuBuzzerSetting()
-	return GetDSSOptions().MenuBuzzer
+    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+    return dssSave and dssSave.MenuBuzzer or nil
 end
 
 function MenuProvider.SaveMenuBuzzerSetting(var)
-	GetDSSOptions().MenuBuzzer = var
+    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+    dssSave.MenuBuzzer = var
 end
 
 function MenuProvider.GetMenusNotified()
-	return GetDSSOptions().MenusNotified
+    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+    return dssSave and dssSave.MenusNotified or nil
 end
 
 function MenuProvider.SaveMenusNotified(var)
-	GetDSSOptions().MenusNotified = var
+    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+    dssSave.MenusNotified = var
 end
 
 function MenuProvider.GetMenusPoppedUp()
-	return GetDSSOptions().MenusPoppedUp
+    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+    return dssSave and dssSave.MenusPoppedUp or nil
 end
 
 function MenuProvider.SaveMenusPoppedUp(var)
-	GetDSSOptions().MenusPoppedUp = var
+    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+   dssSave.MenusPoppedUp = var
 end
 
 local DSSInitializerFunction = include("lua.core.dss.dssmenucore")
