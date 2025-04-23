@@ -521,7 +521,7 @@ local function load(prevData)
 			p:GetEffects():RemoveCollectibleEffect(CollectibleType.COLLECTIBLE_HOLY_MANTLE)
 		end
 	end
-	AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, UpdateClones)
+	AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, UpdateClones)
 	
 	local function CloneRoomUpdate()
 		for i = 0, game:GetNumPlayers()-1 do
