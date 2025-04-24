@@ -320,7 +320,7 @@ local function UpdateImGuiMenu(IsDataInitialized)
 		)
 		ImGui.SetTooltip("restoredCollectionSettingsMaxsHeads", "Allow Max's head emojis appear when shooting tears.")
 
-		ImGui.AddCallback("restoredCollectionMenu", ImGuiCallback.Render, function()
+		ImGui.AddCallback("restoredCollectionSettingsWindow", ImGuiCallback.Render, function()
 			ImGui.UpdateData(
 				"restoredCollectionSettingsIllusionPlaceBombs",
 				ImGuiData.Value,
@@ -725,11 +725,20 @@ DeadSeaScrollsMenu.AddMenu(modMenuName, {
 if REPENTOGON then
 	InitImGuiMenu()
 	UpdateImGuiMenu(false)
-	local function LoadSaveFile()
-		UpdateImGuiMenu(Isaac.IsInGame())
+
+	local InGame = false
+
+	local function UpdateImGuiOnRender()
+		if not Isaac.IsInGame() and InGame then
+			UpdateImGuiMenu(false)
+			InGame = false
+		elseif Isaac.IsInGame() and not InGame then
+			UpdateImGuiMenu(true)
+			InGame = true
+		end
 	end
-	RestoredCollection:AddPriorityCallback(ModCallbacks.MC_POST_GAME_STARTED, CallbackPriority.LATE, LoadSaveFile)
-	RestoredCollection:AddPriorityCallback(ModCallbacks.MC_PRE_GAME_EXIT, CallbackPriority.LATE, LoadSaveFile)
+	RestoredCollection:AddPriorityCallback(ModCallbacks.MC_POST_RENDER, CallbackPriority.LATE, UpdateImGuiOnRender)
+	RestoredCollection:AddPriorityCallback(ModCallbacks.MC_MAIN_MENU_RENDER, CallbackPriority.LATE, UpdateImGuiOnRender)
 end
 
 include("lua.core.dss.changelog")

@@ -15,11 +15,11 @@ function RestoredCollection:RoomSave(ent, noHourglass, gridIndex, allowSoulSave)
 end
 
 function RestoredCollection:AddDefaultFileSave(key, value)
-    RestoredCollection.SaveManager.DEFAULT_SAVE.file.other[key] = value
+    RestoredCollection:GameSave()[key] = value
 end
 
 function RestoredCollection:GetDefaultFileSave(key)
     if RestoredCollection.SaveManager.Utility.IsDataInitialized() then
-        return RestoredCollection.SaveManager.DEFAULT_SAVE.file.other[key]
+        return RestoredCollection:GameSave()[key]
     end
 end
