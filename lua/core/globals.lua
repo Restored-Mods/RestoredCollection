@@ -27,7 +27,7 @@ end
 RestoredCollection.RNG = RNG()
 
 RestoredCollection:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
-	RestoredCollection.RNG:SetSeed(RestoredCollection.Game:GetSeeds():GetStartSeed())
+	RestoredCollection.RNG:SetSeed(RestoredCollection.Game:GetSeeds():GetStartSeed(), 35)
 end)
 
 RestoredCollection:AddCallback(RestoredCollection.SaveManager.SaveCallbacks.PRE_DATA_SAVE, function(_, data)
