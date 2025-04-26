@@ -312,7 +312,6 @@ local function load(prevData)
 	---@param addWisp boolean
 	---@return EntityPlayer?
 	function IllusionMod:addIllusion(player, isIllusion, addWisp)
-		if addWisp == nil then addWisp = false end
 
 		local playerType = player:GetPlayerType()
 
@@ -376,8 +375,8 @@ local function load(prevData)
 			SpawnIllusionPoof(illusionPlayer)
 		end
 
-		if addWisp then
-			local wisp = player:AddWisp(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS, player.Position)
+		if type(addWisp) == "number" then
+			local wisp = player:AddWisp(addWisp, player.Position)
 			local wispData = IllusionMod.GetData(wisp)
 
 			wispData.isIllusion = true
@@ -628,8 +627,9 @@ local function load(prevData)
 	AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, onEntityTakeDamage, EntityType.ENTITY_PLAYER)
 	
 	local function AfterDeath(_, e)
-		if e and e:ToPlayer() then
-			if e:ToPlayer():GetPlayerType() ~= PlayerType.PLAYER_THESOUL_B then
+		if e then
+			if e:ToPlayer() and e:ToPlayer():GetPlayerType() ~= PlayerType.PLAYER_THESOUL_B
+			or e:ToFamiliar() then
 				local data = IllusionMod.GetData(e)
 				if data and data.isIllusion then
 					IllusionMod.RemoveData(e)

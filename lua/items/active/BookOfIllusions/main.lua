@@ -3,7 +3,7 @@ local game = Game()
 local Helpers = RestoredCollection.Helpers
 local sfx = SFXManager()
 
-function IllusionModLocal:onUseBookOfIllusions(_, _, player, flags)
+function IllusionModLocal:onUseBookOfIllusions(collectible, _, player, flags)
 	if REPENTOGON then
 		ItemOverlay.Show(RestoredCollection.Enums.GiantBook.BOOK_OF_ILLUSIONS, 0 , player)
 	elseif GiantBookAPI then
@@ -12,7 +12,7 @@ function IllusionModLocal:onUseBookOfIllusions(_, _, player, flags)
 	
 	sfx:Play(SoundEffect.SOUND_BOOK_PAGE_TURN_12, 1, 0, false, 1)
 
-	IllusionMod:addIllusion(player, true, player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES), RestoredCollection:GetDefaultFileSave("PerfectIllusion") == 2)
+	IllusionMod:addIllusion(player, true, player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES) and collectible or nil)
 
 	-- returning any values interrupts any callbacks that come after it
 	if flags & UseFlag.USE_NOANIM == 0 then
@@ -23,7 +23,7 @@ RestoredCollection:AddCallback(ModCallbacks.MC_USE_ITEM, IllusionModLocal.onUseB
 
 ---@param familiar EntityFamiliar
 function IllusionModLocal:OnIllusionWispUpdate(familiar)
-	local data = Helpers.GetEntityData(familiar)
+	local data = IllusionMod.GetData(familiar)
 	if not data then return end
 	if not data.isIllusion and familiar.SubType == RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS then
 		familiar:Remove()
@@ -42,10 +42,11 @@ RestoredCollection:AddCallback(
 
 ---@param entity Entity
 function IllusionModLocal:OnIllusionWispRemove(entity)
-	local familiar = entity:ToFamiliar()
+	local familiar = entity:ToFamiliar() 
+	---@cast familiar EntityFamiliar
 	if familiar.Variant ~= FamiliarVariant.WISP then return end
 
-	local data = Helpers.GetEntityData(familiar)
+	local data = IllusionMod.GetData(familiar)
 	if not data then return end
 	if not data.isIllusion then return end
 
@@ -54,7 +55,7 @@ function IllusionModLocal:OnIllusionWispRemove(entity)
 		local playerIndex = player:GetCollectibleRNG(1):GetSeed()
 
 		if data.illusionId == playerIndex then
-			local illusionData = Helpers.GetEntityData(player)
+			local illusionData = IllusionMod.GetData(player)
 			if illusionData and illusionData.IsIllusion then
 				illusionData.hasWisp = false
 			end
@@ -79,7 +80,7 @@ function IllusionModLocal:OnTearInit(tear)
 
 	if familiar.Variant ~= FamiliarVariant.WISP then return end
 
-	local data = Helpers.GetEntityData(familiar)
+	local data = IllusionMod.GetData(familiar)
 	if not data then return end
 	if not data.isIllusion then return end
 
