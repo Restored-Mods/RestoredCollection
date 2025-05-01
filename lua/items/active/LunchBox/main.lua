@@ -14,75 +14,76 @@ local function isNoRedHealthCharacter(player)
     Helpers.IsGhost(player) or t == PlayerType.PLAYER_THESOUL
 end
 
-LunchBox.AddPickup(PickupVariant.PICKUP_HEART, HeartSubType.HEART_HALF, 1, function (player, pickup)
-    pickup:PlayPickupSound()
+RestoredCollection:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
+    LunchBox.AddPickup(PickupVariant.PICKUP_HEART, HeartSubType.HEART_HALF, 1, function (player, pickup)
+        pickup:PlayPickupSound()
+    end)
+    LunchBox.AddPickup(PickupVariant.PICKUP_HEART, HeartSubType.HEART_FULL, 2, function (player, pickup)
+        pickup:PlayPickupSound()
+    end)
+    LunchBox.AddPickup(PickupVariant.PICKUP_HEART, HeartSubType.HEART_SCARED, 2, function (player, pickup)
+        pickup:PlayPickupSound()
+    end)
+    LunchBox.AddPickup(PickupVariant.PICKUP_HEART, HeartSubType.HEART_DOUBLEPACK, 4, function (player, pickup)
+        pickup:PlayPickupSound()
+    end)
+    LunchBox.AddPickup(PickupVariant.PICKUP_HEART, HeartSubType.HEART_BLENDED, 1, function (player, pickup)
+        player:AddSoulHearts(1)
+        pickup:PlayPickupSound()
+    end)
+    if RepentancePlusMod then
+        LunchBox.AddPickup(PickupVariant.PICKUP_HEART, RepentancePlusMod.CustomPickups.TaintedHearts.HEART_HOARDED, 8, function (player)
+            sfx:Play(SoundEffect.SOUND_BOSS2_BUBBLES, 1, 0)
+        end)
+        LunchBox.AddPickup(PickupVariant.PICKUP_HEART, RepentancePlusMod.CustomPickups.TaintedHearts.HEART_CURDLED, 2, function (player)
+            sfx:Play(SoundEffect.SOUND_MEAT_JUMPS)
+            sfx:Play(SoundEffect.SOUND_BOSS2_BUBBLES)
+            local s = isNoRedHealthCharacter(player) and 1 or 0
+            if player:GetPlayerType() == PlayerType.PLAYER_THELOST
+            or player:GetPlayerType() == PlayerType.PLAYER_THELOST_B
+            or player:GetPlayerType() == PlayerType.PLAYER_BETHANY then
+                s = 3
+            elseif player:GetPlayerType() == PlayerType.PLAYER_KEEPER
+            or player:GetPlayerType() == PlayerType.PLAYER_KEEPER_B then
+                s = 4
+            elseif player:GetPlayerType() == PlayerType.PLAYER_THEFORGOTTEN then
+                s = 5
+            end
+            local trueCollider = player:GetPlayerType() == PlayerType.PLAYER_THESOUL_B and player:GetOtherTwin() or player
+            CustomHealthAPI.PersistentData.IgnoreSumptoriumHandling = true
+            Isaac.Spawn(3, FamiliarVariant.BLOOD_BABY, s, trueCollider.Position, Vector.Zero, trueCollider)
+            CustomHealthAPI.PersistentData.IgnoreSumptoriumHandling = false
+        end)
+        LunchBox.AddPickup(PickupVariant.PICKUP_HEART, RepentancePlusMod.CustomPickups.TaintedHearts.HEART_SAVAGE, 2, function (player)
+            RepentancePlusMod.addTemporaryDmgBoost(player)
+            sfx:Play(SoundEffect.SOUND_BOSS2_BUBBLES)
+        end)
+        LunchBox.AddPickup(PickupVariant.PICKUP_HEART, RepentancePlusMod.CustomPickups.TaintedHearts.HEART_HARLOT, 1, function (player)
+            sfx:Play(SoundEffect.SOUND_BOSS2_BUBBLES)
+            player:GetEffects():AddCollectibleEffect(RepentancePlusMod.CustomCollectibles.HARLOT_FETUS_NULL, false, 1)
+            player:AddCacheFlags(CacheFlag.CACHE_FAMILIARS)
+        end)
+        LunchBox.AddPickup(PickupVariant.PICKUP_HEART, RepentancePlusMod.CustomPickups.TaintedHearts.HEART_DESERTED, 1, function (player)
+            sfx:Play(SoundEffect.SOUND_BOSS2_BUBBLES, 1, 0)
+            player:AddBlackHearts(1)
+            sfx:Play(SoundEffect.SOUND_UNHOLY, 1, 0)
+        end)
+    end
+    if FiendFolio then
+        LunchBox.AddPickup(FiendFolio.PICKUP.VARIANT.BLENDED_BLACK_HEART, 0, 1, function (player)
+            sfx:Play(SoundEffect.SOUND_BOSS2_BUBBLES, 1, 0)
+            player:AddBlackHearts(1)
+            sfx:Play(SoundEffect.SOUND_UNHOLY, 1, 0)
+        end)
+        LunchBox.AddPickup(FiendFolio.PICKUP.VARIANT.BLENDED_IMMORAL_HEART, 0, 1, function (player)
+            sfx:Play(SoundEffect.SOUND_BOSS2_BUBBLES, 1, 0)
+            if CustomHealthAPI.Helper.CanPickKey(player, "IMMORAL_HEART") then
+                CustomHealthAPI.Library.AddHealth(player, "IMMORAL_HEART", 1, true)
+                sfx:Play(FiendFolio.Sounds.FiendHeartPickup, 1, 0, false, 1)
+            end
+        end)
+    end
 end)
-LunchBox.AddPickup(PickupVariant.PICKUP_HEART, HeartSubType.HEART_FULL, 2, function (player, pickup)
-    pickup:PlayPickupSound()
-end)
-LunchBox.AddPickup(PickupVariant.PICKUP_HEART, HeartSubType.HEART_SCARED, 2, function (player, pickup)
-    pickup:PlayPickupSound()
-end)
-LunchBox.AddPickup(PickupVariant.PICKUP_HEART, HeartSubType.HEART_DOUBLEPACK, 4, function (player, pickup)
-    pickup:PlayPickupSound()
-end)
-LunchBox.AddPickup(PickupVariant.PICKUP_HEART, HeartSubType.HEART_BLENDED, 1, function (player, pickup)
-    player:AddSoulHearts(1)
-    pickup:PlayPickupSound()
-end)
-if RepentancePlusMod then
-    LunchBox.AddPickup(PickupVariant.PICKUP_HEART, RepentancePlusMod.CustomPickups.TaintedHearts.HEART_HOARDED, 8, function (player)
-        sfx:Play(SoundEffect.SOUND_BOSS2_BUBBLES, 1, 0)
-    end)
-    LunchBox.AddPickup(PickupVariant.PICKUP_HEART, RepentancePlusMod.CustomPickups.TaintedHearts.HEART_CURDLED, 2, function (player)
-        sfx:Play(SoundEffect.SOUND_MEAT_JUMPS)
-        sfx:Play(SoundEffect.SOUND_BOSS2_BUBBLES)
-        local s = isNoRedHealthCharacter(player) and 1 or 0
-        if player:GetPlayerType() == PlayerType.PLAYER_THELOST
-        or player:GetPlayerType() == PlayerType.PLAYER_THELOST_B
-        or player:GetPlayerType() == PlayerType.PLAYER_BETHANY then
-            s = 3
-        elseif player:GetPlayerType() == PlayerType.PLAYER_KEEPER
-        or player:GetPlayerType() == PlayerType.PLAYER_KEEPER_B then
-            s = 4
-        elseif player:GetPlayerType() == PlayerType.PLAYER_THEFORGOTTEN then
-            s = 5
-        end
-        local trueCollider = player:GetPlayerType() == PlayerType.PLAYER_THESOUL_B and player:GetOtherTwin() or player
-        CustomHealthAPI.PersistentData.IgnoreSumptoriumHandling = true
-        Isaac.Spawn(3, FamiliarVariant.BLOOD_BABY, s, trueCollider.Position, Vector.Zero, trueCollider)
-        CustomHealthAPI.PersistentData.IgnoreSumptoriumHandling = false
-    end)
-    LunchBox.AddPickup(PickupVariant.PICKUP_HEART, RepentancePlusMod.CustomPickups.TaintedHearts.HEART_SAVAGE, 2, function (player)
-        RepentancePlusMod.addTemporaryDmgBoost(player)
-        sfx:Play(SoundEffect.SOUND_BOSS2_BUBBLES)
-    end)
-    LunchBox.AddPickup(PickupVariant.PICKUP_HEART, RepentancePlusMod.CustomPickups.TaintedHearts.HEART_HARLOT, 1, function (player)
-        sfx:Play(SoundEffect.SOUND_BOSS2_BUBBLES)
-        player:GetEffects():AddCollectibleEffect(RepentancePlusMod.CustomCollectibles.HARLOT_FETUS_NULL, false, 1)
-        player:AddCacheFlags(CacheFlag.CACHE_FAMILIARS)
-    end)
-    LunchBox.AddPickup(PickupVariant.PICKUP_HEART, RepentancePlusMod.CustomPickups.TaintedHearts.HEART_DESERTED, 1, function (player)
-        sfx:Play(SoundEffect.SOUND_BOSS2_BUBBLES, 1, 0)
-        player:AddBlackHearts(1)
-        sfx:Play(SoundEffect.SOUND_UNHOLY, 1, 0)
-    end)
-end
-if FiendFolio then
-    LunchBox.AddPickup(FiendFolio.PICKUP.VARIANT.BLENDED_BLACK_HEART, 0, 1, function (player)
-        sfx:Play(SoundEffect.SOUND_BOSS2_BUBBLES, 1, 0)
-        player:AddBlackHearts(1)
-        sfx:Play(SoundEffect.SOUND_UNHOLY, 1, 0)
-    end)
-    LunchBox.AddPickup(FiendFolio.PICKUP.VARIANT.BLENDED_IMMORAL_HEART, 0, 1, function (player)
-        sfx:Play(SoundEffect.SOUND_BOSS2_BUBBLES, 1, 0)
-        if CustomHealthAPI.Helper.CanPickKey(player, "IMMORAL_HEART") then
-            CustomHealthAPI.Library.AddHealth(player, "IMMORAL_HEART", 1, true)
-            sfx:Play(FiendFolio.Sounds.FiendHeartPickup, 1, 0, false, 1)
-        end
-    end)
-end
-
 
 ---@param player EntityPlayer
 ---@return boolean
