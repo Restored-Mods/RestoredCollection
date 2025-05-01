@@ -18,4 +18,8 @@
     <achievement name="​Stone Bombs" text="" gfx="achievement_stonebombs.png" />
     <achievement name="​Tammy's Tail" text="" gfx="achievement_tammystail.png" />
     <achievement name="​Voodoo Pin" text="" gfx="achievement_voodoopin.png" />
+    <achievement name="Ol' Lopper" text="" gfx="achievement_ollopper.png" />
+    <achievement name="​Pumpkin Mask" text="" gfx="achievement_pumpkingmask.png" />
+    <achievement name="Melted Candle" text="" gfx="achievement_meltedcandle.png" />
+    <achievement name="​Game Squid" text="" gfx="achievement_gamesquid.png" />
 </achievements>

@@ -160,7 +160,7 @@ if REPENTOGON then
         BOOK_OF_ILLUSIONS = Isaac.GetGiantBookIdByName("​Book of Illusions"),
 	}
 	Enums.Achievements = {
-		DONKEY_JAWBONE = Isaac.GetAchievementIdByName("Donkey Jawbone"),
+		DONKEY_JAWBONE = Isaac.GetAchievementIdByName("​Donkey Jawbone"),
 		ANCIENT_REVELATION = Isaac.GetAchievementIdByName("Ancient Revelation"),
 		BETHS_HEART = Isaac.GetAchievementIdByName("​Beth's Heart"),
         KEEPERS_ROPE = Isaac.GetAchievementIdByName("​Keeper's Rope"),
@@ -171,14 +171,18 @@ if REPENTOGON then
         DICE_BOMBS = Isaac.GetAchievementIdByName("​Dice Bombs"),
 		LUCKY_SEVEN = Isaac.GetAchievementIdByName("​Lucky Seven"),
 		LUNCH_BOX = Isaac.GetAchievementIdByName("Lunch Box"),
-		MAXS_HEAD = Isaac.GetAchievementIdByName("Max's Head"),
-		MENORAH = Isaac.GetAchievementIdByName("Menorah"),
+		MAXS_HEAD = Isaac.GetAchievementIdByName("​Max's Head"),
+		MENORAH = Isaac.GetAchievementIdByName("​Menorah"),
 		PACIFIST = Isaac.GetAchievementIdByName("​Pacifist"),
         PILL_CRUSHER = Isaac.GetAchievementIdByName("​Pill Crusher"),
         SAFETY_BOMBS = Isaac.GetAchievementIdByName("​Safety Bombs"),
         STONE_BOMBS = Isaac.GetAchievementIdByName("​Stone Bombs"),
 		TAMMYS_HEAD = Isaac.GetAchievementIdByName("Tammy's Tail"),
-		VOODOO_PIN = Isaac.GetAchievementIdByName("Voodoo Pin"),
+		VOODOO_PIN = Isaac.GetAchievementIdByName("​Voodoo Pin"),
+		OL_LOPPER = Isaac.GetAchievementIdByName("Ol' Lopper"),
+		PUMPKIN_MASK = Isaac.GetAchievementIdByName("​Pumpkin Mask"),
+		MELTED_CANDLE = Isaac.GetAchievementIdByName("Melted Candle"),
+		GAME_SQUID = Isaac.GetAchievementIdByName("​Game Squid"),
 	}
 end
 
