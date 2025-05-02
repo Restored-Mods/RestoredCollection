@@ -7,8 +7,8 @@ hearts
 - immortal and sun clots
 
 {{FSIZE2}}fixed
-- deserted hearts not working with
-lunch box
+- repentance plus mod hearts not 
+working with lunch box
 
 - possible error when continuing run
 

@@ -1,7 +1,7 @@
 # Restored Collection
 Relics thought to be lost have been found, and are now in the basement! Restored Collection is a collection of Team Compliance's mods restoring items, pickups, and more from Antibirth to Repentance, featuring 23 items and 1 trinket!
 
-![](https://i.imgur.com/KgZIMJX.png)
+![](https://i.imgur.com/7ChA4FX.png)
 
 [h2]Features[/h2]
 23 collectibles to discover, ranging from items cut from Antibirth to items based on old design documents.
