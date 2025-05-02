@@ -309,7 +309,7 @@ local function load(prevData)
 
 	---@param player EntityPlayer
 	---@param isIllusion boolean
-	---@param addWisp boolean
+	---@param addWisp boolean?
 	---@return EntityPlayer?
 	function IllusionMod:addIllusion(player, isIllusion, addWisp)
 
@@ -394,18 +394,17 @@ local function load(prevData)
 
 	---@param illusionPlayer EntityPlayer
 	function IllusionMod.KillIllusion(illusionPlayer, die)
-		if die then
-			illusionPlayer:Die()
-		else
-			illusionPlayer:Kill()
-		end
-
 		illusionPlayer:AddMaxHearts(-illusionPlayer:GetMaxHearts())
 		illusionPlayer:AddSoulHearts(-illusionPlayer:GetSoulHearts())
 		illusionPlayer:AddBoneHearts(-illusionPlayer:GetBoneHearts())
 		illusionPlayer:AddGoldenHearts(-illusionPlayer:GetGoldenHearts())
 		illusionPlayer:AddEternalHearts(-illusionPlayer:GetEternalHearts())
 		illusionPlayer:AddHearts(-illusionPlayer:GetHearts())
+		if die then
+			illusionPlayer:Die()
+		else
+			illusionPlayer:Kill()
+		end
 	end
 
 	function IllusionMod.GetTablesData()

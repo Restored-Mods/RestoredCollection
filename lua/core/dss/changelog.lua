@@ -1,6 +1,6 @@
 local modname = "Restored Collection"
 
-DeadSeaScrollsMenu.AddChangelog(modname, "v1.20",[[{{FSIZE2}}removed
+DeadSeaScrollsMenu.AddChangelog(modname, "v1.21",[[{{FSIZE2}}removed
 - immortal, sun and illusion
 hearts
 
@@ -8,7 +8,21 @@ hearts
 
 {{FSIZE2}}fixed
 - repentance plus mod hearts not 
-working with lunch box
+working with lunch box]],
+{"restored", "collection", "", "v1.21", "update"}, false, false)
+
+DeadSeaScrollsMenu.AddChangelog(modname, "v1.20",[[{{FSIZE2}}added
+- dice bombs costume
+
+{{FSIZE2}}updated
+- custom health api version 0.96
+
+{{FSIZE2}}fixed
+- deserted hearts not working with
+lunch box
+
+- immortal and sun clots not
+functioning
 
 - possible error when continuing run
 
