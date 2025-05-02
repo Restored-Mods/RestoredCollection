@@ -6,6 +6,11 @@ hearts
 
 - immortal and sun clots
 
+{{FSIZE2}}changes
+
+- illusion always instantly
+disappear after being hit
+
 {{FSIZE2}}fixed
 - repentance plus mod hearts not 
 working with lunch box]],

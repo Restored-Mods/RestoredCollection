@@ -286,24 +286,6 @@ local function UpdateImGuiMenu(IsDataInitialized)
 			false
 		)
 
-		if ImGui.ElementExists("restoredCollectionSettingsIllusionInstaDeath") then
-			ImGui.RemoveElement("restoredCollectionSettingsIllusionInstaDeath")
-		end
-
-		ImGui.AddCheckbox(
-			"restoredCollectionSettingsWindow",
-			"restoredCollectionSettingsIllusionInstaDeath",
-			"Illusion insta death",
-			function(val)
-				IllusionMod.InstaDeath = val
-			end,
-			false
-		)
-		ImGui.SetTooltip(
-			"restoredCollectionSettingsIllusionInstaDeath",
-			"Illusions skip death animation and removed immediately"
-		)
-
 		if ImGui.ElementExists("restoredCollectionSettingsMaxsHeads") then
 			ImGui.RemoveElement("restoredCollectionSettingsMaxsHeads")
 		end
@@ -330,11 +312,6 @@ local function UpdateImGuiMenu(IsDataInitialized)
 				"restoredCollectionSettingsIllusionPerfect",
 				ImGuiData.Value,
 				IllusionMod.PerfectIllusion
-			)
-			ImGui.UpdateData(
-				"restoredCollectionSettingsIllusionInstaDeath",
-				ImGuiData.Value,
-				IllusionMod.InstaDeath
 			)
 			ImGui.UpdateData(
 				"restoredCollectionSettingsMaxsHeads",
@@ -405,10 +382,6 @@ local function UpdateImGuiMenu(IsDataInitialized)
 
 		if ImGui.ElementExists("restoredCollectionSettingsIllusionPerfect") then
 			ImGui.RemoveElement("restoredCollectionSettingsIllusionPerfect")
-		end
-
-		if ImGui.ElementExists("restoredCollectionSettingsIllusionInstaDeath") then
-			ImGui.RemoveElement("restoredCollectionSettingsIllusionInstaDeath")
 		end
 
 		if ImGui.ElementExists("restoredCollectionSettingsMaxsHeads") then
@@ -510,7 +483,7 @@ local restoreditemsdirectory = {
 
 		buttons = InitDisableMenu(),
 	},
-	heartsoptions = {
+	illusionsoptions = {
 		title = "illusion options",
 		buttons = {
 			{
@@ -548,24 +521,6 @@ local restoreditemsdirectory = {
 
 				tooltip = { strset = { "create perfect", "illusions for", "modded", "characters?" } },
 			},
-			{ str = "", nosel = true },
-			{
-				str = "illusion insta death",
-				fsize = 2,
-				choices = { "no", "yes" },
-				setting = 1,
-				variable = "IllusionInstaDeath",
-
-				load = function()
-					return IllusionMod.InstaDeath and 2 or 1
-				end,
-
-				store = function(newOption)
-					IllusionMod.InstaDeath = newOption == 2
-				end,
-
-				tooltip = { strset = { "illusions skip", "death animation", "and removed", "immediately" } },
-			},
 		},
 	},
 	settings = {
@@ -574,7 +529,7 @@ local restoreditemsdirectory = {
 			{ str = "", nosel = true },
 			{
 				str = "illusion options",
-				dest = "heartsoptions",
+				dest = "illusionsoptions",
 				tooltip = GenerateTooltip("tweaks for illusions"),
 				fzise = 2,
 			},

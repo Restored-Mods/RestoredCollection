@@ -50,7 +50,6 @@ RestoredCollection:AddCallback(RestoredCollection.SaveManager.SaveCallbacks.PRE_
 			["DisabledItems"] = {},
 			["MaxsHead"] = 1,
 			["IllusionCanPlaceBomb"] = IllusionMod.CanPlaceBomb,
-			["IllusionInstaDeath"] = IllusionMod.InstaDeath,
 			["IllusionPerfectIllusion"] = IllusionMod.PerfectIllusion,
 		}
 		for k,v in pairs(settings) do
@@ -69,7 +68,6 @@ RestoredCollection:AddCallback(RestoredCollection.SaveManager.SaveCallbacks.POST
 		end
         IllusionMod.LoadSaveData(data.game.run.IllusionData)
 		IllusionMod.CanPlaceBomb = data.file.other.IllusionCanPlaceBomb
-		IllusionMod.InstaDeath = data.file.other.IllusionInstaDeath
 		IllusionMod.PerfectIllusion = data.file.other.IllusionPerfectIllusion
 	end
 end)

@@ -7,7 +7,6 @@ local function load(prevData)
 	IllusionMod = RegisterMod("Illusion API", 1)
 	IllusionMod.Version = localversion
     IllusionMod.Loaded = false
-	IllusionMod.InstaDeath = false
 	IllusionMod.CanPlaceBomb = false
 	IllusionMod.PerfectIllusion = false
 	local IllusionCallbacks = {}
@@ -58,7 +57,6 @@ local function load(prevData)
 		ForbiddenTrinkets = prevData.ForbiddenTrinkets or ForbiddenTrinkets
 		ForbiddenPCombos = prevData.ForbiddenPCombos or ForbiddenPCombos
 		EntityData = prevData.EntityData
-		IllusionMod.InstaDeath = prevData.InstaDeath or false
 		IllusionMod.CanPlaceBomb = prevData.CanPlaceBomb or false
 		IllusionMod.PerfectIllusion = prevData.PerfectIllusion or false
 	end
@@ -309,7 +307,7 @@ local function load(prevData)
 
 	---@param player EntityPlayer
 	---@param isIllusion boolean
-	---@param addWisp boolean?
+	---@param addWisp CollectibleType | integer?
 	---@return EntityPlayer?
 	function IllusionMod:addIllusion(player, isIllusion, addWisp)
 
@@ -392,23 +390,8 @@ local function load(prevData)
 		return illusionPlayer
 	end
 
-	---@param illusionPlayer EntityPlayer
-	function IllusionMod.KillIllusion(illusionPlayer, die)
-		illusionPlayer:AddMaxHearts(-illusionPlayer:GetMaxHearts())
-		illusionPlayer:AddSoulHearts(-illusionPlayer:GetSoulHearts())
-		illusionPlayer:AddBoneHearts(-illusionPlayer:GetBoneHearts())
-		illusionPlayer:AddGoldenHearts(-illusionPlayer:GetGoldenHearts())
-		illusionPlayer:AddEternalHearts(-illusionPlayer:GetEternalHearts())
-		illusionPlayer:AddHearts(-illusionPlayer:GetHearts())
-		if die then
-			illusionPlayer:Die()
-		else
-			illusionPlayer:Kill()
-		end
-	end
-
 	function IllusionMod.GetTablesData()
-		return {TransformationItems = TransformationItems, ForbiddenItems = ForbiddenItems, ForbiddenTrinkets = ForbiddenTrinkets, ForbiddenPCombos = ForbiddenPCombos, EntityData = EntityData, InstaDeath = IllusionMod.InstaDeath, CanPlaceBomb = IllusionMod.CanPlaceBomb, PerfectIllusion = IllusionMod.PerfectIllusion}
+		return {TransformationItems = TransformationItems, ForbiddenItems = ForbiddenItems, ForbiddenTrinkets = ForbiddenTrinkets, ForbiddenPCombos = ForbiddenPCombos, EntityData = EntityData, CanPlaceBomb = IllusionMod.CanPlaceBomb, PerfectIllusion = IllusionMod.PerfectIllusion}
 	end
 
 	function IllusionMod.GetSaveData()
@@ -454,8 +437,8 @@ local function load(prevData)
     IllusionMod:AddCallback(ModCallbacks.MC_PRE_MOD_UNLOAD, ModReset)
 
 
-	local function InstaDeath(p)
-		if IllusionMod.InstaDeath then
+	function IllusionMod.KillIllusion(p)
+		if IllusionMod.GetData(p).IsIllusion then
 			p:GetSprite():SetLastFrame()
 			p:ChangePlayerType(PlayerType.PLAYER_THELOST)
 			local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, -1, p.Position, Vector.Zero, p)
@@ -464,8 +447,15 @@ local function load(prevData)
 			local s = poof:GetSprite()
 			s.Color = color
 			sfx:Play(SoundEffect.SOUND_BLACK_POOF)
+			
+			--[[p:AddMaxHearts(-p:GetMaxHearts())
+			p:AddSoulHearts(-p:GetSoulHearts())
+			p:AddBoneHearts(-p:GetBoneHearts())
+			p:AddGoldenHearts(-p:GetGoldenHearts())
+			p:AddEternalHearts(-p:GetEternalHearts())
+			p:AddHearts(-p:GetHearts())]]
+			p:Die()
 		end
-		IllusionMod.KillIllusion(p, IllusionMod.InstaDeath)
 	end
 	
 	local function ModdedDeathCheck(p)
@@ -489,31 +479,31 @@ local function load(prevData)
 				and p:GetPlayerType() ~= PlayerType.PLAYER_THESOUL_B then
 					p:GetSprite():SetLayerFrame(PlayerSpriteLayer.SPRITE_GHOST,0)
 				end
-				if p:GetSprite():IsFinished() and p:GetSprite():GetAnimation():match("Death") == "Death" or IllusionMod.InstaDeath then
-					p:GetSprite():SetLastFrame()
-					if IllusionMod.InstaDeath then
-						sfx:Stop(SoundEffect.SOUND_ISAACDIES)
-					end
-					if p:GetPlayerType() ~= PlayerType.PLAYER_THELOST and p:GetPlayerType() ~= PlayerType.PLAYER_THELOST_B and
-					p:GetPlayerType() ~= PlayerType.PLAYER_THESOUL and p:GetPlayerType() ~= PlayerType.PLAYER_THESOUL_B  and p:GetPlayerType() ~= PlayerType.PLAYER_THEFORGOTTEN_B
-					and not p:GetEffects():HasNullEffect(NullItemID.ID_LOST_CURSE) then
-						p:ChangePlayerType(PlayerType.PLAYER_THELOST)
-						local offset = ModdedDeathCheck(p)
-						
-						if not SMW_Death then
-							local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, -1, p.Position + offset, Vector.Zero, p)
-							local sColor = poof:GetSprite().Color
-							local color = Color(sColor.R, sColor.G, sColor.B, 0.7, 0.518, 0.15, 0.8)
-							local s = poof:GetSprite()
-							s.Color = color
-							sfx:Play(SoundEffect.SOUND_BLACK_POOF)
-						end
+				
+				p:GetSprite():SetLastFrame()
+				
+				sfx:Stop(SoundEffect.SOUND_ISAACDIES)
+				
+				if p:GetPlayerType() ~= PlayerType.PLAYER_THELOST and p:GetPlayerType() ~= PlayerType.PLAYER_THELOST_B and
+				p:GetPlayerType() ~= PlayerType.PLAYER_THESOUL and p:GetPlayerType() ~= PlayerType.PLAYER_THESOUL_B  and p:GetPlayerType() ~= PlayerType.PLAYER_THEFORGOTTEN_B
+				and not p:GetEffects():HasNullEffect(NullItemID.ID_LOST_CURSE) then
+					p:ChangePlayerType(PlayerType.PLAYER_THELOST)
+					local offset = ModdedDeathCheck(p)
+					
+					if not SMW_Death then
+						local poof = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, -1, p.Position + offset, Vector.Zero, p)
+						local sColor = poof:GetSprite().Color
+						local color = Color(sColor.R, sColor.G, sColor.B, 0.7, 0.518, 0.15, 0.8)
+						local s = poof:GetSprite()
+						s.Color = color
+						sfx:Play(SoundEffect.SOUND_BLACK_POOF)
 					end
 				end
+				
 			end
 			if not p:IsDead() then
 				if p.Parent and (not p.Parent:Exists() or p.Parent:IsDead()) then
-					InstaDeath(p)
+					IllusionMod.KillIllusion(p)
 				end
 			end
 			p:GetEffects():RemoveCollectibleEffect(CollectibleType.COLLECTIBLE_HOLY_MANTLE)
@@ -594,12 +584,12 @@ local function load(prevData)
 			local d = IllusionMod.GetData(p)
 			if not d then return end
 			if d.IsIllusion then--or p.Parent then
-				InstaDeath(p)
+				IllusionMod.KillIllusion(p)
 			end
 		end
 	end
 	AddCallback(ModCallbacks.MC_PRE_PLAYER_COLLISION, preIllusionWhiteFlame)
-
+	
 	local function prePickupCollision(_, pickup, collider)
 		if collider and collider:ToPlayer() then
 			local player = collider:ToPlayer()
@@ -611,7 +601,7 @@ local function load(prevData)
 		end
 	end
 	AddPriorityCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, CallbackPriority.EARLY, prePickupCollision)
-	
+
 	local function onEntityTakeDamage(_, tookDamage)
 		local data = IllusionMod.GetData(tookDamage)
 		if not data then return end
@@ -619,7 +609,7 @@ local function load(prevData)
 			if data.hasWisp then return false end
 			--doples always die in one hit, so the hud looks nicer. ideally i'd just get rid of the hud but that doesnt seem possible
 			local player = tookDamage:ToPlayer()
-			InstaDeath(player)
+			IllusionMod.KillIllusion(player)
 			return false
 		end
 	end
