@@ -6,6 +6,9 @@ hearts
 
 - immortal and sun clots
 
+{{FSIZE1}}moved to restored hearts
+{{FSIZE1}}mod
+
 {{FSIZE2}}changes
 
 - illusion always instantly
