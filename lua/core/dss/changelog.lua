@@ -1,13 +1,19 @@
 local modname = "Restored Collection"
 
+DeadSeaScrollsMenu.AddChangelog(modname, "v1.22",[[{{FSIZE2}}fixed
+- ancient revelation not giving
+immortal hearts when restored
+hearts mod is enabled]],
+{"restored", "collection", "", "v1.22", "update"}, false, false)
+
 DeadSeaScrollsMenu.AddChangelog(modname, "v1.21",[[{{FSIZE2}}removed
 - immortal, sun and illusion
 hearts
 
 - immortal and sun clots
 
-{{FSIZE1}}moved to restored hearts
-{{FSIZE1}}mod
+{{FSIZE2}}moved to restored hearts
+{{FSIZE2}}mod
 
 {{FSIZE2}}changes
 
