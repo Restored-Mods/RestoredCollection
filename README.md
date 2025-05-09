@@ -19,3 +19,6 @@ BrakeDude, Pandora, Akad, Sillst, fly_6, im_tem, Thicco Catto, ALDAR, chug all t
 
 ## Special thanks to:
 Public Entertainment Networked Interactive Software[/u] - For the original Antibirth mod as well as the content and concepts that this mod builds off of
+
+## Restored Hub Discord Link:
+https://discord.gg/BYGmAhgG8k
