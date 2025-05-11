@@ -265,12 +265,13 @@ local function UpdateImGuiMenu(IsDataInitialized)
 		ImGui.AddCheckbox(
 			"restoredCollectionSettingsWindow",
 			"restoredCollectionSettingsIllusionPlaceBombs",
-			"Can illusions place bombs?",
+			"Illusions can place bombs",
 			function(val)
 				IllusionMod.CanPlaceBomb = val
 			end,
 			false
 		)
+		ImGui.SetTooltip("restoredCollectionSettingsIllusionPlaceBombs", "Illusion place bombs same bombs as player")
 
 		if ImGui.ElementExists("restoredCollectionSettingsIllusionPerfect") then
 			ImGui.RemoveElement("restoredCollectionSettingsIllusionPerfect")
@@ -279,12 +280,13 @@ local function UpdateImGuiMenu(IsDataInitialized)
 		ImGui.AddCheckbox(
 			"restoredCollectionSettingsWindow",
 			"restoredCollectionSettingsIllusionPerfect",
-			"Create perfect Illusion for modded characters?",
+			"Perfect illusion",
 			function(val)
 				IllusionMod.PerfectIllusion = val
 			end,
 			false
 		)
+		ImGui.SetTooltip("restoredCollectionSettingsIllusionPerfect", "Makes exact copy of player character")
 
 		if ImGui.ElementExists("restoredCollectionSettingsMaxsHeads") then
 			ImGui.RemoveElement("restoredCollectionSettingsMaxsHeads")
