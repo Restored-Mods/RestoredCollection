@@ -4,6 +4,7 @@ local Helpers = RestoredCollection.Helpers
 local sfx = SFXManager()
 local RepentogonTargetCol = REPENTOGON and RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX or (RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX - 5)
 local itemConfig = Isaac.GetItemConfig()
+local pickupsAdded = false
 
 ---@param player EntityPlayer
 ---@return boolean
@@ -14,7 +15,7 @@ local function isNoRedHealthCharacter(player)
     Helpers.IsGhost(player) or t == PlayerType.PLAYER_THESOUL
 end
 
-RestoredCollection:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
+local function AddPickupsToLunchBox()
     LunchBox.AddPickup(PickupVariant.PICKUP_HEART, HeartSubType.HEART_HALF, 1, function (player, pickup)
         pickup:PlayPickupSound()
     end)
@@ -83,7 +84,19 @@ RestoredCollection:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
             end
         end)
     end
-end)
+end
+
+if REPENTOGON then
+    RestoredCollection:AddCallback(ModCallbacks.MC_POST_MODS_LOADED, AddPickupsToLunchBox)
+else
+    RestoredCollection:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
+        if not pickupsAdded then
+            AddPickupsToLunchBox()
+            pickupsAdded = true
+        end
+    end)
+end
+
 
 ---@param player EntityPlayer
 ---@return boolean

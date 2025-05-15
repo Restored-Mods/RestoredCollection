@@ -287,7 +287,8 @@ local Wiki = {
 	BethsHeart = {
 		{ -- Effect
 			{ str = "Effect", fsize = 2, clr = 3, halign = 0 },
-			{ str = "Spawns a double-tap throwable familiar#Stores soul and black hearts to use as charges for the active item, maximum 6 pips of charge." },
+			{ str = "Spawns a double-tap throwable familiar." },
+			{ str = "Stores soul and black hearts to use as charges for the active item, maximum 6 pips of charge." },
 			{ str = "Half Soul Heart = 1 pip of charge. Soul Heart = 2 pips of charge. Black Heart = 3 pips of charge." },
 			{ str = "Pressing the 'Drop' ('CTRL') key will supply pips of charge to the active item." },
 		},
@@ -676,10 +677,10 @@ local Wiki = {
 			{ str = "Effect", fsize = 2, clr = 3, halign = 0 },
 			{ str = "+0.5 Tears up." },
 			{ str = "When shooting:" },
-			{ str = "- has a 30% chance to fire a wax tear;" },
-			{ str = "-- wax tear slows and burns enemies on impact;" },
-			{ str = "- gives an aura that burns enemies;" },
-			{ str = "-- aura increases the size when shooting;" },
+			{ str = "- has a 30% chance to fire a wax tear," },
+			{ str = "-- wax tear slows and burns enemies on impact," },
+			{ str = "- gives an aura that burns enemies," },
+			{ str = "-- aura increases the size when shooting," },
 			{ str = "-- aura shrinks when not shooting." },
 		},
 		{ -- Trivia
