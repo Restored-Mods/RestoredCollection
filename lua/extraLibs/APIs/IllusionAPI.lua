@@ -813,7 +813,7 @@ if IllusionMod then
 					.. IllusionMod.Name
 					.. "] Found old script V"
 					.. IllusionMod.Version
-					.. "Replacing with V"
+					.. ". Replacing with V"
 					.. localversion
 			)
 		end

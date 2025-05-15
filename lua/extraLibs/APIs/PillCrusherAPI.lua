@@ -165,7 +165,7 @@ if PillCrusher then
 					.. PillCrusher.Name
 					.. "] Found old script V"
 					.. PillCrusher.Version
-					.. "Replacing with V"
+					.. ". Replacing with V"
 					.. localversion
 			)
 		end

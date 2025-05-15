@@ -114,7 +114,7 @@ if BombFlagsAPI then
 					.. BombFlagsAPI.Name
 					.. "] Found old script V"
 					.. BombFlagsAPI.Version
-					.. "Replacing with V"
+					.. ". Replacing with V"
 					.. localversion
 			)
 		end

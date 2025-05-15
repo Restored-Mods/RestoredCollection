@@ -210,7 +210,7 @@ if CustomShockwaveAPI then
 					.. CustomShockwaveAPI.Name
 					.. "] Found old script V"
 					.. CustomShockwaveAPI.Version
-					.. "Replacing with V"
+					.. ". Replacing with V"
 					.. localversion
 			)
 		end
