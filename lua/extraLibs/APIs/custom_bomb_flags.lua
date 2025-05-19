@@ -1,4 +1,4 @@
-local localversion = 1.0
+local localversion = 1.1
 
 local function TEARFLAG(x)
 	return x >= 64 and BitSet128(0, 1 << (x - 64)) or BitSet128(1 << x, 0)
@@ -63,12 +63,23 @@ local function load(enums)
 		return Flags
 	end
 
-	function BombFlagsAPI.AddCustomBombFlag(bomb, flag)
+	function BombFlagsAPI.AddCustomBombFlag(bomb, flag, variant, func, ...)
 		if not Flags[flag] then
 			Log("Custom bomb flag " .. flag .. " doesn't exists.")
 			return
 		end
-		bomb:AddTearFlags(Flags[flag].Flag)
+		if bomb.Variant ~= BombVariant.BOMB_THROWABLE then
+			if (bomb.Variant > BombVariant.BOMB_SUPERTROLL or bomb.Variant < BombVariant.BOMB_TROLL)
+			and variant ~= nil and type(variant) == "number" then
+				if bomb.Variant == 0 then
+					bomb.Variant = variant
+				end
+			end
+			bomb:AddTearFlags(Flags[flag].Flag)
+			if type(func) == "function" then
+				func(...)
+			end
+		end
 	end
 
 	function BombFlagsAPI.HasCustomBombFlag(bomb, flag)

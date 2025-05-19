@@ -189,8 +189,7 @@ function DiceBombsLocal:BombInit(bomb)
 					bomb.Variant = RestoredCollection.Enums.BombVariant.BOMB_DICE
 				end
 			end
-			BombFlagsAPI.AddCustomBombFlag(bomb, "DICE_BOMB")
-            InitDiceVariant(bomb)
+			BombFlagsAPI.AddCustomBombFlag(bomb, "DICE_BOMB", RestoredCollection.Enums.BombVariant.BOMB_DICE, InitDiceVariant, bomb)
 		end
 	end
 end

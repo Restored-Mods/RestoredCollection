@@ -148,12 +148,7 @@ function BlankBombsMod:OnBombInitLate(bomb)
 		and not Helpers.IsItemDisabled(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BLANK_BOMBS)
 
 		if blankChance or nancyChance then
-			if (bomb.Variant > BombVariant.BOMB_SUPERTROLL or bomb.Variant < BombVariant.BOMB_TROLL) then
-				if bomb.Variant == 0 then
-					bomb.Variant = RestoredCollection.Enums.BombVariant.BOMB_BLANK
-				end
-			end
-			BombFlagsAPI.AddCustomBombFlag(bomb, "BLANK_BOMB")
+			BombFlagsAPI.AddCustomBombFlag(bomb, "BLANK_BOMB", RestoredCollection.Enums.BombVariant.BOMB_BLANK)
 			data.NancyBlank = not blankChance and nancyChance
 		end
 	end

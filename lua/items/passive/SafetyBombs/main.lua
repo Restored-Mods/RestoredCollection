@@ -33,12 +33,7 @@ function SafetyBombsMod:BombInit(bomb)
 		and not Helpers.IsItemDisabled(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_SAFETY_BOMBS)
 
 		if safeChance or nancyChacne then
-			if (bomb.Variant > BombVariant.BOMB_SUPERTROLL or bomb.Variant < BombVariant.BOMB_TROLL) then
-				if bomb.Variant == 0 then
-					bomb.Variant = RestoredCollection.Enums.BombVariant.BOMB_SAFETY
-				end
-			end
-			BombFlagsAPI.AddCustomBombFlag(bomb, "SAFETY_BOMB")
+			BombFlagsAPI.AddCustomBombFlag(bomb, "SAFETY_BOMB", RestoredCollection.Enums.BombVariant.BOMB_SAFETY)
 		end
 	end
 end

@@ -1,5 +1,11 @@
 local modname = "Restored Collection"
 
+DeadSeaScrollsMenu.AddChangelog(modname, "v1.23",[[{{FSIZE2}}fixed
+- fixed stone, safety, blank
+and dice bombs affecting
+throwable red bombs]],
+{"restored", "collection", "", "v1.23", "update"}, false, false)
+
 DeadSeaScrollsMenu.AddChangelog(modname, "v1.22",[[{{FSIZE2}}fixed
 - ancient revelation not giving
 immortal hearts when restored

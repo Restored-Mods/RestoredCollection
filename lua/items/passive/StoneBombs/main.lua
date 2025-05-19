@@ -50,12 +50,7 @@ function StoneBombs:BombInit(bomb)
 		and not Helpers.IsItemDisabled(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS)
 
 		if stoneChance or nancyChance then
-			if (bomb.Variant > BombVariant.BOMB_SUPERTROLL or bomb.Variant < BombVariant.BOMB_TROLL) then
-				if bomb.Variant == 0 then
-					bomb.Variant = RestoredCollection.Enums.BombVariant.BOMB_STONE
-				end
-			end
-			BombFlagsAPI.AddCustomBombFlag(bomb, "STONE_BOMB")
+			BombFlagsAPI.AddCustomBombFlag(bomb, "STONE_BOMB", RestoredCollection.Enums.BombVariant.BOMB_STONE)
 		end
 	end
 end
