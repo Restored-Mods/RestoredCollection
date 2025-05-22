@@ -87,7 +87,6 @@ local Wiki = {
 			{ str = "Credits", fsize = 2, clr = 3, halign = 0 },
 			{ str = "Coded by kittenchilly, PixelPlz and Thicco Catto!" },
 			{ str = "Animations by Firework!" },
-			{ str = "BFFS! spritework by Amy!" },
 			{ str = "Translations by BrakeDude (Russian), Kotry (Spanish), chupeta (Portuguese) and YouDuckBoom (Chinese)!" },
 			{ str = "Special thanks to Xalum for helping with the improved pathfinding code!" },
 		},
@@ -538,7 +537,6 @@ local Wiki = {
 		{ -- Credits
 			{ str = "Credits", fsize = 2, clr = 3, halign = 0 },
 			{ str = "Coded by BrakeDude and Thicco Catto!" },
-			{ str = "Spritework by Amy!" },
 			{ str = "Translations by BrakeDude (Russian), Kotry and XxX_Lucia_2007_XxX (Spanish), chupeta (Portuguese) and YouDuckBoom (Chinese)!"}
 		},
 	},
