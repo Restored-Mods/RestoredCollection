@@ -26,4 +26,6 @@
 	<costume id="3" anm2path="costume_dice_bombs.anm2" type="passive" />
 	<!-- Blank Bombs -->
 	<costume id="1" anm2path="restored_blankbomb_costume.anm2" type="passive" />
+	<!-- ​Safety Bombs -->
+	<costume id="11" anm2path="restored_safetybomb_costume.anm2" type="passive"/>
 </costumes>
