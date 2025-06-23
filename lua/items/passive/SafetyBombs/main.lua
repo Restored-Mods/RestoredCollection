@@ -163,3 +163,10 @@ function SafetyBombsMod:BombRadar(bomb)
 	end
 end
 RestoredCollection:AddCallback(ModCallbacks.MC_POST_BOMB_RENDER, SafetyBombsMod.BombRadar)
+
+function SafetyBombsMod:IFramesAfterStomp(player, frames, bombLanding, killedEnemy)
+	if player:HasCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_SAFETY_BOMBS) and not killedEnemy and bombLanding then
+		return frames + 45
+	end
+end
+RestoredCollection:AddCallback("ON_EDITH_STOMP_LANDING_IFRAMES", SafetyBombsMod.IFramesAfterStomp)
