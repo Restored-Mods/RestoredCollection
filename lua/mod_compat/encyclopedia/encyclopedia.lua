@@ -4,8 +4,8 @@ end
 
 local Wiki = include("lua.mod_compat.encyclopedia.wiki")
 
-local modname = "Restored Mods"
-local classname = "Restored Items"
+local classname = "Restored Mods"
+local modname = "Restored Items"
 
 local items = Wiki.Items
 table.sort(items, function(a,b) return a.ID < b.ID end)
