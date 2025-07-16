@@ -3,7 +3,7 @@
 
 local game = Game()
 local SaveManager = {}
-SaveManager.VERSION = "2.3"
+SaveManager.VERSION = "2.3.2"
 SaveManager.Utility = {}
 
 SaveManager.Debug = false
@@ -38,6 +38,7 @@ local movingBoxCheck = false
 local currentListIndex = 0
 local checkLastIndex = false
 local inRunButNotLoaded = true
+local retainFamiliarSaveOnFlip = false
 local tLazInitPlayer
 local tLazInitSeeds
 local dupeTaggedPickups = {}
@@ -50,12 +51,13 @@ local isLazB = {
 
 ---@class SaveData
 local dataCache = {}
----@class GameSave
+
+---@type {["0"]: GameSave, ["1"]: GameSave}
 local hourglassBackup = {
 	["0"] = {},
 	["1"] = {}
 }
-local lastUsedHourglassSlot = "0"
+local lastUsedHourglassSlot = "1"
 
 SaveManager.Utility.ERROR_MESSAGE_FORMAT = "[IsaacSaveManager:%s] ERROR: %s (%s)\n"
 SaveManager.Utility.WARNING_MESSAGE_FORMAT = "[IsaacSaveManager:%s] WARNING: %s (%s)\n"
@@ -423,7 +425,6 @@ end
 ---@param source table
 function SaveManager.Utility.PatchSaveFile(deposit, source)
 	for i, v in pairs(source) do
-		if i == "roomSave" then goto continue end --No default room-specific saves.
 		if SaveManager.Utility.IsDefaultSaveKey(i) then
 			SaveManager.Utility.PatchSaveFile(deposit, v)
 		elseif type(v) == "table" then
@@ -435,7 +436,6 @@ function SaveManager.Utility.PatchSaveFile(deposit, source)
 		elseif deposit[i] == nil then
 			deposit[i] = v
 		end
-		::continue::
 	end
 
 	return deposit
@@ -481,23 +481,16 @@ function SaveManager.Utility.ValidateForJson(tab)
 				SaveManager.Utility.JsonIncompatibilityType.INVALID_KEY_TYPE:format(index, tostring(value), valType)
 		end
 
-		if type(index) == "number" and mFloor(index) ~= index then
-			local valType = type(value) == "userdata" and getmetatable(value).__type or type(value)
-			return SaveManager.Utility.ValidityState.INVALID,
-				SaveManager.Utility.JsonIncompatibilityType.INVALID_KEY_TYPE:format(index, tostring(value), valType)
+		if type(index) == "number" then
+			if mFloor(index) ~= index then
+				local valType = type(value) == "userdata" and getmetatable(value).__type or type(value)
+				return SaveManager.Utility.ValidityState.INVALID,
+					SaveManager.Utility.JsonIncompatibilityType.INVALID_KEY_TYPE:format(index, tostring(value), valType)
+			elseif value == math.huge or value == -math.huge or value ~= value then
+				return SaveManager.Utility.ValidityState.INVALID, SaveManager.Utility.JsonIncompatibilityType.NAN_VALUE
+			end
 		end
-	end
 
-	-- check for sparse array
-	if isSparseArray(tab) then
-		hasWarning = SaveManager.Utility.JsonIncompatibilityType.SPARSE_ARRAY
-	end
-
-	if SaveManager.Utility.IsCircular(tab) then
-		return SaveManager.Utility.ValidityState.INVALID, SaveManager.Utility.JsonIncompatibilityType.CIRCULAR_TABLE
-	end
-
-	for index, value in pairs(tab) do
 		-- check for NaN and infinite values
 		-- http://lua-users.org/wiki/InfAndNanComparisons
 		if type(value) == "number" then
@@ -513,8 +506,19 @@ function SaveManager.Utility.ValidateForJson(tab)
 			end
 		elseif type(value) ~= "string" and type(value) ~= "boolean" then
 			local valType = type(value) == "userdata" and getmetatable(value).__type or type(value)
-			return SaveManager.Utility.ValidityState.INVALID, SaveManager.Utility.JsonIncompatibilityType.INVALID_VALUE:format(index, tostring(value), valType)
+			--if not SaveManager.Utility.Serialize(tab, index, value) then
+				return SaveManager.Utility.ValidityState.INVALID, SaveManager.Utility.JsonIncompatibilityType.INVALID_VALUE:format(index, tostring(value), valType)
+			--end
 		end
+	end
+
+	-- check for sparse array
+	if isSparseArray(tab) then
+		hasWarning = SaveManager.Utility.JsonIncompatibilityType.SPARSE_ARRAY
+	end
+
+	if SaveManager.Utility.IsCircular(tab) then
+		return SaveManager.Utility.ValidityState.INVALID, SaveManager.Utility.JsonIncompatibilityType.CIRCULAR_TABLE
 	end
 
 	if hasWarning then
@@ -643,27 +647,33 @@ local function addDefaultData(saveKey, saveType, data, noHourglass)
 	SaveManager.Utility.DebugLog(saveKey, saveType)
 end
 
----Adds data that will be automatically added when the run data is first initialized.
----@param dataType DefaultSaveKeys
+---Adds data that will be automatically added when the run data is first initialized. Lasts for the duration of the entire run
+---@param dataType DefaultSaveKeys @Only available to players and familiars
 ---@param data table
 ---@param noHourglass? boolean @If true, will load data in a separate game save that is not affected by Glowing Hourglass.
 function SaveManager.Utility.AddDefaultRunData(dataType, data, noHourglass)
 	addDefaultData(dataType, "run", data, noHourglass)
 end
 
----Adds data that will be automatically added when the floor data is first initialized.
----@param dataType DefaultSaveKeys
+---Adds data that will be automatically added when the floor data is first initialized. Lasts for the duration of the current floor
+---@param dataType DefaultSaveKeys @Only available to players and familiars
 ---@param data table
 ---@param noHourglass? boolean @If true, will load data in a separate game save that is not affected by Glowing Hourglass.
 function SaveManager.Utility.AddDefaultFloorData(dataType, data, noHourglass)
 	addDefaultData(dataType, "floor", data, noHourglass)
 end
 
----Adds data that will be automatically added when the room data is first initialized.
+---Deprecated! Please use `AddDefaultTempData` instead. Default data cannot support actual floor-lasting per-room saves
+---@deprecated
+function SaveManager.Utility.AddDefaultRoomData()
+	print(("[%s IsaacSaveManager] AddDefaultRoomData is deprecated! Please use AddDefaultTempData instead."):format(modReference.Name))
+end
+
+---Adds data that will be automatically added when the temp data is first initialized. Lasts for the duration of the current room, being reset once you exit the room
 ---@param dataType DefaultSaveKeys
 ---@param data table
 ---@param noHourglass? boolean @If true, will load data in a separate game save that is not affected by Glowing Hourglass.
-function SaveManager.Utility.AddDefaultRoomData(dataType, data, noHourglass)
+function SaveManager.Utility.AddDefaultTempData(dataType, data, noHourglass)
 	addDefaultData(dataType, "temp", data, noHourglass)
 end
 
@@ -1347,7 +1357,7 @@ local function resetData(saveType)
 			room = {SaveManager.SaveCallbacks.PRE_ROOM_DATA_RESET, SaveManager.SaveCallbacks.POST_ROOM_DATA_RESET},
 			floor = {SaveManager.SaveCallbacks.PRE_FLOOR_DATA_RESET, SaveManager.SaveCallbacks.POST_FLOOR_DATA_RESET}
 		}
-		Isaac.RunCallback(typeToCallback[saveType]["1"])
+		Isaac.RunCallback(typeToCallback[saveType][1])
 		local transferBossAscentData = {}
 		local listIndex = SaveManager.Utility.GetListIndex()
 		if saveType ~= "temp" and game:GetLevel():IsAscent() then
@@ -1449,7 +1459,7 @@ local function postEntityRemove(_, ent)
 		end
 		return
 	end
-	if dontSaveModData then return end
+	if dontSaveModData or ent:ToFamiliar() and retainFamiliarSaveOnFlip then return end
 	--Clear entity data if it's removed inside the room, such as collecting pickups
 	local defaultSaveIndex = SaveManager.Utility.GetSaveIndex(ent)
 	---@param tab GameSave
@@ -1529,6 +1539,7 @@ local function postUpdate()
 	end
 	myosotisCheck = false
 	movingBoxCheck = false
+	retainFamiliarSaveOnFlip = false
 	dupeTaggedPickups = {}
 end
 
@@ -1672,6 +1683,31 @@ function SaveManager.Init(mod)
 		CollectibleType.COLLECTIBLE_GENESIS
 	)
 
+	modReference:AddPriorityCallback(ModCallbacks.MC_PRE_USE_ITEM, SaveManager.Utility.CallbackPriority.LATE,
+		function (_, _, _, player)
+			if isLazB[player:GetPlayerType()] then
+				retainFamiliarSaveOnFlip = true
+			end
+		end,
+		CollectibleType.COLLECTIBLE_FLIP
+	)
+
+	modReference:AddPriorityCallback(ModCallbacks.MC_USE_ITEM, SaveManager.Utility.CallbackPriority.EARLY,
+		function (_, _, _, player)
+			if isLazB[player:GetPlayerType()] then
+				retainFamiliarSaveOnFlip = false
+			end
+		end,
+		CollectibleType.COLLECTIBLE_FLIP
+	)
+
+	modReference:AddPriorityCallback(ModCallbacks.MC_PRE_USE_ITEM, SaveManager.Utility.CallbackPriority.LATE,
+		function ()
+			retainFamiliarSaveOnFlip = true
+		end,
+		CollectibleType.COLLECTIBLE_ESAU_JR
+	)
+
 	-- used to detect if an unloaded mod is this mod for when saving for luamod and for unique per-mod callbacks
 	modReference.__SAVEMANAGER_UNIQUE_KEY = ("%s-%s"):format(Random(), Random())
 
@@ -1788,6 +1824,7 @@ local function getRespectiveSave(ent, noHourglass, initDataIfNotPresent, saveTyp
 	return data
 end
 
+---Returns a save that lasts the duration of the entire run. Exclusive to players and familiars.
 ---@param ent? Entity @If an entity is provided, returns an entity specific save within the run save. Otherwise, returns arbitrary data in the save not attached to an entity.
 ---@param noHourglass? false|boolean @If true, it'll look in a separate game save that is not affected by the Glowing Hourglass.
 ---@param allowSoulSave? boolean @If true, if the `ent` is The Soul attached to The Forgotten, will return a differently indexed save, as opposed to a shared save between the two.
@@ -1796,6 +1833,7 @@ function SaveManager.GetRunSave(ent, noHourglass, allowSoulSave)
 	return getRespectiveSave(ent, noHourglass, true, "run", nil, allowSoulSave)
 end
 
+---Attempts to return a save that lasts the duration of the entire run. Exclusive to players and familiars.
 ---@param ent? Entity @If an entity is provided, returns an entity specific save within the run save. Otherwise, returns arbitrary data in the save not attached to an entity.
 ---@param noHourglass? false|boolean @If true, it'll look in a separate game save that is not affected by the Glowing Hourglass.
 ---@param allowSoulSave? boolean @If true, if the `ent` is The Soul attached to The Forgotten, will return a differently indexed save, as opposed to a shared save between the two.
@@ -1804,6 +1842,7 @@ function SaveManager.TryGetRunSave(ent, noHourglass, allowSoulSave)
 	return getRespectiveSave(ent, noHourglass, false, "run", nil, allowSoulSave)
 end
 
+---Returns a save that lasts the duration of the current floor. Exclusive to players and familiars.
 ---@param ent? Entity  @If an entity is provided, returns an entity specific save within the floor save. Otherwise, returns arbitrary data in the save not attached to an entity.
 ---@param noHourglass? false|boolean @If true, it'll look in a separate game save that is not affected by the Glowing Hourglass.
 ---@param allowSoulSave? boolean @If true, if the `ent` is The Soul attached to The Forgotten, will return a differently indexed save, as opposed to a shared save between the two.
@@ -1812,7 +1851,7 @@ function SaveManager.GetFloorSave(ent, noHourglass, allowSoulSave)
 	return getRespectiveSave(ent, noHourglass, true, "floor", nil, allowSoulSave)
 end
 
----**NOTE:** If your data is a pickup, use SaveManager.TryGetRerollPickupSave/TryGetNoRerollPickupSave instead
+---Attempts to return a save that lasts the duration of the current floor. Exclusive to players and familiars.
 ---@param ent? Entity  @If an entity is provided, returns an entity specific save within the floor save. Otherwise, returns arbitrary data in the save not attached to an entity.
 ---@param noHourglass? false|boolean @If true, it'll look in a separate game save that is not affected by the Glowing Hourglass.
 ---@param allowSoulSave? boolean @If true, if the `ent` is The Soul attached to The Forgotten, will return a differently indexed save, as opposed to a shared save between the two.
@@ -1821,6 +1860,7 @@ function SaveManager.TryGetFloorSave(ent, noHourglass, allowSoulSave)
 	return getRespectiveSave(ent, noHourglass, false, "floor", nil, allowSoulSave)
 end
 
+---Returns a save that lasts the duration of the current floor, but data is separated per-room.
 ---**NOTE:** If your data is a pickup, use SaveManager.GetRerollPickupSave/NoRerollPickupSave instead
 ---@param ent? Entity | integer @If an entity is provided, returns an entity specific save within the room save, which is a floor-lasting save that has unique data per-room. If a grid index is provided, returns a grid index specific save. Otherwise, returns arbitrary data in the save not attached to an entity.
 ---@param noHourglass? false|boolean @If true, it'll look in a separate game save that is not affected by the Glowing Hourglass.
@@ -1831,6 +1871,8 @@ function SaveManager.GetRoomSave(ent, noHourglass, listIndex, allowSoulSave)
 	return getRespectiveSave(ent, noHourglass, true, "room", listIndex, allowSoulSave)
 end
 
+---Attempts to return a save that lasts the duration of the current floor, but data is separated per-room.
+---**NOTE:** If your data is a pickup, use SaveManager.TryGetRerollPickupSave/TryGetNoRerollPickupSave instead
 ---@param ent? Entity | integer @If an entity is provided, returns an entity specific save within the room save, which is a floor-lasting save that has unique data per-room. If a grid index is provided, returns a grid index specific save. Otherwise, returns arbitrary data in the save not attached to an entity.
 ---@param noHourglass? false|boolean @If true, it'll look in a separate game save that is not affected by the Glowing Hourglass.
 ---@param listIndex? integer @Returns data for the provided `listIndex` instead of the index of the current room.
@@ -1840,6 +1882,7 @@ function SaveManager.TryGetRoomSave(ent, noHourglass, listIndex, allowSoulSave)
 	return getRespectiveSave(ent, noHourglass, false, "room", listIndex, allowSoulSave)
 end
 
+---Returns a save that lasts the duration of the current room, being reset once you exit the room.
 ---@param ent? Entity | integer  @If an entity is provided, returns an entity specific save within the room save. If a grid index is provided, returns a grid index specific save. Otherwise, returns arbitrary data in the save not attached to an entity.
 ---@param noHourglass? false|boolean @If true, it'll look in a separate game save that is not affected by the Glowing Hourglass.
 ---@param allowSoulSave? boolean @If true, if the `ent` is The Soul attached to The Forgotten, will return a differently indexed save, as opposed to a shared save between the two.
@@ -1848,6 +1891,7 @@ function SaveManager.GetTempSave(ent, noHourglass, allowSoulSave)
 	return getRespectiveSave(ent, noHourglass, true, "temp", nil, allowSoulSave)
 end
 
+---Attempts to return a save that lasts the duration of the current room, being reset once you exit the room.
 ---@param ent? Entity | integer  @If an entity is provided, returns an entity specific save within the room save. If a grid index is provided, returns a grid index specific save. Otherwise, returns arbitrary data in the save not attached to an entity.
 ---@param noHourglass? false|boolean @If true, it'll look in a separate game save that is not affected by the Glowing Hourglass.
 ---@return table? @Can return nil if data has not been loaded, or the manager has not been initialized, or if no data already existed.
@@ -1855,7 +1899,16 @@ function SaveManager.TryGetTempSave(ent, noHourglass, allowSoulSave)
 	return getRespectiveSave(ent, noHourglass, false, "temp", nil, allowSoulSave)
 end
 
----@param pickup? EntityPickup @If an entity is provided, returns an entity specific save within the roomFloor save, which is a floor-lasting save that has unique data per-room. If a grid index is provided, returns a grid index specific save. Otherwise, returns arbitrary data in the save not attached to an entity.
+---Returns a save for pickups that persists rerolls, such as through D20 or D6.
+---@param pickup? EntityPickup @If an entity is provided, returns an entity specific save within the room save, which is a floor-lasting save that has unique data per-room. If a grid index is provided, returns a grid index specific save. Otherwise, returns arbitrary data in the save not attached to an entity.
+---@param noHourglass? false|boolean @If true, it'll look in a separate game save that is not affected by the Glowing Hourglass.
+---@return table @Can return nil if data has not been loaded, or the manager has not been initialized. Will create data if none exists.
+function SaveManager.GetRerollPickupSave(pickup, noHourglass)
+	return SaveManager.GetRoomSave(pickup, noHourglass).RerollSave
+end
+
+---Attempts to return a save for pickups that persists rerolls, such as through D20 or D6.
+---@param pickup? EntityPickup @If an entity is provided, returns an entity specific save within the room save, which is a floor-lasting save that has unique data per-room. If a grid index is provided, returns a grid index specific save. Otherwise, returns arbitrary data in the save not attached to an entity.
 ---@param noHourglass? false|boolean @If true, it'll look in a separate game save that is not affected by the Glowing Hourglass.
 ---@return table? @Can return nil if data has not been loaded, or the manager has not been initialized, or if no data already existed.
 function SaveManager.TryGetRerollPickupSave(pickup, noHourglass)
@@ -1865,14 +1918,16 @@ function SaveManager.TryGetRerollPickupSave(pickup, noHourglass)
 	end
 end
 
----@param pickup? EntityPickup @If an entity is provided, returns an entity specific save within the roomFloor save, which is a floor-lasting save that has unique data per-room. If a grid index is provided, returns a grid index specific save. Otherwise, returns arbitrary data in the save not attached to an entity.
+---Returns a save for pickups that does not persist through rerolls, such as through D20 or D6.
+---@param pickup? EntityPickup @If an entity is provided, returns an entity specific save within the room save, which is a floor-lasting save that has unique data per-room. If a grid index is provided, returns a grid index specific save. Otherwise, returns arbitrary data in the save not attached to an entity.
 ---@param noHourglass? false|boolean @If true, it'll look in a separate game save that is not affected by the Glowing Hourglass.
 ---@return table @Can return nil if data has not been loaded, or the manager has not been initialized. Will create data if none exists.
-function SaveManager.GetRerollPickupSave(pickup, noHourglass)
-	return SaveManager.GetRoomSave(pickup, noHourglass).RerollSave
+function SaveManager.GetNoRerollPickupSave(pickup, noHourglass)
+	return SaveManager.GetRoomSave(pickup, noHourglass).NoRerollSave
 end
 
----@param pickup? EntityPickup @If an entity is provided, returns an entity specific save within the roomFloor save, which is a floor-lasting save that has unique data per-room. If a grid index is provided, returns a grid index specific save. Otherwise, returns arbitrary data in the save not attached to an entity.
+---Attempts to return a save for pickups that does not persist through rerolls, such as through D20 or D6.
+---@param pickup? EntityPickup @If an entity is provided, returns an entity specific save within the room save, which is a floor-lasting save that has unique data per-room. If a grid index is provided, returns a grid index specific save. Otherwise, returns arbitrary data in the save not attached to an entity.
 ---@param noHourglass? false|boolean @If true, it'll look in a separate game save that is not affected by the Glowing Hourglass.
 ---@return table? @Can return nil if data has not been loaded, or the manager has not been initialized, or if no data already existed.
 function SaveManager.TryGetNoRerollPickupSave(pickup, noHourglass)
@@ -1880,13 +1935,6 @@ function SaveManager.TryGetNoRerollPickupSave(pickup, noHourglass)
 	if pickup_save then
 		return pickup_save.NoRerollSave
 	end
-end
-
----@param pickup? EntityPickup @If an entity is provided, returns an entity specific save within the roomFloor save, which is a floor-lasting save that has unique data per-room. If a grid index is provided, returns a grid index specific save. Otherwise, returns arbitrary data in the save not attached to an entity.
----@param noHourglass? false|boolean @If true, it'll look in a separate game save that is not affected by the Glowing Hourglass.
----@return table @Can return nil if data has not been loaded, or the manager has not been initialized. Will create data if none exists.
-function SaveManager.GetNoRerollPickupSave(pickup, noHourglass)
-	return SaveManager.GetRoomSave(pickup, noHourglass).NoRerollSave
 end
 
 ---Returns uniquely-saved data for pickups when outside of the room they're stored in. Indexed by ListIndex
@@ -1940,8 +1988,11 @@ end
 ---Returns the save table used for Glowing Hourglass backups. It holds two copies, indexed by 0 and 1 for the different hourglass slots provided by the REPENTOGON callbacks.
 ---
 ---If not using REPENTOGON, will only ever populate slot 0 instead
-function SaveManager.GetHourglassSave()
-	return hourglassBackup
+---@return {["0"]: table, ["1"]: table}? @Can return nil if data has not been loaded, or the manager has not been initialized.
+function SaveManager.GetGlowingHourglassSave()
+	if SaveManager.Utility.IsDataInitialized() then
+		return hourglassBackup
+	end
 end
 
 --#endregion
