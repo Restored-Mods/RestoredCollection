@@ -177,7 +177,7 @@ if REPENTOGON then
         PILL_CRUSHER = Isaac.GetAchievementIdByName("​Pill Crusher"),
         SAFETY_BOMBS = Isaac.GetAchievementIdByName("​Safety Bombs"),
         STONE_BOMBS = Isaac.GetAchievementIdByName("​Stone Bombs"),
-		TAMMYS_HEAD = Isaac.GetAchievementIdByName("Tammy's Tail"),
+		TAMMYS_HEAD = Isaac.GetAchievementIdByName("​Tammy's Tail"),
 		VOODOO_PIN = Isaac.GetAchievementIdByName("​Voodoo Pin"),
 		OL_LOPPER = Isaac.GetAchievementIdByName("Ol' Lopper"),
 		PUMPKIN_MASK = Isaac.GetAchievementIdByName("​Pumpkin Mask"),
