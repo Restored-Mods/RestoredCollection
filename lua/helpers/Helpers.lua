@@ -366,7 +366,7 @@ function Helpers.tearsUp(firedelay, val)
 end
 
 function Helpers.GetTrueRange(player)
-    return player.Range / 40.0
+    return player.TearRange / 40.0
 end
 
 function Helpers.rangeUp(range, val)
