@@ -73,3 +73,17 @@ function PumpkinMask:SeedPoofRemoval(effect)
     end
 end
 RestoredCollection:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, PumpkinMask.SeedPoofRemoval, RestoredCollection.Enums.Entities.PUMPKIN_SEED_SHATTER.Variant)
+
+RestoredCollection:AddCallback("ON_EDITH_STOMP", function(_, player, bombLanding, isDollarBill, isFruitCake, forced)
+    for i = 0, TSIL.Random.GetRandomInt(3,5) do
+        Helpers.scheduleForUpdate(function()
+            local shootVec = Vector.FromAngle(TSIL.Random.GetRandomInt(1, 360)):Resized(9) * player.ShotSpeed
+            if not player:IsDead() then
+                local tear = Isaac.Spawn(EntityType.ENTITY_TEAR, RestoredCollection.Enums.TearVariant.PUMPKIN_SEED, 0, player.Position + player.TearsOffset, shootVec, player):ToTear()
+                tear.CollisionDamage = player.Damage * 0.4
+                local sprite = tear:GetSprite()
+                sprite:Play(sprite:GetDefaultAnimation(), true)
+            end
+        end, 2 * i)
+    end
+end, {Item = RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PUMPKIN_MASK})

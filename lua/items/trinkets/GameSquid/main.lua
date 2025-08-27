@@ -193,3 +193,14 @@ function GameSquid:SpawnSquid(florian)
     end
 end
 RestoredCollection:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, GameSquid.SpawnSquid, EntityType.ENTITY_BABY)
+
+RestoredCollection:AddCallback("ON_EDITH_STOMP", function(_, player, bombLanding, isDollarBill, isFruitCake, forced)
+    Isaac.Spawn(
+            EntityType.ENTITY_EFFECT,
+            EffectVariant.PLAYER_CREEP_BLACK,
+            0,
+            player.Position,
+            Vector.Zero,
+            player
+        )
+end, {Trinket = RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC})
