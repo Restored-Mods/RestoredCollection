@@ -92,4 +92,4 @@ RestoredCollection:AddCallback("ON_EDITH_STOMP_EXPLOSION", function(_, player, b
 	for _, dir in pairs(directions) do
 		CustomShockwaveAPI:SpawnCustomCrackwave(player.Position, player, 30, dir, 2, bombDamage / 2, bombDamage)
 	end
-end, RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS)
+end, { Item = RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS })
