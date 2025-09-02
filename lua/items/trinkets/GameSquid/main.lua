@@ -194,7 +194,7 @@ function GameSquid:SpawnSquid(florian)
 end
 RestoredCollection:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, GameSquid.SpawnSquid, EntityType.ENTITY_BABY)
 
-RestoredCollection:AddCallback("ON_EDITH_STOMP", function(_, player, bombLanding, isDollarBill, isFruitCake, forced)
+RestoredCollection:AddCallback("ON_EDITH_STOMP", function(_, player, stompDamage, bombLanding, forced, isStompPool)
     Isaac.Spawn(
             EntityType.ENTITY_EFFECT,
             EffectVariant.PLAYER_CREEP_BLACK,

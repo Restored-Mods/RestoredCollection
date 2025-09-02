@@ -88,8 +88,8 @@ function StoneBombs:SB_Explode(bomb, player)
 	end
 end
 
-RestoredCollection:AddCallback("ON_EDITH_STOMP_EXPLOSION", function(_, player, bombDamage, radius)
+RestoredCollection:AddCallback("ON_EDITH_STOMP_EXPLOSION", function(_, player, bombDamage, position, radius, hasBombs, isGigaBomb, isScatterBomb)
 	for _, dir in pairs(directions) do
-		CustomShockwaveAPI:SpawnCustomCrackwave(player.Position, player, 30, dir, 2, bombDamage / 2, bombDamage)
+		CustomShockwaveAPI:SpawnCustomCrackwave(position, player, 30, dir, 2, bombDamage / 2, bombDamage)
 	end
 end, { Item = RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS })

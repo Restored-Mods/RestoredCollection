@@ -364,6 +364,6 @@ function BlankBombsMod:OnLocustCollision(locust, collider)
 end
 RestoredCollection:AddCallback(ModCallbacks.MC_PRE_FAMILIAR_COLLISION, BlankBombsMod.OnLocustCollision, FamiliarVariant.ABYSS_LOCUST)
 
-RestoredCollection:AddCallback("ON_EDITH_STOMP_EXPLOSION", function(_, player, bombDamage, radius)
-	DoBlankEffect(player.Position, radius)
+RestoredCollection:AddCallback("ON_EDITH_STOMP_EXPLOSION", function(_, player, bombDamage, position, radius, hasBombs, isGigaBomb, isScatterBomb)
+	DoBlankEffect(position, radius)
 end, RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BLANK_BOMBS)

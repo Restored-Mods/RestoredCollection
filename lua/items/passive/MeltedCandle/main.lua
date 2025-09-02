@@ -180,7 +180,7 @@ function MeltedCandle:WaxFireEffectUpdate(effect)
 end
 RestoredCollection:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, MeltedCandle.WaxFireEffectUpdate, RestoredCollection.Enums.Entities.WAX_FIRE_EFFECT.Variant)
 
-RestoredCollection:AddCallback("ON_EDITH_STOMP", function(_, player, bombLanding, isDollarBill, isFruitCake, forced)
+RestoredCollection:AddCallback("ON_EDITH_STOMP", function(_, player, stompDamage, bombLanding, forced, isStompPool)
     local rng = player:GetCollectibleRNG(MeltedCandle.ID)
     if rng:RandomFloat() <= 0.3 then
         for _, enemy in ipairs(EdithRestored.Helpers.GetEnemiesInRadius(player.Position, EdithRestored.Helpers.GetStompRadius())) do

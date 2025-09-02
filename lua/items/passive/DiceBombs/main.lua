@@ -287,7 +287,7 @@ function DiceBombsLocal:BombUpdate(bomb)
 end
 RestoredCollection:AddCallback(ModCallbacks.MC_POST_BOMB_UPDATE, DiceBombsLocal.BombUpdate)
 
-RestoredCollection:AddCallback("ON_EDITH_STOMP_EXPLOSION", function(_, player, bombDamage, radius)
+RestoredCollection:AddCallback("ON_EDITH_STOMP_EXPLOSION", function(_, player, bombDamage, position, radius, hasBombs, isGigaBomb, isScatterBomb)
     local DiceBombVariant = CollectibleType.COLLECTIBLE_D6
     for i = 0, 3 do
         if DiceBombsAPI.GetDiceBombsSprites(player:GetActiveItem(i)) then

@@ -74,7 +74,7 @@ function PumpkinMask:SeedPoofRemoval(effect)
 end
 RestoredCollection:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, PumpkinMask.SeedPoofRemoval, RestoredCollection.Enums.Entities.PUMPKIN_SEED_SHATTER.Variant)
 
-RestoredCollection:AddCallback("ON_EDITH_STOMP", function(_, player, bombLanding, isDollarBill, isFruitCake, forced)
+RestoredCollection:AddCallback("ON_EDITH_STOMP", function(_, player, stompDamage, bombLanding, forced, isStompPool)
     for i = 0, TSIL.Random.GetRandomInt(3,5) do
         Helpers.scheduleForUpdate(function()
             local shootVec = Vector.FromAngle(TSIL.Random.GetRandomInt(1, 360)):Resized(9) * player.ShotSpeed
