@@ -54,13 +54,13 @@ else
 		end
 		data.LuckySevenCount = player:GetCollectibleNum(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN)
 	end
-	RestoredCollection:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, LuckySeven.Coins, CacheFlag.CACHE_LUCK)
+	RestoredCollection:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, LuckySeven.Coins, CacheFlag.CACHE_TEARFLAG)
 end
 
 ---@param player EntityPlayer
 function LuckySeven:OnCache(player)
-    if player:HasCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN) then return end
-
-    player.Luck = player.Luck + 2 * player:GetCollectibleNum(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN)
+    if player:HasCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN) then 
+        player.Luck = player.Luck + 2 * player:GetCollectibleNum(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN)
+    end
 end
 RestoredCollection:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, LuckySeven.OnCache, CacheFlag.CACHE_LUCK)

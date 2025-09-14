@@ -18,7 +18,7 @@
 	<color name="fly_pac" r="249" g="249" b="192"/>
 	
 	<!-- Stone Bombs -->
-	<locust id="0" tearFlags="70" color="default" gfx="sblocust.png" />
+	<locust id="5" tearFlags="70" color="default" gfx="sblocust.png" />
 	<!-- Blank Bomb -->
 	<locust id="1" color="fly_blue"/>
 	<!-- Book of Despair -->
@@ -28,7 +28,7 @@
 	<!-- Donkey Jawbone -->
 	<locust id="4" damageMultiplier="2" scale="2" color="fly_orange" />
 	<!-- Menorah -->
-	<locust id="5" damageMultiplier="0.75" count="2" scale="0.75" color="fly_blue" />
+	<locust id="28" damageMultiplier="0.75" count="2" scale="0.75" color="fly_blue" />
 	<!-- Ancient Revelation -->
 	<locust id="6" tearFlags="2" color="fly_yellow" />
 	<!-- Beth's Heart -->

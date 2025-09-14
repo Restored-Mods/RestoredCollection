@@ -1,0 +1,174 @@
+<collectibles>
+	<collectible id="28">
+		<info text="Menorah familiar that gives multishot and tears down proportionate to the number of lit candles"/>
+		<info text="Getting hit with 7 lit candles bursts 8 blue flames and makes Isaac unable to shoot for a little while" />
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x2 locust 1.5x Isaac's damage"/>
+	</collectible>
+	<collectible id="1">
+		<info text="Bombs explode instantly, -50% bomb damage" />
+		<info text="Isaac is immune from his own bombs" />
+		<info text="Bombs destroy enemy projectiles and knock back enemies" />
+		<info text="To place bombs normally hold drop button" />
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust 1x Isaac's damage"/>
+	</collectible>
+	<collectible id="2">
+		<info notcollectible="247" text="Spawns a familiar that moves by jumping from tile to tile, dealing 20 damage to nearby enemies and 40 damage to enemies directly landed on"/>
+		<info collectible="247" text="Spawns a familiar that moves by jumping from tile to tile, dealing 40 damage to nearby enemies and 80 damage to enemies directly landed on"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust 1.5x Isaac's damage"/>
+	</collectible>
+	<collectible id="3">
+		<info text="Bombs reroll pedestal items within its explosion radius"/>
+		<info text="Has a 25% chance to destroy items instead of rerolling them"/>
+		<info collectible="476" text="Activates D1 effect for pickups in explosion's radius"/>
+		<info collectible="284" text="Activates D4 effect if Isaac in explosion's radius"/>
+		<info collectible="406" text="Activates D8 effect if Isaac in explosion's radius"/>
+		<info collectible="166" text="Activates D20 effect for pickups in explosion's radius"/>
+		<info collectible="283" text="Activates D100 effect for Isaac and pickups in explosion's radius"/>
+		<info collectible="723" text="Activates Spindown Dice effect for collectibles in explosion's radius"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust 2x Isaac's damage"/>
+	</collectible>
+	<collectible id="4">
+		<info text="When taking damage, Isaac does a spin attack that deals 8x damage, inflicts bleed, and blocks projectiles"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 big locust 4x Isaac's damage"/>
+	</collectible>
+	<collectible id="5">
+		<info text="Bombs create rock waves in all 4 cardinal directions"/>
+		<info text="The rock waves can damage enemies, destroy objects, and reveal secret rooms"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust 1x Isaac's damage"/>
+	</collectible>
+	<collectible id="6">
+		<info text="Grants flight"/>
+		<info text="Spectral tears"/>
+		<info text="Tears turn 90 degrees to target enemies that they may have missed"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 homing locust 2x Isaac's damage"/>
+	</collectible>
+	<collectible id="7">
+		<info text="Throwable familiar that converts soul and black hearts to active item charges, stores up to 6 charges"/>
+		<info text="Half Soul hearts: 1 charge"/>
+		<info text="Soul hearts: 2 charge"/>
+		<info text="Black hearts: 3 charge"/>
+		<info text="Pressing drop button supplies active item with stored charges"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust .75x Isaac's damage"/>
+	</collectible>
+	<collectible id="8">
+		<info text="When enemies spawn they have a 25% chance to contain 1-3 pennies which can extracted by damaging them"/>
+		<info text="For Keeper and Tainted Keeper chance is 16.7% and only 1-2 pennies"/>
+		<info text="The pennies disappear after 3 seconds"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust 1x Isaac's damage"/>
+	</collectible>
+	<collectible id="9">
+		<info text="Whenever any pickup count ends in a 7, Isaac has a chance to shoot golden tears that turn enemies into special slot machines"/>
+		<info text="The chance is increased the more pickup counts end in 7"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust 1x Isaac's damage"/>
+	</collectible>
+	<collectible id="10">
+		<info text="Combat rooms are cleared after 30 seconds of not damaging any enemies"/>
+		<info text="Spawns chests at the start of each floor for each special room left unexplored on the previous floor"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 charming locust 1x Isaac's damage"/>
+	</collectible>
+	<collectible id="11">
+		<info text="Placed bombs will not explode until the player leaves its explosion radius"/>
+		<info text="Spawns chests at the start of each floor for each special room left unexplored on the previous floor"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust .5x Isaac's damage"/>
+	</collectible>
+	<collectible id="12">
+		<info text="Disconnects Isaac's head from his body allowing it to move like Mr. Maw head"/>
+		<info text="The head deals 10.5x Isaac's damage per second"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust .75x Isaac's damage"/>
+	</collectible>
+	<collectible id="13">
+		<info text="Every 4th tear is shot with low fire delay"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust 1x Isaac's damage"/>
+	</collectible>
+	<collectible id="14">
+		<info text="Charged by collecting red hearts"/>
+		<info text="Spawns a 'food' item on use"/>
+		<info text="Disappears after 1 uses"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust 1x Isaac's damage"/>
+	</collectible>
+	<collectible id="15">
+		<info text="Charged by collecting red hearts"/>
+		<info text="Spawns a 'food' item on use"/>
+		<info text="Disappears after 2 uses"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust 1x Isaac's damage"/>
+	</collectible>
+	<collectible id="16">
+		<info text="Charged by collecting red hearts"/>
+		<info text="Spawns a 'food' item on use"/>
+		<info text="Disappears after 3 uses"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust 1x Isaac's damage"/>
+	</collectible>
+	<collectible id="17">
+		<info text="Charged by collecting red hearts"/>
+		<info text="Spawns a 'food' item on use"/>
+		<info text="Disappears after 4 uses"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust 1x Isaac's damage"/>
+	</collectible>
+	<collectible id="18">
+		<info text="Charged by collecting red hearts"/>
+		<info text="Spawns a 'food' item on use"/>
+		<info text="Disappears after 5 uses"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust 1x Isaac's damage"/>
+	</collectible>
+	<collectible id="19">
+		<info text="Charged by collecting red hearts"/>
+		<info text="Spawns a 'food' item on use"/>
+		<info text="Disappears after 6 uses"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust 1x Isaac's damage"/>
+	</collectible>
+	<collectible id="20">
+		<info text="+100% Tears up when used"/>
+		<info text="Less effective for each concecutive use in the same room"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 fast locust 1.5x Isaac's damage"/>
+	</collectible>
+	<collectible id="21">
+		<info text="Fires a cluster of tears"/>
+		<info text="Each tear shot by Isaac increases item charge by one"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x3 locust 1x Isaac's damage"/>
+	</collectible>
+	<collectible id="22">
+		<info text="Spawns an illusion clone when used"/>
+		<info text="Illusion clones are the same character as you and die in one hit"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust 2x Isaac's damage"/>
+	</collectible>
+	<collectible id="23">
+		<info text="Gives a random pill when picked up"/>
+		<info text="Increase pill drop rate when held"/>
+		<info text="Consumes currently held pill and applies an effect to the entire room depending on the type of pill"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust .75x Isaac's damage"/>
+	</collectible>
+	<collectible id="24">
+		<info text="Throwable voodoo pin that swaps Isaac's hitbox with enemy hitboxes"/>
+		<info text="Lasts until enemy is dead"/>
+		<info text="Hitting bosses makes it last for 5 seconds"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust 1x Isaac's damage"/>
+	</collectible>
+	<collectible id="25">
+		<info text="Fires a rapid inacurate strike of seeds at a set interval"/>
+		<info text="Seeds do 40% of Isaac's damage"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust 1x Isaac's damage"/>
+	</collectible>
+	<collectible id="26">
+		<info text="30% chance to shoot a wax tear that burns and slows enemies"/>
+		<info text="Gives an aura that slowly grows when shooting. Shrinks when not shooting"/>
+		<info text="Aura burns enemies"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust 1x Isaac's damage"/>
+	</collectible>
+	<collectible id="27">
+		<info text="+25% chance for heart pickups to be double hearts"/>
+		<info text="+80% chance for the room clear reward to be a heart after taking damage"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust 1x Isaac's damage"/>
+	</collectible>
+</collectibles>
+<trinkets>
+	<trinket id="0">
+		<info notcollectible="439" tag="2" text="8% chance to a shoot slowing tear that leaves black creep on impact"/>
+		<info notcollectible="439" tag="2" text="100% at 18 luck"/>
+		<info notcollectible="439" tag="1" text="11% chance to a shoot slowing tear that leaves black creep on impact"/>
+		<info notcollectible="439" tag="1" text="100% at 12.6 luck"/>
+		<info collectible="439" tag="2" text="11% chance to a shoot slowing tear that leaves black creep on impact"/>
+		<info collectible="439" tag="2" text="100% at 12.6 luck"/>
+		<info collectible="439" tag="1" text="14% chance to a shoot slowing tear that leaves black creep on impact"/>
+		<info collectible="439" tag="1" text="100% at 9.6 luck"/>
+	</trinket>
+</trinkets>

@@ -12,7 +12,7 @@ function Menorah:onEvaluateCache(player, cacheFlag)
 		if player:HasCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH) then
 			if data.MenorahFlames then
 				if data.MenorahFlames > 0 then
-					player.MaxFireDelay = (player.MaxFireDelay / (data.SewingMachineDenominator or 2)) * (data.MenorahFlames + 2)		
+					player.MaxFireDelay = (player.MaxFireDelay / (data.SewingMachineDenominator or 2)) * (data.MenorahFlames + 1)
 				end
 			end
 		end
