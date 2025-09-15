@@ -1,5 +1,41 @@
 local modname = "Restored Collection"
 
+DeadSeaScrollsMenu.AddChangelog(modname, "v1.24",[[{{FSIZE2}}added
+- (rep+) items descriptions
+
+- safety bombs costume
+
+- missing max's head
+costume for apollyon, blue baby,
+the forgotten, both keepers and 
+dark and tainted judas
+
+- safety bombs give 45 seconds of
+invinsibility on explosion landing
+as edith when enemies around weren't
+killed
+
+- fiend folio compatibility for fuzzy
+pickle and charged dice
+
+{{FSIZE2}}fixed
+- safety bombs now should give 5
+bombs instead of 7
+
+- menorah incorrect tear rate down
+(especially with 1 candle lit)
+
+- menorah and stone bombs locusts
+being swapped
+
+- keeper's rope causing eid errors
+
+- keeper's rope not containing abyss
+info for Keeper and tainted keeper
+
+- (repentogon) tammy's tail achievement]],
+{"restored", "collection", "", "v1.24", "update"}, false, false)
+
 DeadSeaScrollsMenu.AddChangelog(modname, "v1.23",[[{{FSIZE2}}fixed
 - fixed stone, safety, blank
 and dice bombs affecting
