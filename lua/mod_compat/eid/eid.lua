@@ -959,3 +959,41 @@ EID:addGoldenTrinketMetadata(
 	nil,
 	"zh_cn"
 )
+
+local function AddXmlLocustInfo(id, amount, scale, speed, flags1, flags2, flags3, tearFlags1, tearFlags2, tearFlags3, procChance1, procChance2, procChance3, damageMult1, damageMult2)
+	amount = amount or 1
+	scale = scale or 1
+	speed = speed or 1
+	flags1 = flags1 or { -1 }
+	flags2 = flags2 or { -1 }
+	flags3 = flags3 or { -1 }
+	tearFlags1 = tearFlags1 or { -1 }
+	tearFlags2 = tearFlags2 or { -1 }
+	tearFlags3 = tearFlags3 or { -1 }
+	procChance1 = procChance1 or 1
+	procChance2 = procChance2 or 1
+	procChance3 = procChance3 or 1
+	damageMult1 = damageMult1 or 1
+	damageMult2 = damageMult2 or 1
+	if id > 732 then
+		EID.XMLLocusts[id] = { amount, scale, speed, flags1, flags2, flags3, tearFlags1, tearFlags2, tearFlags3, procChance1, procChance2, procChance3, damageMult1, damageMult2 }
+	end
+end
+
+local locustData = {
+	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS] = { 1, 1, 1, { -1 }, { -1 }, { -1 }, { 70 }, { -1 }, { -1 }, 1, 1, 1, 1, 1 },
+	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_DESPAIR] = { 1, 1, 2, { -1 }, { -1 }, { -1 }, { -1 }, { -1 }, { -1 }, 1, 1, 1, 1, 1 },
+	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOWL_OF_TEARS] = { 3, 1, 1, { -1 }, { -1 }, { -1 }, { -1 }, { -1 }, { -1 }, 1, 1, 1, 0.5, 1 },
+	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DONKEY_JAWBONE] = { 1, 2, 1, { -1 }, { -1 }, { -1 }, { -1 }, { -1 }, { -1 }, 1, 1, 1, 4, 1 },
+	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH] = { 2, 0.75, 1,{ -1 }, { -1 }, { -1 }, { -1 }, { -1 }, { -1 }, 1, 1, 1, 0.75, 1 },
+	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_ANCIENT_REVELATION] = { 1, 1, 1, { -1 }, { -1 }, { -1 }, { 2 }, { -1 }, { -1 }, 1, 1, 1, 1, 1 },
+	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BETHS_HEART] = { 1, 1, 1, { -1 }, { -1 }, { -1 }, { 15 }, { -1 }, { -1 }, 1, 1, 1, 1, 1 },
+	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN] = { 1, 1, 1, { -1 }, { -1 }, { -1 }, { 74 }, { -1 }, { -1 }, 1, 1, 1, 1, 1 },
+	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST] = { 1, 1, 1, { -1 }, { -1 }, { -1 }, { 13 }, { -1 }, { -1 }, 1, 1, 1, 1, 1 },
+	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MELTED_CANDLE] = { 1, 1, 1, { -1 }, { -1 }, { -1 }, { -1 }, { 22 }, { -1 }, 1, 0.4, 1, 1, 1 },
+	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BLANK_BOMBS] = { 1, 1, 1, { -1 }, { -1 }, { -1 }, { 34 }, { -1 }, { -1 }, 1, 1, 1, 1, 1 },
+}
+
+for col, data in pairs(locustData) do
+	AddXmlLocustInfo(col, table.unpack(data))
+end

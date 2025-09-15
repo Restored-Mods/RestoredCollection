@@ -9,7 +9,7 @@
 		<info text="Isaac is immune from his own bombs" />
 		<info text="Bombs destroy enemy projectiles and knock back enemies" />
 		<info text="To place bombs normally hold drop button" />
-		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 locust 1x Isaac's damage"/>
+		<info collectible="706" text="&lt;color=0xFFc30404&gt;x1 shield locust 1x Isaac's damage"/>
 	</collectible>
 	<collectible id="2">
 		<info notcollectible="247" text="Spawns a familiar that moves by jumping from tile to tile, dealing 20 damage to nearby enemies and 40 damage to enemies directly landed on"/>

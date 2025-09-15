@@ -20,13 +20,13 @@
 	<!-- Stone Bombs -->
 	<locust id="5" tearFlags="70" color="default" gfx="sblocust.png" />
 	<!-- Blank Bomb -->
-	<locust id="1" color="fly_blue"/>
+	<locust id="1" tearFlags="34" color="fly_blue"/>
 	<!-- Book of Despair -->
 	<locust id="20" speed="2" color="fly_bod" />
 	<!-- Bowl of Tears -->
 	<locust id="21" count="3" damageMultiplier="0.5" color="fly_blue" />
 	<!-- Donkey Jawbone -->
-	<locust id="4" damageMultiplier="2" scale="2" color="fly_orange" />
+	<locust id="4" damageMultiplier="2" collisionInterval="30" scale="2" color="fly_orange" />
 	<!-- Menorah -->
 	<locust id="28" damageMultiplier="0.75" count="2" scale="0.75" color="fly_blue" />
 	<!-- Ancient Revelation -->
