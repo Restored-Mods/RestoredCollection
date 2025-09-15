@@ -177,6 +177,30 @@ local DiceBombsExtraDesc = {
 		"{{Collectible283}} Активирует еффект D100 для Айзека и подбираемых предметов в радиусе взрыва",
 		"{{Collectible723}} Активирует еффект Кубика с вычетом для артефактов в радиусе взрыва",
 	},
+    --[[spa = {
+		"{{Collectible476}} ",
+		"{{Collectible284}} ",
+		"{{Collectible406}} ",
+		"{{Collectible166}} ",
+		"{{Collectible283}} ",
+		"{{Collectible723}} ",
+	},
+    pt_br = {
+		"{{Collectible476}} ",
+		"{{Collectible284}} ",
+		"{{Collectible406}} ",
+		"{{Collectible166}} ",
+		"{{Collectible283}} ",
+		"{{Collectible723}} ",
+	},
+    zn_cn = {
+		"{{Collectible476}} ",
+		"{{Collectible284}} ",
+		"{{Collectible406}} ",
+		"{{Collectible166}} ",
+		"{{Collectible283}} ",
+		"{{Collectible723}} ",
+	},]]
 }
 
 local DiceBombsModifiersItems = {
@@ -528,7 +552,6 @@ end
 
 local function KeepersRopeKeeperModifierCallback(descObj)
 	local player = Game():GetNearestPlayer(descObj.Entity.Position)
-	local lang = EID:getLanguage()
 	local isKeeper, isTaintedKeeper =
 		Helpers.IsPlayerType(player, PlayerType.PLAYER_KEEPER), Helpers.IsPlayerType(player, PlayerType.PLAYER_KEEPER_B)
 	if isKeeper or isTaintedKeeper then
