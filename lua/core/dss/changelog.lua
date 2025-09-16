@@ -1,8 +1,6 @@
 local modname = "Restored Collection"
 
 DeadSeaScrollsMenu.AddChangelog(modname, "v1.24",[[{{FSIZE2}}added
-- (rep+) items descriptions
-
 - safety bombs costume
 
 - missing max's head
@@ -15,8 +13,12 @@ invinsibility on explosion landing
 as edith when enemies around weren't
 killed
 
+- blank bombs now destroy projectiles
+
 - fiend folio compatibility for fuzzy
 pickle and charged dice
+
+- (rep+) items descriptions
 
 {{FSIZE2}}fixed
 - safety bombs now should give 5
@@ -328,7 +330,7 @@ DeadSeaScrollsMenu.AddChangelog(modname, "v1.0", [[{FSIZE3}restored collection
 {{FSIZE3}}is out
 
 21 collectibles to discover,
-ranging from items cut from Antibirth
+ranging from items cut from antibirth
 to items based on old design documents.
 
 1 new squishy trinket!
