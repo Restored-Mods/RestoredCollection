@@ -581,7 +581,7 @@ EID:addDescriptionModifier("Keeper's Rope Keeper Modifier", KeeperRopeConditions
 local Sevendesc =
 	"Whenever any pickup count ends in a 7, Isaac has a chance to shoot golden tears that turn enemies into special slot machines#The chance is increased the more pickup counts end in 7"
 local SevendescRu =
-	"Всякий раз, когда один из предметов игрока заканчивается на 7, у Айзека есть шанс выстрелить золотыми слезами, которые при попадании во врагов превращают их в особые игровые автоматы"
+	"Всякий раз, когда один из предметов игрока заканчивается на 7, у Айзека есть шанс выстрелить золотыми слезами, которые при попадании во врагов превращают их в особые игровые автоматы#Чем больше предметов заканчивается на 7, тем больше шанс"
 local SevendescSpa =
 	"Si el numero de cualquier recolectable del jugador termina en 7, se tendrá la posibilidad de lanzar una lágrima dorada que genera una máquina tragaperras especial al golpear a un enemigo"
 local SevendescPt_Br =
