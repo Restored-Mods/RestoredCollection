@@ -20,7 +20,7 @@ function GameSquid:OnFireTear(tear)
     local rng = player:GetTrinketRNG(GameSquid.ID)
 
     local extraChance = GameSquid.EXTRA_CHANCE * player:GetTrinketMultiplier(GameSquid.ID)
-    local chance = GameSquid.BASE_CHANCE + extraChance + (GameSquid.BASE_CHANCE + extraChance) * player.Luck / 1.56
+    local chance = GameSquid.BASE_CHANCE + extraChance + (GameSquid.BASE_CHANCE + extraChance) * Helpers.GetLuck(player, true) / 1.56
     if rng:RandomFloat() < chance then
         tear:AddTearFlags(TearFlags.TEAR_SLOW)
         tear:AddTearFlags(TearFlags.TEAR_GISH)
@@ -51,7 +51,7 @@ function GameSquid:OnFetusRocketInit(rocket)
     local rng = player:GetTrinketRNG(GameSquid.ID)
 
     local extraChance = GameSquid.EXTRA_CHANCE * player:GetTrinketMultiplier(GameSquid.ID)
-    local chance = GameSquid.BASE_CHANCE + extraChance + (GameSquid.BASE_CHANCE + extraChance) * player.Luck / 1.56
+    local chance = GameSquid.BASE_CHANCE + extraChance + (GameSquid.BASE_CHANCE + extraChance) * Helpers.GetLuck(player, true) / 1.56
 
     if rng:RandomFloat() < chance then
         Helpers.GetData(rocket).IsGameSquidTear = true        
@@ -95,7 +95,7 @@ local function CheckForLudoTear(entity, tear)
     local rng = player:GetTrinketRNG(GameSquid.ID)
 
     local extraChance = GameSquid.EXTRA_ONTICK_CHANCE * player:GetTrinketMultiplier(GameSquid.ID)
-    local chance = GameSquid.BASE_ONTICK_CHANCE + extraChance + (GameSquid.BASE_ONTICK_CHANCE + extraChance) * player.Luck / 1.55
+    local chance = GameSquid.BASE_ONTICK_CHANCE + extraChance + (GameSquid.BASE_ONTICK_CHANCE + extraChance) * Helpers.GetLuck(player, true) / 1.55
 
     if rng:RandomFloat() < chance then
         entity:AddSlowing(EntityRef(player), 60, 1, Color(0.15, 0.15, 0.15, 1, 0, 0, 0))
@@ -120,7 +120,7 @@ local function CheckForLaser(entity, player)
     local rng = player:GetTrinketRNG(GameSquid.ID)
 
     local extraChance = GameSquid.EXTRA_ONTICK_CHANCE * player:GetTrinketMultiplier(GameSquid.ID)
-    local chance = GameSquid.BASE_ONTICK_CHANCE + extraChance + (GameSquid.BASE_ONTICK_CHANCE + extraChance) * player.Luck / 1.55
+    local chance = GameSquid.BASE_ONTICK_CHANCE + extraChance + (GameSquid.BASE_ONTICK_CHANCE + extraChance) * Helpers.GetLuck(player, true) / 1.55
 
     if rng:RandomFloat() < chance then
         entity:AddSlowing(EntityRef(player), 60, 1, Color(0.15, 0.15, 0.15, 1, 0, 0, 0))

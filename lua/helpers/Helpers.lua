@@ -369,6 +369,17 @@ function Helpers.GetTrueRange(player)
     return player.TearRange / 40.0
 end
 
+function Helpers.GetLuck(player, includeTearDrop)
+	local tearDropLuck = 0
+	if includeTearDrop then
+		tearDropLuck = player:GetTrinketMultiplier(TrinketType.TRINKET_TEARDROP_CHARM) * 2
+		if tearDropLuck > 0 then
+			tearDropLuck = tearDropLuck + 2
+		end
+	end
+	return player.Luck + tearDropLuck
+end
+
 function Helpers.rangeUp(range, val)
     local currentRange = range / 40.0
     local newRange = currentRange + val
