@@ -451,6 +451,44 @@ local ItemDescriptions = {
 	},
 }
 
+local TrinketDescriptions = {
+	en_us = {
+		[RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC] = {
+			Name = "Game Sqiud",
+			Description = "{{Slow}} 8% chance to a shoot slowing tear that leaves black creep on impact #{{Luck}} 100% chance at 18 luck",
+			GoldenDescription = "↑ +3% on top for every trinket multiplier",
+		}
+	},
+	ru = {
+		[RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC] = {
+			Name = "Игровой кальмар",
+			Description = "{{Slow}} 8% шанс выстрелить замедляющей слезой, которая оставляет черную лужу при столкновении #{{Luck}} 100% шанс с 18 удачи",
+			GoldenDescription = "↑ +3% дополнительно за каждый множитель брелка",
+		}
+	},
+	spa = {
+		[RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC] = {
+			Name = "Juego de calamar",
+			Description = "{{Slow}} 8% de disparar una lágrima ralentizada que deja un charco negro cuando impacta",
+			GoldenDescription = "↑ +3% cuando se usa con cualquier trinket de multiplicador",
+		}
+	},
+	pt_br = {
+		[RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC] = {
+			Name = "Lula dos Games",
+			Description = "{{Slow}} 8% de chance de disparar uma lágrima que desascelera e deixa uma poça preta no impacto",
+			GoldenDescription = "↑ +3% de chance por cada multiplicador de trinkets",
+		}
+	},
+	zh_cn = {
+		[RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC] = {
+			Name = "游戏鱿鱼",
+			Description = "{{Slow}} 8%发射减速眼泪，在击中时留下黑色水迹",
+			GoldenDescription = "↑每个饰品乘数上限+3%",
+		}
+	},
+}
+
 do
 	local function double(match)
 		return tostring(tonumber(match) * 2)
@@ -591,7 +629,6 @@ do
 					if descObj.Entity and descObj.Entity:ToPickup() then
 						varData = descObj.Entity:ToPickup():GetVarData()
 					elseif EID.holdTabPlayer ~= nil then
-						---@cast EID.holdTabPlayer EntityPlayer
 						for i = 0, 2 do
 							if EID.holdTabPlayer:GetActiveItem(i) == RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX then
 								varData = EID.holdTabPlayer:GetActiveItemDesc(i).VarData
@@ -649,70 +686,6 @@ do
 	end
 end
 
---Game Squid
-EID:addTrinket(
-	RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC,
-	"{{Slow}} 8% chance to a shoot slowing tear that leaves black creep on impact #{{Luck}} 100% chance at 18 luck",
-	"Game Sqiud",
-	"en_us"
-)
-EID:addTrinket(
-	RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC,
-	"{{Slow}} 8% шанс выстрелить замедляющей слезой, которая оставляет черную лужу при столкновении #{{Luck}} 100% шанс с 18 удачи",
-	"Игровой кальмар",
-	"ru"
-)
-EID:addTrinket(
-	RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC,
-	"{{Slow}} 8% de disparar una lágrima ralentizada que deja un charco negro cuando impacta",
-	"Juego de calamar",
-	"spa"
-)
-EID:addTrinket(
-	RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC,
-	"{{Slow}} 8% de chance de disparar uma lágrima que desascelera e deixa uma poça preta no impacto",
-	"Lula dos Games",
-	"pt_br"
-)
-EID:addTrinket(
-	RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC,
-	"{{Slow}} 8%发射减速眼泪，在击中时留下黑色水迹",
-	"游戏鱿鱼",
-	"zh_cn"
-)
-EID:addGoldenTrinketMetadata(
-	RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC,
-	"↑ +3% on top for every trinket multiplier"
-)
-EID:addGoldenTrinketMetadata(
-	RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC,
-	"↑ +3% дополнительно за каждый множитель брелка",
-	nil,
-	nil,
-	"ru"
-)
-EID:addGoldenTrinketMetadata(
-	RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC,
-	"↑ +3% cuando se usa con cualquier trinket de multiplicador",
-	nil,
-	nil,
-	"spa"
-)
-EID:addGoldenTrinketMetadata(
-	RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC,
-	"↑ +3% de chance por cada multiplicador de trinkets",
-	nil,
-	nil,
-	"pt_br"
-)
-EID:addGoldenTrinketMetadata(
-	RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC,
-	"↑每个饰品乘数上限+3%",
-	nil,
-	nil,
-	"zh_cn"
-)
-
 for lang, item in pairs(ItemDescriptions) do
 	for id, data in pairs(item) do
 		EID:addCollectible(id, data.Description, data.Name, lang)
@@ -720,6 +693,15 @@ for lang, item in pairs(ItemDescriptions) do
 			for i = 1,5 do
 				EID:addCollectible(id - i, data.Description, data.Name, lang)
 			end
+		end
+	end
+end
+
+for lang, trinket in pairs(TrinketDescriptions) do
+	for id, data in pairs(trinket) do
+		EID:addTrinket(id, data.Description, data.Name, lang)
+		if data.GoldenDescription ~= nil then
+			EID:addGoldenTrinketMetadata(id, data.GoldenDescription, nil, nil, lang)
 		end
 	end
 end
