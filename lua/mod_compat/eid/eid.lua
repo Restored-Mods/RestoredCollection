@@ -363,7 +363,7 @@ local ItemDescriptions = {
 			Description = "Dispara rapidamente e com baixa precisão uma série de sementes#Sementes são disparadas dentro de 30° da direção do disparo",
 		},
 	},
-	zn_ch = {
+	zh_cn = {
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS] = {
 			Name = "岩石炸弹",
 			Description = "{{Bomb}} +5炸弹#放置的炸弹现在会爆炸并在所有4个基本方向产生岩石波#岩石波可以伤害敌人，摧毁物体，并揭示隐藏房",
@@ -582,12 +582,23 @@ do
 			HardCondition = function(descObj)
 				local diff = RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX - descObj.ObjSubType
 				
-				return descObj.ObjType == 5
+				return (descObj.Entity and descObj.Entity:ToPickup() or EID.holdTabPlayer ~= nil) and descObj.ObjType == 5
 				and descObj.ObjVariant == 100 and (diff > 0 and diff < 6)
 			end,
 			Modifier = function(descObj)
 				if REPENTOGON and descObj.ObjSubType == RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX then
-					local varData = descObj.Entity:GetVarData()
+					local varData = 0
+					if descObj.Entity and descObj.Entity:ToPickup() then
+						varData = descObj.Entity:ToPickup():GetVarData()
+					elseif EID.holdTabPlayer ~= nil then
+						---@cast EID.holdTabPlayer EntityPlayer
+						for i = 0, 2 do
+							if EID.holdTabPlayer:GetActiveItem(i) == RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX then
+								varData = EID.holdTabPlayer:GetActiveItemDesc(i).VarData
+								break
+							end
+						end
+					end
 					descObj.Description = descObj.Description:gsub("([^%d])6([^%d])", "%1"..tostring(6 - varData).."%2")
 				else
 					local diff = RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX - descObj.ObjSubType
