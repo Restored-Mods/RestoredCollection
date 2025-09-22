@@ -6,895 +6,637 @@ local Helpers = RestoredCollection.Helpers
 EID:setModIndicatorName("Restored Collection")
 
 -- Items
---Stone Bombs
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS,
-	"{{Bomb}} +5 Bombs#Bombs create rock waves in all 4 cardinal directions#The rock waves can damage enemies, destroy objects, and reveal secret rooms",
-	"Stone Bombs",
-	"en_us"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS,
-	"{{Bomb}} +5 Bombas#Las bombas colocadas ahora generan olas de piedra en los 4 puntos cardinales al explotar#Las olas de piedra pueden dañar enemigos, destruir objetos y revelar salas secretas",
-	"Bombas de Piedra",
-	"spa"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS,
-	"{{Bomb}} +5 бомб#Бомбы теперь создают каменные волны во все 4-е основные стороны#Каменные волны могут наносить урон врагам, разрушать объекты и открывать секретные комнаты",
-	"Каменные бомбы",
-	"ru"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS,
-	"{{Bomb}} +5 Bombas#Bombas colocadas agora explodem e criam ondas de pedra em todas as 4 direções cardeais#As ondas de pedra podem causar dano aos inimigos, destruir objetos, e revelar salas secretas",
-	"Bombas de Pedra",
-	"pt_br"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS,
-	"{{Bomb}} +5 Bombs#放置的炸弹现在会爆炸并在所有4个基本方向产生岩石波#岩石波可以伤害敌人，摧毁物体，并揭示隐藏房#+5炸弹",
-	"岩石炸弹",
-	"zh_cn"
-)
---Blank Bombs
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BLANK_BOMBS,
-	"{{Bomb}} +5 Bombs#Bombs explode instantly, -50% bomb damage#Press {{ButtonRT}} + {{ButtonLB}} to place bombs normally#The player is immune from their own bombs#Bombs destroy enemy projectiles and knock back enemies",
-	"Blank Bombs",
-	"en_us"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BLANK_BOMBS,
-	"{{Bomb}} +5 Bombas#Las bombas explotan inmediatamente. -50% daño de bomba#Pulsa {{ButtonRT}} + {{ButtonLB}} para poner bombas normales#El jugador es inmune a sus bombas#Las bombas que exploten eliminarán los disparos enemigos y empujarán a los enemigos cercanos",
-	"Bombas de Fogueo",
-	"spa"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BLANK_BOMBS,
-	"{{Bomb}} +5 бомб#Бомбы мгновенно взрываются, -50% урон от них#Нажмите кнопку {{ButtonRT}} + {{ButtonLB}}, чтобы разместить обычные бомбы#Игрок невосприимчив к урону от собственной бомбы#Размещенные бомбы уничтожают вражеские снаряды и отбрасывают врагов в радиусе",
-	"Пустые бомбы",
-	"ru"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BLANK_BOMBS,
-	"{{Bomb}} +5 Bombas#-50% de dano de bomba.#Pressione {{ButtonRT}} + {{ButtonLB}} para colocar bombas normais#O jogador é imune a dano de suas próprias bombas#Bombas colocadas destroem projetéis de inimigos e empurram os inimigos ao seu redor",
-	"Bombas de Festim",
-	"pt_br"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BLANK_BOMBS,
-	"{{Bomb}} +5 Bombs#炸弹立即爆炸。-50%炸弹伤害#按{{ButtonRT}} + {{ButtonLB}}放置普通炸弹。100%炸弹伤害#玩家对自己的炸弹免疫#放置的炸弹会摧毁敌人的抛射物并击退周围的敌人",
-	"空白炸弹",
-	"zh_cn"
-)
-
---Checked Mate
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_CHECKED_MATE,
-	"Spawns a familiar that moves by jumping from tile to tile, dealing 20 damage to nearby enemies and 40 damage to enemies directly landed on",
-	"Checked Mate",
-	"en_us"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_CHECKED_MATE,
-	"Создает фамильяра, который перемещается, прыгая с места на место, нанося 20 урона возле врагов и 40 урона при приземлении прямо на врагов",
-	"Шахматная фигура",
-	"ru"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_CHECKED_MATE,
-	"Genera un Rey de Ajedréz que saltará de cuadro en cuadro#Inflige 20 puntos de daño en área cada vez que aterriza#Si la pieza aterriza directamente sobre un enemigo, inflige 40 puntos de daño",
-	"Rey en jaque",
-	"spa"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_CHECKED_MATE,
-	"Gera um familiar que se movimenta pulando de quadrado em quadrado.#Causa 20 pontos de dano em área ao aterrissar.#Se o familiar aterrissar diretamente sobre um inimigo, causa 40 de dano.",
-	"Xeque Mate",
-	"pt_br"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_CHECKED_MATE,
-	"生成一个从方块到方块跳跃的宠物#每次着陆时造成20点范围伤害#如果宠物直接着陆在敌人上,造成40点伤害",
-	"将军",
-	"zh_cn"
-)
-if Sewn_API then
-	Sewn_API:AddFamiliarDescription(
-		RestoredCollection.Enums.Familiars.CHECKED_MATE.Variant,
-		"Increases damage",
-		"Increases damage further and range"
-	)
-end
-
-local function CheckedMateConditions(descObj)
-	return descObj
-		and descObj.ObjType == 5
-		and descObj.ObjVariant == 100
-		and descObj.ObjSubType == RestoredCollection.Enums.CollectibleType.COLLECTIBLE_CHECKED_MATE
-end
-
-local function double(match)
-	return tostring(tonumber(match) * 2)
-end
-
-local function CheckedMateModifierCallback(descObj)
-	local player = Game():GetNearestPlayer(descObj.Entity.Position)
-	if player:HasCollectible(CollectibleType.COLLECTIBLE_BFFS) then
-		descObj.Description = descObj.Description:gsub("%d+%.?%d*", double)
-	end
-	return descObj
-end
-
-EID:addDescriptionModifier("Checked Mate Modifier", CheckedMateConditions, CheckedMateModifierCallback)
-
---Dice Bombs
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DICE_BOMBS,
-	"{{Bomb}} +5 Bombs#Bombs reroll pedestal items within its explosion radius#Has a 25% chance to destroy items instead of rerolling them",
-	"Dice Bombs"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DICE_BOMBS,
-	"{{Bomb}} +5 бомб#Бомбы меняют артефакты на пьедесталах в радиусе взрыва#25% шанс уничтожить пьедестал вместо замены артефакта",
-	"Бомбы-кубики",
-	"ru"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DICE_BOMBS,
-	"{{Bomb}} +5 Bombas#Las explosiones cambiarán los pedestales de objetos que se encuentren dentro de su radio de explosión#Poseer ciertos objetos activos de dados otorgará efectos adicionales",
-	"Bombas de dados",
-	"spa"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DICE_BOMBS,
-	"{{Bomb}} +5 Bombas#Explosões agora irão rerolar os pedestais de item pegos na área de explosão#Tem 25% de chance de destruir items ao invés de rerolar eles#Possuir certos items ativos de dados adicionará efeitos adicionais",
-	"Bombas de Dado",
-	"pt_br"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DICE_BOMBS,
-	"{{Bomb}} +5 Bombs#爆炸将重置爆炸范围内的基座物品#持有某些骰子物品将添加额外效果",
-	"骰子炸弹",
-	"zh_cn"
-)
-
-local DiceBombsExtraDesc = {
+local ItemDescriptions = {
 	en_us = {
-		"{{Collectible476}} Activates D1 effect for pickups in explosion's radius",
-		"{{Collectible284}} Activates D4 effect if Isaac's in explosion's radius",
-		"{{Collectible406}} Activates D8 effect if Isaac's in explosion's radius",
-		"{{Collectible166}} Activates D20 effect for pickups in explosion's radius",
-		"{{Collectible283}} Activates D100 effect for Isaac and pickups in explosion's radius",
-		"{{Collectible723}} Activates Spindown Dice effect for collectibles in explosion's radius",
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS] = {
+			Name = "Stone Bombs",
+			Description = "{{Bomb}} +5 Bombs#Bombs create rock waves in all 4 cardinal directions#The rock waves can damage enemies, destroy objects, and reveal secret rooms",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BLANK_BOMBS] = {
+			Name = "Blank Bombs",
+			Description = "{{Bomb}} +5 Bombs#Bombs explode instantly, -50% bomb damage#Press {{ButtonRT}} + {{ButtonLB}} to place bombs normally#The player is immune from their own bombs#Bombs destroy enemy projectiles and knock back enemies",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_CHECKED_MATE] = {
+			Name = "Checked Mate",
+			Description = "Spawns a familiar that moves by jumping from tile to tile, dealing 20 damage to nearby enemies and 40 damage to enemies directly landed on",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DICE_BOMBS] = {
+			Name = "Dice Bombs",
+			Description = "{{Bomb}} +5 Bombs#Bombs reroll pedestal items within its explosion radius#Has a 25% chance to destroy items instead of rerolling them",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_DESPAIR] = {
+			Name = "Book of Despair",
+			Description = "↑ {{Blank}} {{Tears}} +100% Tears up when used#Less effective for each concecutive use in the same room",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOWL_OF_TEARS] = {
+			Name = "Bowl of Tears",
+			Description = "Fires a cluster of tears#Each tear shot by Isaac increases item charge by one",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DONKEY_JAWBONE] = {
+			Name = "Donkey Jawbone",
+			Description = "{{BleedingOut}} When taking damage, Isaac does a spin attack that deals 8x damage, inflicts bleed, and blocks projectiles",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH] = {
+			Name = "Menorah",
+			Description = "Menorah familiar that gives multishot proportionate to the number of lit candles#↓ {{Blank}} {{Tears}} -0.5x tear rate for each candle lit#Getting hit with 7 lit candles bursts 8 blue flames and makes Isaac unable to shoot for a little while",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_ANCIENT_REVELATION] = {
+			Name = "Ancient Revelation",
+			Description = "Grants flight#{{SoulHeart}} +2 Soul Hearts#↑ {{Blank}} {{Shotspeed}} +0.48 Shot Speed#↑ {{Blank}} {{Tears}} +1 Tears#Spectral tears#Tears turn 90 degrees to target enemies that they may have missed",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BETHS_HEART] = {
+			Name = "Beth's Heart",
+			Description = "{{Throwable}} Throwable familiar that converts soul and black hearts to active item charges, stores up to 6 charges#{{HalfSoulHeart}}: 1 charge#{{SoulHeart}}: 2 charges#{{BlackHeart}}: 3 charges#Press {{ButtonRT}} to supply the charges to the active item",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS] = {
+			Name = "Book of Illusions",
+			Description = "Spawns an illusion clone when used#Illusion clones are the same character as you and die in one hit",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_KEEPERS_ROPE] = {
+			Name = "Keeper's Rope",
+			Description = "↓ {{Blank}} {{Luck}} -2 Luck down#{{Coin}} When enemies spawn they have a 25% chance to contain 1-3 pennies#Pennies can be extracted from enemies by damaging them#!!! The pennies disappear after 3 seconds",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN] = {
+			Name = "Lucky Seven",
+			Description = "Whenever any pickup count ends in a 7, Isaac has a chance to shoot golden tears that turn enemies into special slot machines#The chance is increased the more pickup counts end in 7"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST] = {
+			Name = "Pacifist",
+			Description = "Combat rooms are cleared after 30 seconds of not damaging any enemies#Spawns chests at the start of each floor for each special room left unexplored on the previous floor"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PILL_CRUSHER] = {
+			Name = "Pill Crusher",
+			Description = "{{Pill}} Gives a random pill when picked up#Increase pill drop rate when held#Consumes currently held pill and applies an effect to the entire room depending on the type of pill"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_SAFETY_BOMBS] = {
+			Name = "Safety Bombs",
+			Description = "{{Bomb}} +5 Bombs#Placed bombs will not explode until the player leaves its explosion radius"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_VOODOO_PIN] = {
+			Name = "Voodoo Pin",
+			Description = "Throwable voodoo pin that swaps Isaac's hitbox with enemy hitboxes#Lasts until enemy is dead#Hitting bosses makes it last for 5 seconds"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX] = {
+			Name = "Lunch Box",
+			Description = "Charged by collecting {{Heart}} Red Hearts#{{Collectible664}} Spawns a 'food' item#{{Warning}} Disappears after 6 uses"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MAXS_HEAD] = {
+			Name = "Max's Head",
+			Description = "↑ {{Blank}} {{Tears}} +1.5 tears up#Every 4th tear is shot with low fire delay",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_OL_LOPPER] = {
+			Name = "Ol' Lopper",
+			Description = "Disconnects Isaac's head from his body allowing it to move like Mr. Maw head#The head deals 10.5x Isaac's damage per second",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PUMPKIN_MASK] = {
+			Name = "Pumpkin Mask",
+			Description = "Fires a rapid inacurate strike of seeds at a set interval#Seeds do 40% of Isaac's damage",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MELTED_CANDLE] = {
+			Name = "Melted Candle",
+			Description = "↑ {{Blank}} {{Tears}} +0.5 tears#{{Burning}} {{Slow}} 30% chance to shoot a wax tear that burns and slows enemies#Gives an aura that slowly grows when shooting. Shrinks when not shooting#{{Burning}} Aura burns enemies",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_TAMMYS_TAIL_TC] = {
+			Name = "Tammy's Tail",
+			Description = "↑ {{Blank}} {{Tears}} +0.5 tears#{{Heart}} +25% chance for heart pickups to be double hearts#{{UnknownHeart}} +80% chance for the room clear reward to be a heart after taking damage",
+		},
 	},
 	ru = {
-		"{{Collectible476}} Активирует еффект D1 кубика для подбираемых предметов в радиусе взрыва",
-		"{{Collectible284}} Активирует еффект D4 кубика если Айзек в радиусе взрыва",
-		"{{Collectible406}} Активирует еффект D8 кубика если Айзек в радиусе взрыва",
-		"{{Collectible166}} Активирует еффект D20 кубика для подбираемых предметов в радиусе взрыва",
-		"{{Collectible283}} Активирует еффект D100 для Айзека и подбираемых предметов в радиусе взрыва",
-		"{{Collectible723}} Активирует еффект Кубика с вычетом для артефактов в радиусе взрыва",
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS] = {
+			Name = "Каменные бомбы",
+			Description = "{{Bomb}} +5 бомб#Бомбы теперь создают каменные волны во все 4-е основные стороны#Каменные волны могут наносить урон врагам, разрушать объекты и открывать секретные комнаты",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BLANK_BOMBS] = {
+			Name = "Пустые бомбы",
+			Description = "{{Bomb}} +5 бомб#Бомбы мгновенно взрываются, -50% урон от них#Нажмите кнопку {{ButtonRT}} + {{ButtonLB}}, чтобы разместить обычные бомбы#Игрок невосприимчив к урону от собственной бомбы#Размещенные бомбы уничтожают вражеские снаряды и отбрасывают врагов в радиусе",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_CHECKED_MATE] = {
+			Name = "Шахматная фигура",
+			Description = "Создает фамильяра, который перемещается, прыгая с места на место, нанося 20 урона возле врагов и 40 урона при приземлении прямо на врагов",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DICE_BOMBS] = {
+			Name = "Бомбы-кубики",
+			Description = "{{Bomb}} +5 бомб#Бомбы меняют артефакты на пьедесталах в радиусе взрыва#25% шанс уничтожить пьедестал вместо замены артефакта",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_DESPAIR] = {
+			Name = "Книга отчаяния",
+			Description = "↑ {{Blank}} {{Tears}} +100% к скорострельности при использовании#Эффект слабее при каждом использовании в той же комнате",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOWL_OF_TEARS] = {
+			Name = "Чаша слёз",
+			Description = "Стреляет скоплением слёз#Каждый выстрел слезы Айзеком увеличивает заряд артефакта на один",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DONKEY_JAWBONE] = {
+			Name = "Ослиная челюсть",
+			Description = "{{BleedingOut}} При получении урона Айзек совершает круговую атаку, которая наносит 8x урона, вызывает кровотечение и блокирует снаряды",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH] = {
+			Name = "Менора",
+			Description = "Фамильяр подсвечник, который дает доп. слезы пропорционально количеству зажженных свечей#↓ {{Blank}} {{Tears}} -0.5 скорострельности за каждую заженную свечу#Получая урон с 7 заженными свечами разбрасывает 8 синих огней и делает Айзека неспособным стрелять некоторое время",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_ANCIENT_REVELATION] = {
+			Name = "Древнее откровение",
+			Description = "Даёт полёт#{{SoulHeart}} +2 синих сердца#↑ {{Blank}} {{Shotspeed}} +0.48 к скорости полёта слезы#↑ {{Blank}} {{Tears}} +1 к скорострельности#Спектральные слёзы#Слёзы поворачиваются на 90 градусов, чтобы попасть во врагов, которых они могли пропустить",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BETHS_HEART] = {
+			Name = "Сердце Вифании",
+			Description = "{{Throwable}} Бросаемый спутник который превращает синие и чёрные сердца в заряды для активируемых предметов, максимум 6 зарядов#{{HalfSoulHeart}}: 1 заряд#{{SoulHeart}}: 2 заряда#{{BlackHeart}}: 3 заряда#Нажав {{ButtonRT}} заряжается активный предмет",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS] = {
+			Name = "Книга иллюзий",
+			Description = "При использовании создаёт иллюзию# Иллюзия - это тот же персонаж, что и ваш, которые умирают от одного удара",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_KEEPERS_ROPE] = {
+			Name = "Веревка Хранителя",
+			Description = "↓ {{Blank}} {{Luck}} -2 к удаче#{{Coin}} Когда монстры появляются у них есть 25% шанс иметь 1-3 монет#Монеты можно выбить из врагов при нанесении им урона#!!! Монеты исчезают через 3 секунды",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN] = {
+			Name = "Счастливая семерка",
+			Description = "Всякий раз, когда один из предметов игрока заканчивается на 7, у Айзека есть шанс выстрелить золотыми слезами, которые при попадании во врагов превращают их в особые игровые автоматы#Чем больше предметов заканчивается на 7, тем больше шанс"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST] = {
+			Name = "Пацифист",
+			Description = "Комнаты с врагами зачищаются после 30 секунд не нанося им урона#Сундуки появляются в начале каждого этажа за каждую непосещенную особую комнату на предыдущем этаже"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PILL_CRUSHER] = {
+			Name = "Дробилка пилюль",
+			Description = "{{Pill}} Дает случайную пилюлю#Увеличивает шанс появления пилюль#Использует текущую пилюлю и накладывает зависимый от её типа эффект на всю комнату"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_SAFETY_BOMBS] = {
+			Name = "Безопасные бомбы",
+			Description = "{{Bomb}} +5 бомб#Размещенные бомбы не взорвутся, пока игрок не покинет радиус взрыва"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_VOODOO_PIN] = {
+			Name = "Вуду булавка",
+			Description = "Бросаемая булавка вуду, которая меняет хитбоксы Айзека и врага местами#Еффект длится до смерти врага#При подании в босса действует 5 секунд"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX] = {
+			Name = "Коробка c ланчем",
+			Description = "Заряжается подпором {{Heart}} красных сердец#{{Collectible664}} При использовании спавнит один из 'съедобных' предметов#{{Warning}} Исчезает после 6 использований"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MAXS_HEAD] = {
+			Name = "Голова Макса",
+			Description = "↑ {{Blank}} {{Tears}} +1.5 к скорострельности#Каждая 4-я слеза выстреливает с меньшей задержкой выстрела",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_OL_LOPPER] = {
+			Name = "Ол 'Лоппер",
+			Description = "Отсоединяет голову Айзека от его тела, позволяя ей двигаться как голова Мистера Пасть#Голова наносит 10.5-кратный урон Айзека в секунду",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PUMPKIN_MASK] = {
+			Name = "Тыквенная маска",
+			Description = "Выпускает быстрые неточные выстрелы семенами в определенные интервалы#Семена наносят 40% урона Айзека",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MELTED_CANDLE] = {
+			Name = "Расплавленная свеча",
+			Description = "↑ {{Blank}} {{Tears}} +0.5 к скорострельности#{{Burning}} {{Slow}} 30% шанс выстрелить восковой слезой, которая сжигает и замедляет врагов#Дает ауру которая медлено растет при стрельбе. Сжимается, когда Айзек не атакует#{{Burning}} Аура сжигает врагов",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_TAMMYS_TAIL_TC] = {
+			Name = "Хвост Тамми",
+			Description = "↑ {{Blank}} {{Tears}} +0.5 к скорострельности#{{Heart}} +25% шанс, что сердца будут двойными сердцами#{{UnknownHeart}} +80% шанс, что предметы будут сердцами в комнате после получения урона",
+		},
 	},
-    --[[spa = {
-		"{{Collectible476}} ",
-		"{{Collectible284}} ",
-		"{{Collectible406}} ",
-		"{{Collectible166}} ",
-		"{{Collectible283}} ",
-		"{{Collectible723}} ",
+	spa = {
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS] = {
+			Name = "Bombas de Piedra",
+			Description = "{{Bomb}} +5 Bombas#Bombas colocadas agora explodem e criam ondas de pedra em todas as 4 direções cardeais#As ondas de pedra podem causar dano aos inimigos, destruir objetos, e revelar salas secretas",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BLANK_BOMBS] = {
+			Name = "Bombas de Fogueo",
+			Description = "{{Bomb}} +5 Bombas#Las bombas explotan inmediatamente. -50% daño de bomba#Pulsa {{ButtonRT}} + {{ButtonLB}} para poner bombas normales#El jugador es inmune a sus bombas#Las bombas que exploten eliminarán los disparos enemigos y empujarán a los enemigos cercanos",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_CHECKED_MATE] = {
+			Name = "Rey en jaque",
+			Description = "Genera un Rey de Ajedréz que saltará de cuadro en cuadro#Inflige 20 puntos de daño en área cada vez que aterriza#Si la pieza aterriza directamente sobre un enemigo, inflige 40 puntos de daño",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DICE_BOMBS] = {
+			Name = "Bombas de dados",
+			Description = "{{Bomb}} +5 Bombas#Las explosiones cambiarán los pedestales de objetos que se encuentren dentro de su radio de explosión#Poseer ciertos objetos activos de dados otorgará efectos adicionales",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_DESPAIR] = {
+			Name = "El Libro de la Desesperación",
+			Description = "↑ {{Blank}} {{Tears}} Lágrimas +100% al usarlo#El efecto es menos efectivo con cada uso en la misma habitación",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOWL_OF_TEARS] = {
+			Name = "Tazón de Lágrimas",
+			Description = "Otorga una recarga por cada lágrima que dispare el jugador#Al usarse, dispara una ráfaga de lágrimas en la dirección seleccionada",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DONKEY_JAWBONE] = {
+			Name = "Quijada de burro",
+			Description = "Al recibir daño, realizarás un ataque giratorio, dañando a los enemigos cercanos y bloqueando proyectiles por un momento",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH] = {
+			Name = "Menorah",
+			Description = "Genera un familiar Menorah#El número de lágirmas Isaac aumentan en función de las velas encendidas, máximo 7 velas#↓ {{Blank}} {{Tears}} Reduce el tiempo de disparo entre dos y lo multiplica por la suma de las velas encendidas mas 1 #Recibir daño con 7 velas encendidas hace estallar 8 llamas azules y hace que Isaac no pueda disparar por un rato",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_ANCIENT_REVELATION] = {
+			Name = "Antigua Revelación",
+			Description = "Otorga vuelo#{{SoulHeart}} +2 Corazones de alma#↑ {{Blank}} {{Shotspeed}} Vel. de tiro +0.48#↑ {{Blank}} {{Tears}} Lágrimas +1#Lágrimas espectrales#Las lágrimas girarán en 90 grados hacia un enemigo si es que fallan",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BETHS_HEART] = {
+			Name = "El corazón de Beth",
+			Description = "{{Throwable}} Genera un familiar lanzable#Almacena corazones de alma y corazones negros para usarlos como cargas para el objeto activo, máximo 6 cargas#{{HalfSoulHeart}}: 1 carga#{{SoulHeart}}: 2 cargas#{{BlackHeart}}: 3 cargas#Presiona {{ButtonRT}} para suministrar las cargas al objeto activo",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS] = {
+			Name = "El Libro de las ilusiones",
+			Description = "Genera un clon de ilusión tras usarlo#El clon es el mismo personaje que el tuyo#Morirá al recibir un golpe",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_KEEPERS_ROPE] = {
+			Name = "La soga de Keeper",
+			Description = "↓ {{Blank}} {{Luck}} Suerte -2 si no se está jugando como {{Player14}} Keeper o {{Player33}} Tainted Keeper#{{Coin}} Cuando se generen los enemigos, tendrán un 25% de tener 1-3 monedas #Las puedes obtener al hacerles daño#{{Player14}} Con Keeper los enemigos tendrán 16.7% de tener 1-2 monedas#{{Player33}} Con Tainted Keeper Contaminado los enemigos tendrán un 12.5% de tener 1 moneda#!!! Las monedas desaparecen después de 3 segundos",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN] = {
+			Name = "7 de la suerte",
+			Description = "Si el numero de cualquier recolectable del jugador termina en 7, se tendrá la posibilidad de lanzar una lágrima dorada que genera una máquina tragaperras especial al golpear a un enemigo"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST] = {
+			Name = "Pacifista",
+			Description = "Genera recolectables en el siguiente piso en función a cuantas habitaciones no limpiaste en el piso actual"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PILL_CRUSHER] = {
+			Name = "Triturador de Pildoras",
+			Description = "{{Pill}} Genera una píldora aleatoria al tomarlo#Las píldora aparecen con mas frecuencia#Consume la píldora que posees y aplica un efecto a la sala, basado en la píldora"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_SAFETY_BOMBS] = {
+			Name = "Bombas de Seguridad",
+			Description = "{{Bomb}} +5 Bombas#Las bombas que coloques no explotarán hasta que te alejes de su radio de explosión"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_VOODOO_PIN] = {
+			Name = "Pin de vudú",
+			Description = "Isaac sostiene un pin de vudú que puede ser lanzado al enemigo#Si el pin golpea a un monstruo, su hitbox será intercambiada por la de Isaac hasta que muera#Si golpea a un jefe, durará 5 segundos"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX] = {
+			Name = "Caja del almuerzo",
+			Description = "Se carga colleccionando {{Heart}} corazones rojos#{{Collectible664}} Cuando se usa, aparece uno de los objetos de 'comida'#Desaparece después de 6 usos"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MAXS_HEAD] = {
+			Name = "Cabeza de Max",
+			Description = "↑ {{Blank}} {{Tears}} +1.5 lagrimas hacia arriba#Cada cuarta lagrima, el disparo acelera",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_OL_LOPPER] = {
+			Name = "Ol' Looper",
+			Description = "Desconecta la cabeza de Isaac de su cuerpo, permitiéndole moverla como la cabeza de Sr. Maw",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PUMPKIN_MASK] = {
+			Name = "Mascara de Calabaza",
+			Description = "Dispara rápidamente y sin precisión una ráfaga de semillas#Las semillas están disparadas en un rango de 30º desde la dirección de disparo",
+		},
 	},
-    pt_br = {
-		"{{Collectible476}} ",
-		"{{Collectible284}} ",
-		"{{Collectible406}} ",
-		"{{Collectible166}} ",
-		"{{Collectible283}} ",
-		"{{Collectible723}} ",
+	pt_br = {
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS] = {
+			Name = "Bombas de Pedra",
+			Description = "{{Bomb}} +5 Bombs#Bombs create rock waves in all 4 cardinal directions#The rock waves can damage enemies, destroy objects, and reveal secret rooms",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BLANK_BOMBS] = {
+			Name = "Bombas de Festim",
+			Description = "{{Bomb}} +5 Bombas#-50% de dano de bomba.#Pressione {{ButtonRT}} + {{ButtonLB}} para colocar bombas normais#O jogador é imune a dano de suas próprias bombas#Bombas colocadas destroem projetéis de inimigos e empurram os inimigos ao seu redor",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_CHECKED_MATE] = {
+			Name = "Xeque Mate",
+			Description = "Gera um familiar que se movimenta pulando de quadrado em quadrado.#Causa 20 pontos de dano em área ao aterrissar.#Se o familiar aterrissar diretamente sobre um inimigo, causa 40 de dano.",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DICE_BOMBS] = {
+			Name = "Bombas de Dado",
+			Description = "{{Bomb}} +5 Bombas#Explosões agora irão rerolar os pedestais de item pegos na área de explosão#Tem 25% de chance de destruir items ao invés de rerolar eles#Possuir certos items ativos de dados adicionará efeitos adicionais",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_DESPAIR] = {
+			Name = "Livro do Desespero",
+			Description = "↑ {{Blank}} {{Tears}} +100% Lágrimas quando usado#O efeito é menos efetivo à cada uso na mesma sala",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOWL_OF_TEARS] = {
+			Name = "Tigela de Lágrimas",
+			Description = "Atira um aglomerado de lágrimas#Adiciona uma carga por cada lágrima que Isaac dispara",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DONKEY_JAWBONE] = {
+			Name = "Maxilar de Burro",
+			Description = "Quando for atingido, esse item causa que você faça um ataque giratório, que causa dano em inimigos próximos e bloqueia projéteis por um curto período",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH] = {
+			Name = "Menorah",
+			Description = "Gera um familiar menorah que causa as lágrimas de Isaac serem multiplicadas pelo número de velas acesas#↓ {{Blank}} {{Tears}} Reduz o tempo de disparo de cada lágrima pela metade e multiplica pela soma das velas acesas mais 1#Ser atingido com as 7 velas acesas gera 8 chamas azuis e impede Isaac de atirar lágrimas por um tempinho",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_ANCIENT_REVELATION] = {
+			Name = "Revelação Anciã",
+			Description = "Concede voo#{{SoulHeart}} +2 Corações de alma#↑ {{Blank}} {{Shotspeed}} +0.48 Vel. de tiro#↑ {{Blank}} {{Tears}} +1 Lágrimas#Lágrimas espectrais#Lágrimas viram 90 graus para atingir inimigos que elas não acertaram",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BETHS_HEART] = {
+			Name = "Coração de Bethany",
+			Description = "{{Throwable}} Gera um familiar arremessável#Armazenas corações de alma e negros para usar como carga para o seu item ativo, máximo de 6 cargas#{{HalfSoulHeart}}: 1 carga#{{SoulHeart}}: 2 cargas#{{BlackHeart}}: 3 cargas##Aperta {{ButtonRT}} para fornecer as cargas para o item ativo",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS] = {
+			Name = "Livro das Ilusões",
+			Description = "Gera um clone de ilusão quando usado#Clones de ilusão são o mesmo personagem que você e morrem em um golpe",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_KEEPERS_ROPE] = {
+			Name = "Corda do Keeper",
+			Description = "↓ {{Blank}} {{Luck}} -2 sorte caso não esteja jogando como {{Player14}} Keeper ou {{Player33}} Tainted Keeper#{{Coin}} Quando monstros surgem, possuem 25% de chance de conter entre 1-3 moedas que podem ser extraidas ao causar dano a eles#{{Player14}} Ao jogar de Keeper, monstros tem 16.7% de chance de conter 1-2 moedas#{{Player33}} Ao jogar de Tainted Keeper, monstros tem 12.5% de chance de conter 1 moeda#!!! As moedas desaparecerão após 3 segundos",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN] = {
+			Name = "Sete Sortudo",
+			Description = "Se o número de qualquer um dos números de pickup do jogador acabar em um 7, Isaac terá a chance de atirar uma lágrima dourada que cria uma máquina Caça-níquel especial quando atingir um monstro"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST] = {
+			Name = "Pacifista",
+			Description = "Gera pickups de recompensa no início do próximo andar baseado em quantas salas você não completou no andar anterior"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PILL_CRUSHER] = {
+			Name = "Triturador de Pílulas",
+			Description = "{{Pill}} Gera uma pílula aleatória quando pego#{{Pill}} Aumenta a taxa de queda de pílulas enquanto segurado# Consome a sua pílula atual e aplica um efeito na sala inteira dependendo no tipo de pílula consumida"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_SAFETY_BOMBS] = {
+			Name = "Bombas de Segurança",
+			Description = "{{Bombs}} +5 Bombas#Bombas não irão explodir até o jogador sair de sua área de explosão"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_VOODOO_PIN] = {
+			Name = "Alfinete de Voodoo",
+			Description = "Isaac segura um alfinete de voodoo que pode ser atirado em um inimigo#Se o alfinete acertar um monstro, a sua hitbox será invertida com a hitbox do Isaac#Dura até o inimigo morrer#Acertar chefes fará o efeito durar por apenas 5 segundos"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MAXS_HEAD] = {
+			Name = "Cabeça do Max",
+			Description = "↑ {{Blank}} {{Tears}} +1.5 lágrimas#Toda quarta lágrima é mais veloz",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_OL_LOPPER] = {
+			Name = "Ol' Looper",
+			Description = "Desconecta a cabeça de Isaac do seu corpo, permitindo com que se mova como a cabeça de Mr. Maw",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PUMPKIN_MASK] = {
+			Name = "Máscara de Abóbora",
+			Description = "Dispara rapidamente e com baixa precisão uma série de sementes#Sementes são disparadas dentro de 30° da direção do disparo",
+		},
 	},
-    zn_cn = {
-		"{{Collectible476}} ",
-		"{{Collectible284}} ",
-		"{{Collectible406}} ",
-		"{{Collectible166}} ",
-		"{{Collectible283}} ",
-		"{{Collectible723}} ",
-	},]]
+	zn_ch = {
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS] = {
+			Name = "岩石炸弹",
+			Description = "{{Bomb}} +5炸弹#放置的炸弹现在会爆炸并在所有4个基本方向产生岩石波#岩石波可以伤害敌人，摧毁物体，并揭示隐藏房",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BLANK_BOMBS] = {
+			Name = "空白炸弹",
+			Description = "{{Bomb}} +5炸弹#炸弹立即爆炸。-50%炸弹伤害#按{{ButtonRT}} + {{ButtonLB}}放置普通炸弹。100%炸弹伤害#玩家对自己的炸弹免疫#放置的炸弹会摧毁敌人的抛射物并击退周围的敌人",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_CHECKED_MATE] = {
+			Name = "将军",
+			Description = "生成一个从方块到方块跳跃的宠物#每次着陆时造成20点范围伤害#如果宠物直接着陆在敌人上,造成40点伤害",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DICE_BOMBS] = {
+			Name = "骰子炸弹",
+			Description = "{{Bomb}} +5炸弹#爆炸将重置爆炸范围内的基座物品#持有某些骰子物品将添加额外效果",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_DESPAIR] = {
+			Name = "绝望之书",
+			Description = "↑ {{Blank}} {{Tears}} +100% 射速#在同一房间使用后效果会逐渐减弱",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOWL_OF_TEARS] = {
+			Name = "眼泪之碗",
+			Description = "发射一团眼泪#每发射一颗眼泪，充能就会加一",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DONKEY_JAWBONE] = {
+			Name = "驴下颚骨",
+			Description = "受到伤害时，会进行旋风斩，对附近的敌人造成伤害并在短时间内阻挡抛射物",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH] = {
+			Name = "烛台",
+			Description = "生成一个烛台宠物，使玩家发射眼泪数量乘火焰数量#受伤增加火焰数量#↓ {{Blank}} {{Tears}} 减半射击延迟，然后乘火焰数量加1#7个火焰受伤爆炸#爆炸产生8个蓝色火焰并使玩家无法射击一小段时间",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_ANCIENT_REVELATION] = {
+			Name = "远古启示",
+			Description = "获得飞行能力#{{SoulHeart}} +2 魂心#↑ {{Blank}} {{Shotspeed}} +0.48 泪速#↑ {{Blank}} {{Tears}} +1 射速#幽灵眼泪#眼泪转向90度以瞄准未击中的敌人",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BETHS_HEART] = {
+			Name = "伯大尼之心",
+			Description = "{{Throwable}} 生成一个可投掷的跟班#储存魂心和黑心作为道具的充能，最多6次充能#{HalfSoulHeart}}: 1次充能#{{SoulHeart}}: 2次充能#{{BlackHeart}}: 3次充能#按{{ButtonRT}}为激活 道具提供充能",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS] = {
+			Name = "幻影之书",
+			Description = "使用时生成一个幻影克隆#幻影克隆与你相同并且一击即死",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_KEEPERS_ROPE] = {
+			Name = "店长的绳子",
+			Description = "↓ {{Blank}} {{Luck}} 如果不是{{Player14}} 店长或{{Player33}} 里店长则-2幸运#{{Coin}} 当怪物生成时，它们有25%的几率包含1-3个硬币，可以通过对它们造成伤害来提取#{{Player14}} 作为店长时，怪物有16.7%的几率包含1-2个硬币#{{Player33}} 作为里店长时，怪物有12.5%的几率包含1个硬币#!!! 硬币在3秒后消失",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN] = {
+			Name = "幸运七",
+			Description = "当玩家的任何掉落物数量以7结尾时，玩家有机会发射金色眼泪，击中怪物时生成特殊老虎机"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST] = {
+			Name = "和平主义者",
+			Description = "根据上一层未清理的房间数量，在下一层开始时给予掉落物奖励"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PILL_CRUSHER] = {
+			Name = "药丸粉碎机",
+			Description = "{{Pill}} 拾取时给予一个随机药丸#持有时增加药丸掉落率#消耗当前持有的药丸并根据药丸类型对整个房间施加效果"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_SAFETY_BOMBS] = {
+			Name = "安全炸弹",
+			Description = "{{Bomb}} +5 炸弹#放置的炸弹直到玩家离开爆炸范围才会爆炸"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_VOODOO_PIN] = {
+			Name = "巫毒针",
+			Description = "玩家拿着一个可以扔向敌人的巫毒针#如果针刺中怪物，它的碰撞箱将与玩家的碰撞箱交换，直到怪物死亡#击中boss会持续5秒"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX] = {
+			Name = "午餐盒",
+			Description = "通过收集{{Heart}}红心充能#{{Collectible664}}使用时生成一个“食物”物品#使用6次后消失"
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MAXS_HEAD] = {
+			Name = "麦克斯的头",
+			Description = "↑ {{Blank}} {{Tears}} +1.5射速#第4滴眼泪射速更快",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_OL_LOPPER] = {
+			Name = "老割头",
+			Description = "将玩家的头与身体分离，使其可以像大嘴头尸头一样移动",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PUMPKIN_MASK] = {
+			Name = "南瓜面具",
+			Description = "快速不准确地发射种子#种子在射击方向的30°范围内发射",
+		},
+	},
 }
 
-local DiceBombsModifiersItems = {
-	[1] = CollectibleType.COLLECTIBLE_D1,
-	[2] = CollectibleType.COLLECTIBLE_D4,
-	[3] = CollectibleType.COLLECTIBLE_D8,
-	[4] = CollectibleType.COLLECTIBLE_D20,
-	[5] = CollectibleType.COLLECTIBLE_D100,
-	[6] = CollectibleType.COLLECTIBLE_SPINDOWN_DICE,
-}
+do
+	local function double(match)
+		return tostring(tonumber(match) * 2)
+	end
 
-local function DiceBombsConditions(descObj)
-	return descObj
-		and descObj.ObjType == 5
-		and descObj.ObjVariant == 100
-		and descObj.ObjSubType == RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DICE_BOMBS
-end
+	local modifiers = {
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_CHECKED_MATE] = {
+			Modifier = function(descObj)
+				local player = Game():GetNearestPlayer(descObj.Entity.Position)
+				if player:HasCollectible(CollectibleType.COLLECTIBLE_BFFS) then
+					descObj.Description = descObj.Description:gsub("%d+%.?%d*", double)
+				end
+				return descObj
+			end,
+			Name = "Checked Mate Modifier",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DICE_BOMBS] = {
+			Modifier = function(descObj)
+				local DiceBombsExtraDesc = {
+					en_us = {
+						[CollectibleType.COLLECTIBLE_D1] = "Activates D1 effect for pickups in explosion's radius",
+						[CollectibleType.COLLECTIBLE_D4] = "Activates D4 effect if Isaac's in explosion's radius",
+						[CollectibleType.COLLECTIBLE_D8] = "Activates D8 effect if Isaac's in explosion's radius",
+						[CollectibleType.COLLECTIBLE_D20] = "Activates D20 effect for pickups in explosion's radius",
+						[CollectibleType.COLLECTIBLE_D100] = "Activates D100 effect for Isaac and pickups in explosion's radius",
+						[CollectibleType.COLLECTIBLE_SPINDOWN_DICE] = "Activates Spindown Dice effect for collectibles in explosion's radius",
+					},
+					ru = {
+						[CollectibleType.COLLECTIBLE_D1] = "Активирует еффект D1 кубика для подбираемых предметов в радиусе взрыва",
+						[CollectibleType.COLLECTIBLE_D4] = "Активирует еффект D4 кубика если Айзек в радиусе взрыва",
+						[CollectibleType.COLLECTIBLE_D8] = "Активирует еффект D8 кубика если Айзек в радиусе взрыва",
+						[CollectibleType.COLLECTIBLE_D20] = "Активирует еффект D20 кубика для подбираемых предметов в радиусе взрыва",
+						[CollectibleType.COLLECTIBLE_D100] = "Активирует еффект D100 для Айзека и подбираемых предметов в радиусе взрыва",
+						[CollectibleType.COLLECTIBLE_SPINDOWN_DICE] = "Активирует еффект Кубика с вычетом для артефактов в радиусе взрыва",
+					},
+					--[[spa = {
+					[CollectibleType.COLLECTIBLE_D1] = "",
+					[CollectibleType.COLLECTIBLE_D4] = "",
+					[CollectibleType.COLLECTIBLE_D8] = "",
+					[CollectibleType.COLLECTIBLE_D20] = "",
+					[CollectibleType.COLLECTIBLE_D100] = "",
+					[CollectibleType.COLLECTIBLE_SPINDOWN_DICE] = "",
+				},
+				pt_br = {
+					[CollectibleType.COLLECTIBLE_D1] = "",
+					[CollectibleType.COLLECTIBLE_D4] = "",
+					[CollectibleType.COLLECTIBLE_D8] = "",
+					[CollectibleType.COLLECTIBLE_D20] = "",
+					[CollectibleType.COLLECTIBLE_D100] = "",
+					[CollectibleType.COLLECTIBLE_SPINDOWN_DICE] = "",
+				},
+				zn_cn = {
+					[CollectibleType.COLLECTIBLE_D1] = "",
+					[CollectibleType.COLLECTIBLE_D4] = "",
+					[CollectibleType.COLLECTIBLE_D8] = "",
+					[CollectibleType.COLLECTIBLE_D20] = "",
+					[CollectibleType.COLLECTIBLE_D100] = "",
+					[CollectibleType.COLLECTIBLE_SPINDOWN_DICE] = "",
+				},]]
+				}
 
-local function DiceBombsModifierCallback(descObj)
-	local player = Game():GetNearestPlayer(descObj.Entity.Position)
-	local lang = EID:getLanguage()
+				local DiceBombsModifiersItems = {
+					[1] = CollectibleType.COLLECTIBLE_D1,
+					[2] = CollectibleType.COLLECTIBLE_D4,
+					[3] = CollectibleType.COLLECTIBLE_D8,
+					[4] = CollectibleType.COLLECTIBLE_D20,
+					[5] = CollectibleType.COLLECTIBLE_D100,
+					[6] = CollectibleType.COLLECTIBLE_SPINDOWN_DICE,
+				}
+				local player = Game():GetNearestPlayer(descObj.Entity.Position)
+				local lang = EID:getLanguage()
 
-	for i, col in ipairs(DiceBombsModifiersItems) do
-		if player:HasCollectible(col) then
-			if DiceBombsExtraDesc[lang] and type(DiceBombsExtraDesc[lang][i]) == "string" then
-				descObj.Description = descObj.Description .. "#" .. DiceBombsExtraDesc[lang][i]
-			end
+				for i, col in ipairs(DiceBombsModifiersItems) do
+					if player:HasCollectible(col) then
+						if DiceBombsExtraDesc[lang] and type(DiceBombsExtraDesc[lang][col]) == "string" then
+							descObj.Description = descObj.Description
+								.. "#{{Collectible"
+								.. col
+								.. "}} "
+								.. DiceBombsExtraDesc[lang][col]
+						end
+					end
+				end
+
+				return descObj
+			end,
+			Name = "Dice Bombs Modifier",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_KEEPERS_ROPE] = {
+			Condition = function(descObj)
+				if descObj and descObj.Entity then
+					local player = Game():GetNearestPlayer(descObj.Entity.Position)
+					return Helpers.IsAnyPlayerType(player, PlayerType.PLAYER_KEEPER, PlayerType.PLAYER_KEEPER_B)
+				else
+					return false
+				end
+			end,
+			Modifier = function(descObj)
+				local player = Game():GetNearestPlayer(descObj.Entity.Position)
+				local isKeeper, isTaintedKeeper =
+					Helpers.IsPlayerType(player, PlayerType.PLAYER_KEEPER),
+					Helpers.IsPlayerType(player, PlayerType.PLAYER_KEEPER_B)
+				if isKeeper or isTaintedKeeper then
+					local ext = descObj.Description:match("^(.-)#")
+					if ext and ext:match("↓ {{Blank}} {{Luck}}") and not ext:match("{{Player") then
+						descObj.Description = descObj.Description:gsub("^(.-)#", "")
+						if isKeeper then
+							descObj.Description = descObj.Description:gsub("25", "16.7")
+							descObj.Description = descObj.Description:gsub("1%-3", "1-2")
+						end
+						if isTaintedKeeper then
+							descObj.Description = descObj.Description:gsub("25", "12.5")
+							descObj.Description = descObj.Description:gsub("1%-3", "1")
+							descObj.Description = descObj.Description:gsub("pennies", "penny")
+							descObj.Description = descObj.Description:gsub("монет", "монету")
+							descObj.Description = descObj.Description:gsub("monedas", "moneda")
+							descObj.Description = descObj.Description:gsub("moedas", "moeda")
+						end
+					end
+				end
+				return descObj
+			end,
+			Name = "Keeper's Rope Keeper Modifier",
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX] = {
+			Condition = function(descObj)
+				return REPENTOGON ~= nil
+			end,
+			HardCondition = function(descObj)
+				local diff = RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX - descObj.ObjSubType
+				
+				return descObj.ObjType == 5
+				and descObj.ObjVariant == 100 and (diff > 0 and diff < 6)
+			end,
+			Modifier = function(descObj)
+				if REPENTOGON and descObj.ObjSubType == RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX then
+					local varData = descObj.Entity:GetVarData()
+					descObj.Description = descObj.Description:gsub("([^%d])6([^%d])", "%1"..tostring(6 - varData).."%2")
+				else
+					local diff = RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX - descObj.ObjSubType
+					descObj.Description = descObj.Description:gsub("([^%d])6([^%d])", "%1"..tostring(6 - diff).."%2")
+				end
+				return descObj
+			end,
+			Name = "Lunch Box Modifier",
+		},
+	}
+
+	for id, data in pairs(modifiers) do
+		EID:addDescriptionModifier(data.Name, function(descObj)
+			return descObj
+				and (descObj.ObjType == 5
+				and descObj.ObjVariant == 100
+				and descObj.ObjSubType == id
+				and (type(data.Condition) == "function" and data.Condition(descObj) or data.Condition == nil)
+				or (type(data.HardCondition) == "function" and data.HardCondition(descObj)))
+		end, data.Modifier)
+	end
+
+	local transformations = {
+		["collectible"] = {
+			[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_DESPAIR] = "12",
+			[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS] = "12",
+			[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_ANCIENT_REVELATION] = "10",
+		},
+	}
+
+	for dataType, data in pairs(transformations) do
+		for id, transformation in pairs(data) do
+			EID:assignTransformation(dataType, id, transformation)
 		end
 	end
 
-	return descObj
-end
-
-EID:addDescriptionModifier("Dice Bombs Modifier", DiceBombsConditions, DiceBombsModifierCallback)
-
---Book of Despair
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_DESPAIR,
-	"↑ {{Blank}} {{Tears}} +100% Tears up when used#Less effective for each concecutive use in the same room",
-	"Book of Despair",
-	"en_us"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_DESPAIR,
-	"↑ {{Blank}} {{Tears}} Lágrimas +100% al usarlo#El efecto es menos efectivo con cada uso en la misma habitación",
-	"El Libro de la Desesperación",
-	"spa"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_DESPAIR,
-	"↑ {{Blank}} {{Tears}} +100% к скорострельности при использовании#Эффект слабее при каждом использовании в той же комнате",
-	"Книга отчаяния",
-	"ru"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_DESPAIR,
-	"↑ {{Blank}} {{Tears}} +100% Lágrimas quando usado#O efeito é menos efetivo à cada uso na mesma sala",
-	"Livro do Desespero",
-	"pt_br"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_DESPAIR,
-	"↑ {{Blank}} {{Tears}} +100% 射速#在同一房间使用后效果会逐渐减弱",
-	"绝望之书",
-	"zh_cn"
-)
-EID:assignTransformation("collectible", RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_DESPAIR, "12") -- Bookworm
-
---Bowl of Tears
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOWL_OF_TEARS,
-	"Fires a cluster of tears#Each tear shot by Isaac increases item charge by one",
-	"Bowl of Tears",
-	"en_us"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOWL_OF_TEARS,
-	"Otorga una recarga por cada lágrima que dispare el jugador#Al usarse, dispara una ráfaga de lágrimas en la dirección seleccionada",
-	"Tazón de Lágrimas",
-	"spa"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOWL_OF_TEARS,
-	"Стреляет скоплением слёз#Каждый выстрел слезы Айзеком увеличивает заряд артефакта на один",
-	"Чаша слёз",
-	"ru"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOWL_OF_TEARS,
-	"Atira um aglomerado de lágrimas#Adiciona uma carga por cada lágrima que Isaac dispara",
-	"Tigela de Lágrimas",
-	"pt_br"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOWL_OF_TEARS,
-	"发射一团眼泪#每发射一颗眼泪，充能就会加一",
-	"眼泪之碗",
-	"zh_cn"
-)
-
---Donkey Jawbone
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DONKEY_JAWBONE,
-	"{{BleedingOut}} When taking damage, Isaac does a spin attack that deals 8x damage, inflicts bleed, and blocks projectiles",
-	"Donkey Jawbone",
-	"en_us"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DONKEY_JAWBONE,
-	"Al recibir daño, realizarás un ataque giratorio, dañando a los enemigos cercanos y bloqueando proyectiles por un momento",
-	"Quijada de burro",
-	"spa"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DONKEY_JAWBONE,
-	"{{BleedingOut}} При получении урона Айзек совершает круговую атаку, которая наносит 8x урона, вызывает кровотечение и блокирует снаряды",
-	"Ослиная челюсть",
-	"ru"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DONKEY_JAWBONE,
-	"Quando for atingido, esse item causa que você faça um ataque giratório, que causa dano em inimigos próximos e bloqueia projéteis por um curto período",
-	"Maxilar de Burro",
-	"pt_br"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DONKEY_JAWBONE,
-	"受到伤害时，会进行旋风斩，对附近的敌人造成伤害并在短时间内阻挡抛射物",
-	"驴下颚骨",
-	"zh_cn"
-)
-
---Menorah
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH,
-	"Menorah familiar that gives multishot proportionate to the number of lit candles#↓ {{Blank}} {{Tears}} -0.5x tear rate for each candle lit#Getting hit with 7 lit candles bursts 8 blue flames and makes Isaac unable to shoot for a little while",
-	"Menorah",
-	"en_us"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH,
-	"Genera un familiar Menorah#El número de lágirmas Isaac aumentan en función de las velas encendidas, máximo 7 velas#↓ {{Blank}} {{Tears}} Reduce el tiempo de disparo entre dos y lo multiplica por la suma de las velas encendidas mas 1 #Recibir daño con 7 velas encendidas hace estallar 8 llamas azules y hace que Isaac no pueda disparar por un rato",
-	"Menorah",
-	"spa"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH,
-	"Фамильяр подсвечник, который дает доп. слезы пропорционально количеству зажженных свечей#↓ {{Blank}} {{Tears}} -0.5 скорострельности за каждую заженную свечу#Получая урон с 7 заженными свечами разбрасывает 8 синих огней и делает Айзека неспособным стрелять некоторое время",
-	"Менора",
-	"ru"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH,
-	"Gera um familiar menorah que causa as lágrimas de Isaac serem multiplicadas pelo número de velas acesas#↓ {{Blank}} {{Tears}} Reduz o tempo de disparo de cada lágrima pela metade e multiplica pela soma das velas acesas mais 1#Ser atingido com as 7 velas acesas gera 8 chamas azuis e impede Isaac de atirar lágrimas por um tempinho",
-	"Menorah",
-	"pt_br"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH,
-	"生成一个烛台宠物，使玩家发射眼泪数量乘火焰数量#受伤增加火焰数量#↓ {{Blank}} {{Tears}} 减半射击延迟，然后乘火焰数量加1#7个火焰受伤爆炸#爆炸产生8个蓝色火焰并使玩家无法射击一小段时间",
-	"烛台",
-	"zh_cn"
-)
-
-if Sewn_API then
-	Sewn_API:AddFamiliarDescription(
-		RestoredCollection.Enums.Familiars.MENORAH.Variant,
-		"Higher fire rate per flame",
-		"Higher fire rate per flame#You can keep firing even with no flames"
-	)
-end
-
---Ancient Revelation
-local AncientDesc =
-	"Grants flight#{{SoulHeart}} +2 Soul Hearts#↑ {{Blank}} {{Shotspeed}} +0.48 Shot Speed#↑ {{Blank}} {{Tears}} +1 Tears#Spectral tears#Tears turn 90 degrees to target enemies that they may have missed"
-local AncientDescRu =
-	"Даёт полёт#{{SoulHeart}} +2 синих сердца#↑ {{Blank}} {{Shotspeed}} +0.48 к скорости полёта слезы#↑ {{Blank}} {{Tears}} +1 к скорострельности#Спектральные слёзы#Слёзы поворачиваются на 90 градусов, чтобы попасть во врагов, которых они могли пропустить"
-local AncientDescSpa =
-	"Otorga vuelo#{{SoulHeart}} +2 Corazones de alma#↑ {{Blank}} {{Shotspeed}} Vel. de tiro +0.48#↑ {{Blank}} {{Tears}} Lágrimas +1#Lágrimas espectrales#Las lágrimas girarán en 90 grados hacia un enemigo si es que fallan"
-local AncientDescPt_Br =
-	"Concede voo#{{SoulHeart}} +2 Corações de alma#↑ {{Blank}} {{Shotspeed}} +0.48 Vel. de tiro#↑ {{Blank}} {{Tears}} +1 Lágrimas#Lágrimas espectrais#Lágrimas viram 90 graus para atingir inimigos que elas não acertaram"
-local AncientDescZh_Cn =
-	"获得飞行能力#{{SoulHeart}} +2 魂心#↑ {{Blank}} {{Shotspeed}} +0.48 泪速#↑ {{Blank}} {{Tears}} +1 射速#幽灵眼泪#眼泪转向90度以瞄准未击中的敌人"
-
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_ANCIENT_REVELATION,
-	AncientDesc,
-	"Ancient Revelation",
-	"en_us"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_ANCIENT_REVELATION,
-	AncientDescRu,
-	"Древнее откровение",
-	"ru"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_ANCIENT_REVELATION,
-	AncientDescSpa,
-	"Antigua Revelación",
-	"spa"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_ANCIENT_REVELATION,
-	AncientDescPt_Br,
-	"Revelação Anciã",
-	"pt_br"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_ANCIENT_REVELATION,
-	AncientDescZh_Cn,
-	"远古启示",
-	"zh_cn"
-)
-EID:assignTransformation("collectible", RestoredCollection.Enums.CollectibleType.COLLECTIBLE_ANCIENT_REVELATION, "10") -- Seraphim
-
---Beth's Heart
-local BHDescEng =
-	"{{Throwable}} Throwable familiar that converts soul and black hearts to active item charges, stores up to 6 charges#{{HalfSoulHeart}}: 1 charge#{{SoulHeart}}: 2 charges#{{BlackHeart}}: 3 charges#Press {{ButtonRT}} to supply the charges to the active item"
-local BHDescSpa =
-	"{{Throwable}} Genera un familiar lanzable#Almacena corazones de alma y corazones negros para usarlos como cargas para el objeto activo, máximo 6 cargas#{{HalfSoulHeart}}: 1 carga#{{SoulHeart}}: 2 cargas#{{BlackHeart}}: 3 cargas#Presiona {{ButtonRT}} para suministrar las cargas al objeto activo"
-local BHDescRu =
-	"{{Throwable}} Бросаемый спутник который превращает синие и чёрные сердца в заряды для активируемых предметов, максимум 6 зарядов#{{HalfSoulHeart}}: 1 заряд#{{SoulHeart}}: 2 заряда#{{BlackHeart}}: 3 заряда#Нажав {{ButtonRT}} заряжается активный предмет"
-local BHDescPt_Br =
-	"{{Throwable}} Gera um familiar arremessável#Armazenas corações de alma e negros para usar como carga para o seu item ativo, máximo de 6 cargas#{{HalfSoulHeart}}: 1 carga#{{SoulHeart}}: 2 cargas#{{BlackHeart}}: 3 cargas##Aperta {{ButtonRT}} para fornecer as cargas para o item ativo"
-local BHDescZh_cn =
-	"{{Throwable}} 生成一个可投掷的跟班#储存魂心和黑心作为道具的充能，最多6次充能#{HalfSoulHeart}}: 1次充能#{{SoulHeart}}: 2次充能#{{BlackHeart}}: 3次充能#按{{ButtonRT}}为激活 道具提供充能"
-
-EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BETHS_HEART, BHDescEng, "Beth's Heart", "en_us")
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BETHS_HEART,
-	BHDescSpa,
-	"El corazón de Beth",
-	"spa"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BETHS_HEART,
-	BHDescRu,
-	"Сердце Вифании",
-	"ru"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BETHS_HEART,
-	BHDescPt_Br,
-	"Coração de Bethany",
-	"pt_br"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BETHS_HEART,
-	BHDescZh_cn,
-	"伯大尼之心",
-	"zh_cn"
-)
-
---Illusion Hearts - Book Of Illusions
-local BOIDesc = "Spawns an illusion clone when used#Illusion clones are the same character as you and die in one hit"
-local BOIDescSpa =
-	"Genera un clon de ilusión tras usarlo#El clon es el mismo personaje que el tuyo#Morirá al recibir un golpe"
-local BOIDescRu =
-	"При использовании создаёт иллюзию# Иллюзия - это тот же персонаж, что и ваш, которые умирают от одного удара"
-local BOIDescPt_Br =
-	"Gera um clone de ilusão quando usado#Clones de ilusão são o mesmo personagem que você e morrem em um golpe"
-local BOIDescZh_cn = "使用时生成一个幻影克隆#幻影克隆与你相同并且一击即死"
-
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS,
-	BOIDesc,
-	"Book of Illusions",
-	"en_us"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS,
-	BOIDescSpa,
-	"El Libro de las ilusiones",
-	"spa"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS,
-	BOIDescRu,
-	"Книга иллюзий",
-	"ru"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS,
-	BOIDescPt_Br,
-	"Livro das Ilusões",
-	"pt_br"
-)
-EID:assignTransformation("collectible", RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS, "12")
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS,
-	BOIDescZh_cn,
-	"幻影之书",
-	"zh_cn"
-)
-
---todo have the description actively change if playing as keeper
---Keeper's Rope
-local KeepersRopeDesc = {
-	en_us = "↓ {{Blank}} {{Luck}} -2 Luck down#{{Coin}} When enemies spawn they have a 25% chance to contain 1-3 pennies#Pennies can be extracted from enemies by damaging them#!!! The pennies disappear after 3 seconds",
-	ru = "↓ {{Blank}} {{Luck}} -2 к удаче#{{Coin}} Когда монстры появляются у них есть 25% шанс иметь 1-3 монет#Монеты можно выбить из врагов при нанесении им урона#!!! Монеты исчезают через 3 секунды",
-	spa = "↓ {{Blank}} {{Luck}} Suerte -2 si no se está jugando como {{Player14}} Keeper o {{Player33}} Tainted Keeper#{{Coin}} Cuando se generen los enemigos, tendrán un 25% de tener 1-3 monedas #Las puedes obtener al hacerles daño#{{Player14}} Con Keeper los enemigos tendrán 16.7% de tener 1-2 monedas#{{Player33}} Con Tainted Keeper Contaminado los enemigos tendrán un 12.5% de tener 1 moneda#!!! Las monedas desaparecen después de 3 segundos",
-	pt_br = "↓ {{Blank}} {{Luck}} -2 sorte caso não esteja jogando como {{player14}} Keeper ou {{Player33}} Tainted Keeper#{{Coin}} Quando monstros surgem, possuem 25% de chance de conter entre 1-3 moedas que podem ser extraidas ao causar dano a eles#{{Player14}} Ao jogar de Keeper, monstros tem 16.7% de chance de conter 1-2 moedas#{{Player33}} Ao jogar de Tainted Keeper, monstros tem 12.5% de chance de conter 1 moeda#!!! As moedas desaparecerão após 3 segundos",
-	zn_cn = "↓ {{Blank}} {{Luck}} 如果不是{{Player14}} 店长或{{Player33}} 里店长则-2幸运#{{Coin}} 当怪物生成时，它们有25%的几率包含1-3个硬币，可以通过对它们造成伤害来提取#{{Player14}} 作为店长时，怪物有16.7%的几率包含1-2个硬币#{{Player33}} 作为里店长时，怪物有12.5%的几率包含1个硬币#!!! 硬币在3秒后消失",
-}
-
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_KEEPERS_ROPE,
-	KeepersRopeDesc["en_us"],
-	"Keeper's Rope"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_KEEPERS_ROPE,
-	KeepersRopeDesc["ru"],
-	"Веревка Хранителя",
-	"ru"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_KEEPERS_ROPE,
-	KeepersRopeDesc["spa"],
-	"La soga de Keeper",
-	"spa"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_KEEPERS_ROPE,
-	KeepersRopeDesc["pt_br"],
-	"Corda do Keeper",
-	"pt_br"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_KEEPERS_ROPE,
-	KeepersRopeDesc["zn_cn"],
-	"店长的绳子",
-	"zh_cn"
-)
-
-local function KeeperRopeConditions(descObj)
-	if
-		descObj
-		and descObj.ObjType == 5
-		and descObj.ObjVariant == 100
-		and descObj.ObjSubType == RestoredCollection.Enums.CollectibleType.COLLECTIBLE_KEEPERS_ROPE
-	then
-		local player = Game():GetNearestPlayer(descObj.Entity.Position)
-		return Helpers.IsAnyPlayerType(player, PlayerType.PLAYER_KEEPER, PlayerType.PLAYER_KEEPER_B)
+	if Sewn_API then
+		Sewn_API:AddFamiliarDescription(
+			RestoredCollection.Enums.Familiars.CHECKED_MATE.Variant,
+			"Increases damage",
+			"Increases damage further and range"
+		)
+		Sewn_API:AddFamiliarDescription(
+			RestoredCollection.Enums.Familiars.MENORAH.Variant,
+			"Higher fire rate per flame",
+			"Higher fire rate per flame#You can keep firing even with no flames"
+		)
 	end
-	return false
 end
-
-local function KeepersRopeKeeperModifierCallback(descObj)
-	local player = Game():GetNearestPlayer(descObj.Entity.Position)
-	local isKeeper, isTaintedKeeper =
-		Helpers.IsPlayerType(player, PlayerType.PLAYER_KEEPER), Helpers.IsPlayerType(player, PlayerType.PLAYER_KEEPER_B)
-	if isKeeper or isTaintedKeeper then
-		local ext = descObj.Description:match("^(.-)#")
-		if ext and ext:match("↓ {{Blank}} {{Luck}}") then
-			descObj.Description = descObj.Description:gsub("^(.-)#", "")
-		end
-		if isKeeper then
-			descObj.Description = descObj.Description:gsub("25", "16.7")
-			descObj.Description = descObj.Description:gsub("1%-3", "1-2")
-		end
-		if isTaintedKeeper then
-			descObj.Description = descObj.Description:gsub("25", "12.5")
-			descObj.Description = descObj.Description:gsub("1%-3", "1")
-			descObj.Description = descObj.Description:gsub("pennies", "penny")
-			descObj.Description = descObj.Description:gsub("монет", "монету")
-			descObj.Description = descObj.Description:gsub("monedas", "moneda")
-			descObj.Description = descObj.Description:gsub("moedas", "moeda")
-		end
-	end
-	return descObj
-end
-
-EID:addDescriptionModifier("Keeper's Rope Keeper Modifier", KeeperRopeConditions, KeepersRopeKeeperModifierCallback)
-
---Lucky seven
-local Sevendesc =
-	"Whenever any pickup count ends in a 7, Isaac has a chance to shoot golden tears that turn enemies into special slot machines#The chance is increased the more pickup counts end in 7"
-local SevendescRu =
-	"Всякий раз, когда один из предметов игрока заканчивается на 7, у Айзека есть шанс выстрелить золотыми слезами, которые при попадании во врагов превращают их в особые игровые автоматы#Чем больше предметов заканчивается на 7, тем больше шанс"
-local SevendescSpa =
-	"Si el numero de cualquier recolectable del jugador termina en 7, se tendrá la posibilidad de lanzar una lágrima dorada que genera una máquina tragaperras especial al golpear a un enemigo"
-local SevendescPt_Br =
-	"Se o número de qualquer um dos números de pickup do jogador acabar em um 7, Isaac terá a chance de atirar uma lágrima dourada que cria uma máquina Caça-níquel especial quando atingir um monstro"
-local SevendescZh_cn =
-	"当玩家的任何掉落物数量以7结尾时，玩家有机会发射金色眼泪，击中怪物时生成特殊老虎机"
-
-EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN, Sevendesc, "Lucky Seven")
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN,
-	SevendescRu,
-	"Счастливая семерка",
-	"ru"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN,
-	SevendescSpa,
-	"7 de la suerte",
-	"spa"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN,
-	SevendescPt_Br,
-	"Sete Sortudo",
-	"pt_br"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN,
-	SevendescZh_cn,
-	"幸运七",
-	"zh_cn"
-)
-
---Pacifist
-local Pacdesc =
-	"Combat rooms are cleared after 30 seconds of not damaging any enemies#Spawns chests at the start of each floor for each special room left unexplored on the previous floor"
-local PacdescRu =
-	"Комнаты с врагами зачищаются после 30 секунд не нанося им урона#Сундуки появляются в начале каждого этажа за каждую непосещенную особую комнату на предыдущем этаже"
-local PacdescSpa =
-	"Genera recolectables en el siguiente piso en función a cuantas habitaciones no limpiaste en el piso actual"
-local PacdescPt_Br =
-	"Gera pickups de recompensa no início do próximo andar baseado em quantas salas você não completou no andar anterior"
-local PacdescZh_cn = "根据上一层未清理的房间数量，在下一层开始时给予掉落物奖励"
-
-EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST, Pacdesc, "Pacifist")
-EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST, PacdescRu, "Пацифист", "ru")
-EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST, PacdescSpa, "Pacifista", "spa")
-EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST, PacdescPt_Br, "Pacifista", "pt_br")
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST,
-	PacdescZh_cn,
-	"和平主义者",
-	"zh_cn"
-)
-
----Pill crusher
-local PCDesc =
-	"{{Pill}} Gives a random pill when picked up#Increase pill drop rate when held#Consumes currently held pill and applies an effect to the entire room depending on the type of pill"
-local PCDescSpa =
-	"{{Pill}} Genera una píldora aleatoria al tomarlo#Las píldora aparecen con mas frecuencia#Consume la píldora que posees y aplica un efecto a la sala, basado en la píldora"
-local PCDescRu =
-	"{{Pill}} Дает случайную пилюлю#Увеличивает шанс появления пилюль#Использует текущую пилюлю и накладывает зависимый от её типа эффект на всю комнату"
-local PCDescPt_Br =
-	"{{Pill}} Gera uma pílula aleatória quando pego#{{Pill}} Aumenta a taxa de queda de pílulas enquanto segurado# Consome a sua pílula atual e aplica um efeito na sala inteira dependendo no tipo de pílula consumida"
-local PCDescZh_cn =
-	"{{Pill}} 拾取时给予一个随机药丸#持有时增加药丸掉落率#消耗当前持有的药丸并根据药丸类型对整个房间施加效果"
-
-EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PILL_CRUSHER, PCDesc, "Pill Crusher", "en_us")
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PILL_CRUSHER,
-	PCDescSpa,
-	"Triturador de Pildoras",
-	"spa"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PILL_CRUSHER,
-	PCDescRu,
-	"Дробилка пилюль",
-	"ru"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PILL_CRUSHER,
-	PCDescPt_Br,
-	"Triturador de Pílulas",
-	"pt_br"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PILL_CRUSHER,
-	PCDescZh_cn,
-	"药丸粉碎机",
-	"zh_cn"
-)
-
---Safety Bombs
-local SBDesc = "{{Bomb}} +5 Bombs#Placed bombs will not explode until the player leaves its explosion radius"
-local SBDescSpa =
-	"{{Bomb}} +5 Bombas#Las bombas que coloques no explotarán hasta que te alejes de su radio de explosión"
-local SBDescRu =
-	"{{Bomb}} +5 бомб#Размещенные бомбы не взорвутся, пока игрок не покинет радиус взрыва"
-local SBDescPt_Br = "{{Bombs}} +5 Bombas#Bombas não irão explodir até o jogador sair de sua área de explosão"
-local SBDescZh_cn = "{{Bomb}} +5 炸弹#放置的炸弹直到玩家离开爆炸范围才会爆炸"
-
-EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_SAFETY_BOMBS, SBDesc, "Safety Bombs")
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_SAFETY_BOMBS,
-	SBDescSpa,
-	"Bombas de Seguridad",
-	"spa"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_SAFETY_BOMBS,
-	SBDescRu,
-	"Безопасные бомбы",
-	"ru"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_SAFETY_BOMBS,
-	SBDescPt_Br,
-	"Bombas de Segurança",
-	"pt_br"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_SAFETY_BOMBS,
-	SBDescZh_cn,
-	"安全炸弹",
-	"zh_cn"
-)
-
---Voodoo Pin
-local VDPdesc =
-	"Throwable voodoo pin that swaps Isaac's hitbox with enemy hitboxes#Lasts until enemy is dead#Hitting bosses makes it last for 5 seconds"
-local VDPdescRu =
-	"Бросаемая булавка вуду, которая меняет хитбоксы Айзека и врага местами#Еффект длится до смерти врага#При подании в босса действует 5 секунд"
-local VDPdescSpa =
-	"Isaac sostiene un pin de vudú que puede ser lanzado al enemigo#Si el pin golpea a un monstruo, su hitbox será intercambiada por la de Isaac hasta que muera#Si golpea a un jefe, durará 5 segundos"
-local VDPdescPt_Br =
-	"Isaac segura um alfinete de voodoo que pode ser atirado em um inimigo#Se o alfinete acertar um monstro, a sua hitbox será invertida com a hitbox do Isaac#Dura até o inimigo morrer#Acertar chefes fará o efeito durar por apenas 5 segundos"
-local VDPdescZh_cn =
-	"玩家拿着一个可以扔向敌人的巫毒针#如果针刺中怪物，它的碰撞箱将与玩家的碰撞箱交换，直到怪物死亡#击中boss会持续5秒"
-
-EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_VOODOO_PIN, VDPdesc, "Voodoo Pin")
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_VOODOO_PIN,
-	VDPdescRu,
-	"Вуду булавка",
-	"ru"
-)
-EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_VOODOO_PIN, VDPdescSpa, "Pin de vudú", "spa")
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_VOODOO_PIN,
-	VDPdescPt_Br,
-	"Alfinete de Voodoo",
-	"pt_br"
-)
-EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_VOODOO_PIN, VDPdescZh_cn, "巫毒针", "zh_cn")
-
---Lunch Box
-for i = 0, 5 do
-	EID:addCollectible(
-		RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX - i,
-		"Charged by collecting {{Heart}} Red Hearts#{{Collectible664}} Spawns a 'food' item#{{Warning}} Disappears after "
-			.. tostring(6 - i)
-			.. " uses",
-		"Lunch Box"
-	)
-	EID:addCollectible(
-		RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX - i,
-		"Заряжается подпором {{Heart}} красных сердец#При использовании спавнит один из 'съедобных' предметов#{{Warning}} Исчезает после "
-			.. tostring(6 - i)
-			.. " использований",
-		"Коробка c ланчем",
-		"ru"
-	)
-	EID:addCollectible(
-		RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX - i,
-		"Se carga colleccionando {{Heart}} corazones rojos#Cuando se usa, aparece uno de los objetos de 'comida'#Desaparece después de "
-			.. tostring(6 - i)
-			.. " usos",
-		"Caja del almuerzo",
-		"spa"
-	)
-	EID:addCollectible(
-		RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX - i,
-		"通过收集{{Heart}}红心充能#使用时生成一个“食物”物品#使用"
-			.. tostring(6 - i)
-			.. "次后消失",
-		"午餐盒",
-		"zh_cn"
-	)
-end
-
---Max's Head
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MAXS_HEAD,
-	"↑ {{Blank}} {{Tears}} +1.5 tears up#Every 4th tear is shot with low fire delay",
-	"Max's Head"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MAXS_HEAD,
-	"↑ {{Blank}} {{Tears}} +1.5 к скорострельности#Каждая 4-я слеза выстреливает с меньшей задержкой выстрела",
-	"Голова Макса",
-	"ru"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MAXS_HEAD,
-	"↑ {{Blank}} {{Tears}} +1.5 lagrimas hacia arriba#Cada cuarta lagrima, el disparo acelera",
-	"Cabeza de Max",
-	"spa"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MAXS_HEAD,
-	"↑ {{Blank}} {{Tears}} +1.5 lágrimas#Toda quarta lágrima é mais veloz",
-	"Cabeça do Max",
-	"pt_br"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MAXS_HEAD,
-	"↑ {{Blank}} {{Tears}} +1.5射速#第4滴眼泪射速更快",
-	"麦克斯的头",
-	"zh_cn"
-)
-
---Ol' Lopper
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_OL_LOPPER,
-	"Disconnects Isaac's head from his body allowing it to move like Mr. Maw head#The head deals 10.5x Isaac's damage per second",
-	"Ol' Lopper"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_OL_LOPPER,
-	"Отсоединяет голову Айзека от его тела, позволяя ей двигаться как голова Мистера Пасть#Голова наносит 10.5-кратный урон Айзека в секунду",
-	"Ол 'Лоппер",
-	"ru"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_OL_LOPPER,
-	"Desconecta la cabeza de Isaac de su cuerpo, permitiéndole moverla como la cabeza de Sr. Maw",
-	"Ol' Looper",
-	"spa"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_OL_LOPPER,
-	"Desconecta a cabeça de Isaac do seu corpo, permitindo com que se mova como a cabeça de Mr. Maw",
-	"Ol' Looper",
-	"pt_br"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_OL_LOPPER,
-	"将玩家的头与身体分离，使其可以像大嘴头尸头一样移动",
-	"老割头",
-	"zh_cn"
-)
-
---Pumpkin Mask
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PUMPKIN_MASK,
-	"Fires a rapid inacurate strike of seeds at a set interval#Seeds do 40% of Isaac's damage",
-	"Pumpkin Mask"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PUMPKIN_MASK,
-	"Выпускает быстрые неточные выстрелы семенами в определенные интервалы#Семена наносят 40% урона Айзека",
-	"Тыквенная маска",
-	"ru"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PUMPKIN_MASK,
-	"Dispara rápidamente y sin precisión una ráfaga de semillas#Las semillas están disparadas en un rango de 30º desde la dirección de disparo",
-	"Mascara de Calabaza",
-	"spa"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PUMPKIN_MASK,
-	"Dispara rapidamente e com baixa precisão uma série de sementes#Sementes são disparadas dentro de 30° da direção do disparo",
-	"Máscara de Abóbora",
-	"pt_br"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PUMPKIN_MASK,
-	"快速不准确地发射种子#种子在射击方向的30°范围内发射",
-	"南瓜面具",
-	"zh_cn"
-)
-
---Melted Candle
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MELTED_CANDLE,
-	"↑ {{Blank}} {{Tears}} +0.5 tears#{{Burning}} {{Slow}} 30% chance to shoot a wax tear that burns and slows enemies#Gives an aura that slowly grows when shooting. Shrinks when not shooting#{{Burning}} Aura burns enemies",
-	"Melted Candle"
-)
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MELTED_CANDLE,
-	"↑ {{Blank}} {{Tears}} +0.5 к скорострельности#{{Burning}} {{Slow}} 30% шанс выстрелить восковой слезой, которая сжигает и замедляет врагов#Дает ауру которая медлено растет при стрельбе. Сжимается, когда Айзек не атакует#{{Burning}} Аура сжигает врагов",
-	"Расплавленная свеча",
-	"ru"
-)
---[[EID:addCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MELTED_CANDLE, 
-"↑ Lágrimas hacia arriba +0.5 cuando un fuego pequeño es encendido#↑ Lágrimas arriba +1.5 cuando un fuego grande es encendido#10% de encender un fuego grande cuando un fuego pequeño es encendido#Cuando un fuego pequeño es encendido, 30% de disparar una lágrima de cera que ralentiza y prende fuego a enemigos#Después de 5 segundos sin disparar, el fuego de la vela disminuye", 
-"Vela derretida", "spa")]]
-
---Tammy's Tail
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_TAMMYS_TAIL_TC,
-	"↑ {{Blank}} {{Tears}} +0.5 tears#{{Heart}} +25% chance for heart pickups to be double hearts#{{UnknownHeart}} +80% chance for the room clear reward to be a heart after taking damage",
-	"Tammy's Tail"
-)
-
-EID:addCollectible(
-	RestoredCollection.Enums.CollectibleType.COLLECTIBLE_TAMMYS_TAIL_TC,
-	"↑ {{Blank}} {{Tears}} +0.5 к скорострельности#{{Heart}} +25% шанс, что сердца будут двойными сердцами#{{UnknownHeart}} +50% шанс, что предметы будут сердцами в комнате после получения урона",
-	"Хвост Тамми",
-	"ru"
-)
 
 --Game Squid
 EID:addTrinket(
@@ -960,7 +702,34 @@ EID:addGoldenTrinketMetadata(
 	"zh_cn"
 )
 
-local function AddXmlLocustInfo(id, amount, scale, speed, flags1, flags2, flags3, tearFlags1, tearFlags2, tearFlags3, procChance1, procChance2, procChance3, damageMult1, damageMult2)
+for lang, item in pairs(ItemDescriptions) do
+	for id, data in pairs(item) do
+		EID:addCollectible(id, data.Description, data.Name, lang)
+		if id == RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX then
+			for i = 1,5 do
+				EID:addCollectible(id - i, data.Description, data.Name, lang)
+			end
+		end
+	end
+end
+
+local function AddXmlLocustInfo(
+	id,
+	amount,
+	scale,
+	speed,
+	flags1,
+	flags2,
+	flags3,
+	tearFlags1,
+	tearFlags2,
+	tearFlags3,
+	procChance1,
+	procChance2,
+	procChance3,
+	damageMult1,
+	damageMult2
+)
 	amount = amount or 1
 	scale = scale or 1
 	speed = speed or 1
@@ -976,22 +745,202 @@ local function AddXmlLocustInfo(id, amount, scale, speed, flags1, flags2, flags3
 	damageMult1 = damageMult1 or 1
 	damageMult2 = damageMult2 or 1
 	if id > 732 then
-		EID.XMLLocusts[id] = { amount, scale, speed, flags1, flags2, flags3, tearFlags1, tearFlags2, tearFlags3, procChance1, procChance2, procChance3, damageMult1, damageMult2 }
+		EID.XMLLocusts[id] = {
+			amount,
+			scale,
+			speed,
+			flags1,
+			flags2,
+			flags3,
+			tearFlags1,
+			tearFlags2,
+			tearFlags3,
+			procChance1,
+			procChance2,
+			procChance3,
+			damageMult1,
+			damageMult2,
+		}
 	end
 end
 
 local locustData = {
-	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS] = { 1, 1, 1, { -1 }, { -1 }, { -1 }, { 70 }, { -1 }, { -1 }, 1, 1, 1, 1, 1 },
-	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_DESPAIR] = { 1, 1, 2, { -1 }, { -1 }, { -1 }, { -1 }, { -1 }, { -1 }, 1, 1, 1, 1, 1 },
-	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOWL_OF_TEARS] = { 3, 1, 1, { -1 }, { -1 }, { -1 }, { -1 }, { -1 }, { -1 }, 1, 1, 1, 0.5, 1 },
-	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DONKEY_JAWBONE] = { 1, 2, 1, { -1 }, { -1 }, { -1 }, { -1 }, { -1 }, { -1 }, 1, 1, 1, 4, 1 },
-	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH] = { 2, 0.75, 1,{ -1 }, { -1 }, { -1 }, { -1 }, { -1 }, { -1 }, 1, 1, 1, 0.75, 1 },
-	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_ANCIENT_REVELATION] = { 1, 1, 1, { -1 }, { -1 }, { -1 }, { 2 }, { -1 }, { -1 }, 1, 1, 1, 1, 1 },
-	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BETHS_HEART] = { 1, 1, 1, { -1 }, { -1 }, { -1 }, { 15 }, { -1 }, { -1 }, 1, 1, 1, 1, 1 },
-	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN] = { 1, 1, 1, { -1 }, { -1 }, { -1 }, { 74 }, { -1 }, { -1 }, 1, 1, 1, 1, 1 },
-	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST] = { 1, 1, 1, { -1 }, { -1 }, { -1 }, { 13 }, { -1 }, { -1 }, 1, 1, 1, 1, 1 },
-	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MELTED_CANDLE] = { 1, 1, 1, { -1 }, { -1 }, { -1 }, { -1 }, { 22 }, { -1 }, 1, 0.4, 1, 1, 1 },
-	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BLANK_BOMBS] = { 1, 1, 1, { -1 }, { -1 }, { -1 }, { 34 }, { -1 }, { -1 }, 1, 1, 1, 1, 1 },
+	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS] = {
+		1,
+		1,
+		1,
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		{ 70 },
+		{ -1 },
+		{ -1 },
+		1,
+		1,
+		1,
+		1,
+		1,
+	},
+	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_DESPAIR] = {
+		1,
+		1,
+		2,
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		1,
+		1,
+		1,
+		1,
+		1,
+	},
+	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOWL_OF_TEARS] = {
+		3,
+		1,
+		1,
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		1,
+		1,
+		1,
+		0.5,
+		1,
+	},
+	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DONKEY_JAWBONE] = {
+		1,
+		2,
+		1,
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		1,
+		1,
+		1,
+		4,
+		1,
+	},
+	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH] = {
+		2,
+		0.75,
+		1,
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		1,
+		1,
+		1,
+		0.75,
+		1,
+	},
+	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_ANCIENT_REVELATION] = {
+		1,
+		1,
+		1,
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		{ 2 },
+		{ -1 },
+		{ -1 },
+		1,
+		1,
+		1,
+		1,
+		1,
+	},
+	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BETHS_HEART] = {
+		1,
+		1,
+		1,
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		{ 15 },
+		{ -1 },
+		{ -1 },
+		1,
+		1,
+		1,
+		1,
+		1,
+	},
+	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN] = {
+		1,
+		1,
+		1,
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		{ 74 },
+		{ -1 },
+		{ -1 },
+		1,
+		1,
+		1,
+		1,
+		1,
+	},
+	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST] = {
+		1,
+		1,
+		1,
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		{ 13 },
+		{ -1 },
+		{ -1 },
+		1,
+		1,
+		1,
+		1,
+		1,
+	},
+	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MELTED_CANDLE] = {
+		1,
+		1,
+		1,
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		{ 22 },
+		{ -1 },
+		1,
+		0.4,
+		1,
+		1,
+		1,
+	},
+	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BLANK_BOMBS] = {
+		1,
+		1,
+		1,
+		{ -1 },
+		{ -1 },
+		{ -1 },
+		{ 34 },
+		{ -1 },
+		{ -1 },
+		1,
+		1,
+		1,
+		1,
+		1,
+	},
 }
 
 for col, data in pairs(locustData) do
