@@ -620,7 +620,7 @@ do
 			HardCondition = function(descObj)
 				local diff = RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX - descObj.ObjSubType
 				
-				return (descObj.Entity and descObj.Entity:ToPickup() or EID.holdTabPlayer ~= nil) and descObj.ObjType == 5
+				return (descObj.Entity ~= nil or EID.holdTabPlayer ~= nil) and descObj.ObjType == 5
 				and descObj.ObjVariant == 100 and (diff > 0 and diff < 6)
 			end,
 			Modifier = function(descObj)
