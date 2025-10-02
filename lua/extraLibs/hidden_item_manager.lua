@@ -1,5 +1,5 @@
 -- Hidden Item Manager, by Connor (aka Ghostbroster)
--- Version 2.3
+-- Version 2.3.1
 -- 
 -- Manages a system of hidden Lemegeton Item Wisps to simulate the effects of passive items without actually granting the player those items (so they can't be removed or rerolled!).
 -- Good for giving the effect of an item temporarily, making an item effect "innate" to a character, and all sorts of other stuff, probably.
@@ -563,7 +563,7 @@ function HiddenItemManager:ItemWispUpdate(wisp)
 		-- Check if timed wisp has expired.
 		local timedOut = (wispData.Duration and wispData.AddTime + wispData.Duration < game:GetFrameCount())
 		-- Remove the wisp if the player disappears or seems to get replaced.
-		local playerGone = (not player or playerKey ~= wispData.PlayerKey)
+		local playerGone = (not player or playerKey ~= wispData.PlayerKey or not EntityRef(player).Entity:Exists())
 		
 		if timedOut or playerGone then
 			RemoveWisp(wispKey)
