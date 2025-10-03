@@ -22,8 +22,8 @@ pickle and charged dice
 
 {{FSIZE2}}changes
 
-- (vanilla) recoded menorah so it
-behaves more like inner eye
+- (vanilla only) recoded menorah so
+it behaves more like inner eye
 
 {{FSIZE2}}fixed
 - safety bombs now should give 5
@@ -40,13 +40,14 @@ being swapped
 - keeper's rope not containing abyss
 info for Keeper and tainted keeper
 
-- (vanilla) menorah now affects epic
+- (vanilla only) menorah now affects epic
 fetus, knifes, forgotten's bone and
 other previously unaffected weapons
 
-- (repentogon) tammy's tail achievement
+- (repentogon only) tammy's tail
+achievement
 
-- (repentogon) menorah errors with
+- (repentogon only) menorah errors with
 monstro's lung, ludovico technique,
 epic fetus]],
 {"restored", "collection", "", "v1.24", "update"}, false, false)

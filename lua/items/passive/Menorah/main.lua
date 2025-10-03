@@ -1,5 +1,6 @@
 local Menorah = {}
 local Helpers = RestoredCollection.Helpers
+local him = RestoredCollection.HiddenItemManager
 
 ---@param player EntityPlayer
 ---@param cacheFlag CacheFlag | integer
@@ -16,12 +17,14 @@ function Menorah:onEvaluateCache(player, cacheFlag)
 			Isaac.GetItemConfig():GetCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH)
 		)
 	end
-	if data.MenorahFlames then
-		if cacheFlag == CacheFlag.CACHE_DAMAGE then
+	if data.MenorahFlames and data.MenorahFlames > 1 then
+		if cacheFlag == CacheFlag.CACHE_DAMAGE and not REPENTOGON then
 			if player:HasCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH) then
 				if data.MenorahFlames == 2 then
-					local stack = RestoredCollection.HiddenItemManager:CountStack(player, CollectibleType.COLLECTIBLE_20_20, "MenorahTearModifier")
-					if stack == player:GetEffects():GetCollectibleEffectNum(CollectibleType.COLLECTIBLE_20_20) then
+					local stack = him:CountStack(player, CollectibleType.COLLECTIBLE_20_20, "MenorahTearModifier")
+					local total = player:GetEffects():GetCollectibleEffectNum(CollectibleType.COLLECTIBLE_20_20)
+						+ player:GetCollectibleNum(CollectibleType.COLLECTIBLE_20_20)
+					if stack == total and (stack + total) > 0 then
 						player.Damage = player.Damage / 0.8
 					end
 				end
@@ -29,18 +32,37 @@ function Menorah:onEvaluateCache(player, cacheFlag)
 		end
 		if cacheFlag == CacheFlag.CACHE_FIREDELAY then
 			if player:HasCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH) then
-				if data.MenorahFlames > 0 then
-					if REPENTOGON or player:GetEffects():HasCollectibleEffect(CollectibleType.COLLECTIBLE_20_20)
-					or player:HasCollectible(CollectibleType.COLLECTIBLE_20_20) then
-					player.MaxFireDelay = (player.MaxFireDelay / (data.SewingMachineDenominator or 2))
-						* (data.MenorahFlames + 1)
+				local multOffset = 1
+				local denoinatorOffset = 0
+				if not REPENTOGON then
+					local effects = player:GetEffects()
+					if
+						not player:HasCollectible(CollectibleType.COLLECTIBLE_20_20)
+						and not effects:HasCollectibleEffect(CollectibleType.COLLECTIBLE_20_20)
+						and not player:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER)
+						and not effects:HasCollectibleEffect(CollectibleType.COLLECTIBLE_MUTANT_SPIDER)
+					then
+						local stack =
+							him:CountStack(player, CollectibleType.COLLECTIBLE_INNER_EYE, "MenorahTearModifier")
+						local total = player:GetEffects():GetCollectibleEffectNum(CollectibleType.COLLECTIBLE_INNER_EYE)
+							+ player:GetCollectibleNum(CollectibleType.COLLECTIBLE_INNER_EYE)
+						if stack == total and total > 0 then
+							multOffset = 0.51
+						end
 					end
+				end
+				if data.MenorahFlames > 1 then
+					player.MaxFireDelay = (
+						player.MaxFireDelay
+						* multOffset
+						/ ((data.SewingMachineDenominator or 1) + denoinatorOffset)
+					) * data.MenorahFlames
 				end
 			end
 		end
 	end
 end
-RestoredCollection:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, Menorah.onEvaluateCache)
+RestoredCollection:AddPriorityCallback(ModCallbacks.MC_EVALUATE_CACHE, CallbackPriority.LATE, Menorah.onEvaluateCache)
 
 if REPENTOGON then
 	local weaponBlackList = {
@@ -148,9 +170,7 @@ else
 
 			if player:HasCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH) then
 				if (laser.FrameCount == 1) and laser.Parent then
-					if
-						not laserData.isSpreadLaser and (laser.Parent:ToPlayer() or laserData.IsFamiliarPlayerTear)
-					then
+					if not laserData.isSpreadLaser and (laser.Parent:ToPlayer() or laserData.IsFamiliarPlayerTear) then
 						if (laser.SubType == LaserSubType.LASER_SUBTYPE_LINEAR) and laser.Timeout ~= -1 then
 							for i = 2, data.MenorahFlames do
 								local correctedVelocity = laser.StartAngleDegrees - ((i - 1) * 3)
@@ -343,7 +363,7 @@ else
 	RestoredCollection:AddCallback(ModCallbacks.MC_POST_LASER_UPDATE, Menorah.onLaserUpdate)
 	RestoredCollection:AddCallback(ModCallbacks.MC_POST_BOMB_UPDATE, Menorah.onBombUpdate)
 	]]
-	
+
 	---@param player EntityPlayer
 	function Menorah:MultiShotUpdate(player)
 		local data = RestoredCollection:RunSave(player)
@@ -354,14 +374,36 @@ else
 		local flamesInner = 0
 		if data.MenorahFlames and data.MenorahFlames > 1 then
 			if data.MenorahFlames == 2 then
+				local effects = player:GetEffects()
 				flames2020 = 1
+				if
+					player:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER)
+					or effects:HasCollectibleEffect(CollectibleType.COLLECTIBLE_MUTANT_SPIDER)
+					or Helpers.IsAnyPlayerType(player, PlayerType.PLAYER_KEEPER, PlayerType.PLAYER_KEEPER_B)
+				then
+					flames2020 = 0
+					flamesInner = 1
+				elseif
+					player:HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE)
+					or effects:HasCollectibleEffect(CollectibleType.COLLECTIBLE_INNER_EYE)
+				then
+					if
+						him:CountStack(player, CollectibleType.COLLECTIBLE_INNER_EYE, "MenorahTearModifier")
+						< player:GetCollectibleNum(CollectibleType.COLLECTIBLE_INNER_EYE)
+							+ effects:GetCollectibleEffectNum(CollectibleType.COLLECTIBLE_INNER_EYE)
+					then
+						flames2020 = 0
+						flamesInner = 1
+					end
+				end
+				him:CheckStack(player, CollectibleType.COLLECTIBLE_20_20, flames2020, "MenorahTearModifier")
 			else
-				flamesInner = data.MenorahFlames - 2
+				him:CheckStack(player, CollectibleType.COLLECTIBLE_20_20, 0, "MenorahTearModifier")
+				flamesInner = data.MenorahFlames - 1
 			end
 		end
-		RestoredCollection.HiddenItemManager:CheckStack(player, CollectibleType.COLLECTIBLE_20_20, flames2020, "MenorahTearModifier")
-		RestoredCollection.HiddenItemManager:CheckStack(player, CollectibleType.COLLECTIBLE_INNER_EYE, flamesInner, "MenorahTearModifier")
-		RestoredCollection.HiddenItemManager:HideCostumes("MenorahTearModifier")
+		him:CheckStack(player, CollectibleType.COLLECTIBLE_INNER_EYE, flamesInner, "MenorahTearModifier")
+		him:HideCostumes("MenorahTearModifier")
 	end
 	RestoredCollection:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, Menorah.MultiShotUpdate)
 end
@@ -487,11 +529,11 @@ if Sewn_API then
 
 	local function MenorahSewingUpdateDefault(_, menorah)
 		local data = RestoredCollection:RunSave(menorah.Player)
-		data.SewingMachineDenominator = 3
+		data.SewingMachineDenominator = 2
 	end
 	local function MenorahSewingUpdateUltra(_, menorah)
 		local data = RestoredCollection:RunSave(menorah.Player)
-		data.SewingMachineDenominator = 4
+		data.SewingMachineDenominator = 3
 		data.SewingMachineUltra = true
 	end
 
