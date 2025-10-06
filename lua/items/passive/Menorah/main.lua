@@ -33,7 +33,6 @@ function Menorah:onEvaluateCache(player, cacheFlag)
 		if cacheFlag == CacheFlag.CACHE_FIREDELAY then
 			if player:HasCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH) then
 				local multOffset = 1
-				local denoinatorOffset = 0
 				if not REPENTOGON then
 					local effects = player:GetEffects()
 					if
@@ -47,17 +46,12 @@ function Menorah:onEvaluateCache(player, cacheFlag)
 						local total = player:GetEffects():GetCollectibleEffectNum(CollectibleType.COLLECTIBLE_INNER_EYE)
 							+ player:GetCollectibleNum(CollectibleType.COLLECTIBLE_INNER_EYE)
 						if stack == total and total > 0 then
-							multOffset = 0.52
+							multOffset = 0.49051
 						end
 					end
 				end
-				if data.MenorahFlames > 1 then
-					player.MaxFireDelay = (
-						player.MaxFireDelay
-						* multOffset
-						/ ((data.SewingMachineDenominator or 1) + denoinatorOffset)
-					) * data.MenorahFlames
-				end
+				player.MaxFireDelay = (player.MaxFireDelay * multOffset / (data.SewingMachineDenominator or 2))
+					* math.min((data.MenorahFlames + 1), 6)
 			end
 		end
 	end
@@ -401,16 +395,11 @@ else
 				if
 					player:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER)
 					or effects:HasCollectibleEffect(CollectibleType.COLLECTIBLE_MUTANT_SPIDER)
-					or (
-						(
-							player:HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE)
-							or effects:HasCollectibleEffect(CollectibleType.COLLECTIBLE_INNER_EYE)
-						)
-							and him:CountStack(player, CollectibleType.COLLECTIBLE_INNER_EYE, "MenorahTearModifier")
-								< player:GetCollectibleNum(CollectibleType.COLLECTIBLE_INNER_EYE) + effects:GetCollectibleEffectNum(
-									CollectibleType.COLLECTIBLE_INNER_EYE
-								)
-					)
+					or ((player:HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE) or effects:HasCollectibleEffect(
+						CollectibleType.COLLECTIBLE_INNER_EYE
+					)) and him:CountStack(player, CollectibleType.COLLECTIBLE_INNER_EYE, "MenorahTearModifier") < player:GetCollectibleNum(
+						CollectibleType.COLLECTIBLE_INNER_EYE
+					) + effects:GetCollectibleEffectNum(CollectibleType.COLLECTIBLE_INNER_EYE))
 					or Helpers.IsAnyPlayerType(player, PlayerType.PLAYER_KEEPER, PlayerType.PLAYER_KEEPER_B)
 				then
 					offset = 1
@@ -554,11 +543,11 @@ if Sewn_API then
 
 	local function MenorahSewingUpdateDefault(_, menorah)
 		local data = RestoredCollection:RunSave(menorah.Player)
-		data.SewingMachineDenominator = 2
+		data.SewingMachineDenominator = 3
 	end
 	local function MenorahSewingUpdateUltra(_, menorah)
 		local data = RestoredCollection:RunSave(menorah.Player)
-		data.SewingMachineDenominator = 3
+		data.SewingMachineDenominator = 4
 		data.SewingMachineUltra = true
 	end
 
