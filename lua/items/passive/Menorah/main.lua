@@ -370,20 +370,19 @@ else
 		if not player:HasCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH) then
 			data.MenorahFlames = 1
 		end
-		local tempData = Helpers.GetData(player)
-		tempData.flames2020 = 0
-		tempData.flamesInner = 0
+		local effects = player:GetEffects()
+		local flames2020 = 0
+		local flamesInner = 0
 		if data.MenorahFlames and data.MenorahFlames > 1 then
 			if data.MenorahFlames == 2 then
-				local effects = player:GetEffects()
-				tempData.flames2020 = 1
+				flames2020 = 1
 				if
 					player:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER)
 					or effects:HasCollectibleEffect(CollectibleType.COLLECTIBLE_MUTANT_SPIDER)
 					or Helpers.IsAnyPlayerType(player, PlayerType.PLAYER_KEEPER, PlayerType.PLAYER_KEEPER_B)
 				then
-					tempData.flames2020 = 0
-					tempData.flamesInner = 1
+					flames2020 = 0
+					flamesInner = 1
 				elseif
 					player:HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE)
 					or effects:HasCollectibleEffect(CollectibleType.COLLECTIBLE_INNER_EYE)
@@ -393,21 +392,29 @@ else
 						< player:GetCollectibleNum(CollectibleType.COLLECTIBLE_INNER_EYE)
 							+ effects:GetCollectibleEffectNum(CollectibleType.COLLECTIBLE_INNER_EYE)
 					then
-						tempData.flames2020 = 0
-						tempData.flamesInner = 1
+						flames2020 = 0
+						flamesInner = 1
 					end
 				end
 			else
-				tempData.flamesInner = data.MenorahFlames - 2
+				local offset = 2
+				if
+					player:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER)
+					or effects:HasCollectibleEffect(CollectibleType.COLLECTIBLE_MUTANT_SPIDER)
+					or Helpers.IsAnyPlayerType(player, PlayerType.PLAYER_KEEPER, PlayerType.PLAYER_KEEPER_B)
+				then
+					offset = 1
+				end
+				flamesInner = data.MenorahFlames - offset
 			end
 		end
-		if tempData.flames2020 ~= him:CountStack(player, CollectibleType.COLLECTIBLE_20_20, "MenorahTearModifier") then
-			him:CheckStack(player, CollectibleType.COLLECTIBLE_20_20, tempData.flames2020, "MenorahTearModifier")
+		if flames2020 ~= him:CountStack(player, CollectibleType.COLLECTIBLE_20_20, "MenorahTearModifier") then
+			him:CheckStack(player, CollectibleType.COLLECTIBLE_20_20, flames2020, "MenorahTearModifier")
 			player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
 			player:EvaluateItems()
 		end
-		if tempData.flamesInner ~= him:CountStack(player, CollectibleType.COLLECTIBLE_INNER_EYE, "MenorahTearModifier") then
-			him:CheckStack(player, CollectibleType.COLLECTIBLE_INNER_EYE, tempData.flamesInner, "MenorahTearModifier")
+		if flamesInner ~= him:CountStack(player, CollectibleType.COLLECTIBLE_INNER_EYE, "MenorahTearModifier") then
+			him:CheckStack(player, CollectibleType.COLLECTIBLE_INNER_EYE, flamesInner, "MenorahTearModifier")
 			player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY)
 			player:EvaluateItems()
 		end
