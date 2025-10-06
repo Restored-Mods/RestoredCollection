@@ -401,6 +401,16 @@ else
 				if
 					player:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER)
 					or effects:HasCollectibleEffect(CollectibleType.COLLECTIBLE_MUTANT_SPIDER)
+					or (
+						(
+							player:HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE)
+							or effects:HasCollectibleEffect(CollectibleType.COLLECTIBLE_INNER_EYE)
+						)
+							and him:CountStack(player, CollectibleType.COLLECTIBLE_INNER_EYE, "MenorahTearModifier")
+								< player:GetCollectibleNum(CollectibleType.COLLECTIBLE_INNER_EYE) + effects:GetCollectibleEffectNum(
+									CollectibleType.COLLECTIBLE_INNER_EYE
+								)
+					)
 					or Helpers.IsAnyPlayerType(player, PlayerType.PLAYER_KEEPER, PlayerType.PLAYER_KEEPER_B)
 				then
 					offset = 1
