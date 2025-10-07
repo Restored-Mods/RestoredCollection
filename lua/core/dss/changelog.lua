@@ -8,7 +8,7 @@ costume for apollyon, blue baby,
 the forgotten, both keepers and 
 dark and tainted judas
 
-- safety bombs give 45 seconds of
+- safety bombs give 45 frames of
 invinsibility on explosion landing
 as edith when enemies around weren't
 killed
@@ -40,9 +40,9 @@ being swapped
 - keeper's rope not containing abyss
 info for Keeper and tainted keeper
 
-- (vanilla only) menorah now affects epic
-fetus, knifes, forgotten's bone and
-other previously unaffected weapons
+- (vanilla only) menorah not affecting
+epic fetus, knifes, forgotten's bone
+and other previously unaffected weapons
 
 - (repentogon only) tammy's tail
 achievement
