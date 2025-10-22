@@ -5,6 +5,10 @@ local Helpers = RestoredCollection.Helpers
 -- Mod Icon (TODO)
 EID:setModIndicatorName("Restored Collection")
 
+local function HodlingTab()
+	return EID.Config["ItemReminderEnabled"] and EID.holdTabCounter >= 30 and EID.TabDescThisFrame == false and EID.holdTabPlayer ~= nil
+end
+
 -- Items
 local ItemDescriptions = {
 	en_us = {
@@ -496,9 +500,17 @@ do
 
 	local modifiers = {
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_CHECKED_MATE] = {
+			Condition = function(descObj)
+				return descObj and descObj.Entity ~= nil or HodlingTab()
+			end,
 			Modifier = function(descObj)
-				local player = Game():GetNearestPlayer(descObj.Entity.Position)
-				if player:HasCollectible(CollectibleType.COLLECTIBLE_BFFS) then
+				local player
+				if HodlingTab() then
+					player = EID.holdTabPlayer
+				elseif descObj and descObj.Entity then
+					player = Game():GetNearestPlayer(descObj.Entity.Position)
+				end
+				if player ~= nil and player:HasCollectible(CollectibleType.COLLECTIBLE_BFFS) then
 					descObj.Description = descObj.Description:gsub("%d+%.?%d*", double)
 				end
 				return descObj
@@ -506,6 +518,9 @@ do
 			Name = "Checked Mate Modifier",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DICE_BOMBS] = {
+			Condition = function(descObj)
+				return descObj and descObj.Entity ~= nil or HodlingTab()
+			end,
 			Modifier = function(descObj)
 				local DiceBombsExtraDesc = {
 					en_us = {
@@ -558,17 +573,25 @@ do
 					[5] = CollectibleType.COLLECTIBLE_D100,
 					[6] = CollectibleType.COLLECTIBLE_SPINDOWN_DICE,
 				}
-				local player = Game():GetNearestPlayer(descObj.Entity.Position)
-				local lang = EID:getLanguage()
+				local player
+				if HodlingTab() then
+					player = EID.holdTabPlayer
+				elseif descObj and descObj.Entity then
+					player = Game():GetNearestPlayer(descObj.Entity.Position)
+				end
 
-				for i, col in ipairs(DiceBombsModifiersItems) do
-					if player:HasCollectible(col) then
-						if DiceBombsExtraDesc[lang] and type(DiceBombsExtraDesc[lang][col]) == "string" then
-							descObj.Description = descObj.Description
-								.. "#{{Collectible"
-								.. col
-								.. "}} "
-								.. DiceBombsExtraDesc[lang][col]
+				if player ~= nil then
+					local lang = EID:getLanguage()
+
+					for i, col in ipairs(DiceBombsModifiersItems) do
+						if player:HasCollectible(col) then
+							if DiceBombsExtraDesc[lang] and type(DiceBombsExtraDesc[lang][col]) == "string" then
+								descObj.Description = descObj.Description
+									.. "#{{Collectible"
+									.. col
+									.. "}} "
+									.. DiceBombsExtraDesc[lang][col]
+							end
 						end
 					end
 				end
@@ -579,33 +602,46 @@ do
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_KEEPERS_ROPE] = {
 			Condition = function(descObj)
-				if descObj and descObj.Entity then
-					local player = Game():GetNearestPlayer(descObj.Entity.Position)
+				local player
+				if HodlingTab() then
+					player = EID.holdTabPlayer
+				elseif descObj and descObj.Entity then
+					player = Game():GetNearestPlayer(descObj.Entity.Position)
+				end
+				if player ~= nil then
 					return Helpers.IsAnyPlayerType(player, PlayerType.PLAYER_KEEPER, PlayerType.PLAYER_KEEPER_B)
 				else
 					return false
 				end
 			end,
 			Modifier = function(descObj)
-				local player = Game():GetNearestPlayer(descObj.Entity.Position)
-				local isKeeper, isTaintedKeeper =
-					Helpers.IsPlayerType(player, PlayerType.PLAYER_KEEPER),
-					Helpers.IsPlayerType(player, PlayerType.PLAYER_KEEPER_B)
-				if isKeeper or isTaintedKeeper then
-					local ext = descObj.Description:match("^(.-)#")
-					if ext and ext:match("↓ {{Blank}} {{Luck}}") and not ext:match("{{Player") then
-						descObj.Description = descObj.Description:gsub("^(.-)#", "")
-						if isKeeper then
-							descObj.Description = descObj.Description:gsub("25", "16.7")
-							descObj.Description = descObj.Description:gsub("1%-3", "1-2")
-						end
-						if isTaintedKeeper then
-							descObj.Description = descObj.Description:gsub("25", "12.5")
-							descObj.Description = descObj.Description:gsub("1%-3", "1")
-							descObj.Description = descObj.Description:gsub("pennies", "penny")
-							descObj.Description = descObj.Description:gsub("монет", "монету")
-							descObj.Description = descObj.Description:gsub("monedas", "moneda")
-							descObj.Description = descObj.Description:gsub("moedas", "moeda")
+				---@cast descObj EID_DescObj
+				local player
+				if HodlingTab() then
+					player = EID.holdTabPlayer
+				elseif descObj and descObj.Entity then
+					player = Game():GetNearestPlayer(descObj.Entity.Position)
+				end
+				if player ~= nil then
+					local isKeeper, isTaintedKeeper =
+						Helpers.IsPlayerType(player, PlayerType.PLAYER_KEEPER),
+						Helpers.IsPlayerType(player, PlayerType.PLAYER_KEEPER_B)
+					if isKeeper or isTaintedKeeper then
+						local ext = descObj.Description:match("^(.-)#")
+						if ext and ext:match("↓ {{Blank}} {{Luck}}") and not ext:match("{{Player") then
+							descObj.Description = descObj.Description:gsub("^(.-)#", "")
+							if isKeeper then
+								descObj.Description = descObj.Description:gsub("25", "16.7")
+								descObj.Description = descObj.Description:gsub("1%-3", "1-2")
+							end
+							if isTaintedKeeper then
+								descObj.Description = descObj.Description:gsub("25", "12.5")
+								descObj.Description = descObj.Description:gsub("1%-3", "1")
+								descObj.Description = descObj.Description:gsub("pennies", "penny")
+								descObj.Description = descObj.Description:gsub("монет", "монету")
+								descObj.Description = descObj.Description:gsub("monedas", "moneda")
+								descObj.Description = descObj.Description:gsub("moedas", "moeda")
+							end
 						end
 					end
 				end
@@ -620,21 +656,21 @@ do
 			HardCondition = function(descObj)
 				local diff = RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX - descObj.ObjSubType
 				
-				return (descObj.Entity ~= nil or EID.holdTabPlayer ~= nil) and descObj.ObjType == 5
+				return (descObj.Entity ~= nil or HodlingTab()) and descObj.ObjType == 5
 				and descObj.ObjVariant == 100 and (diff > 0 and diff < 6)
 			end,
 			Modifier = function(descObj)
 				if REPENTOGON and descObj.ObjSubType == RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX then
 					local varData = 0
-					if descObj.Entity and descObj.Entity:ToPickup() then
-						varData = descObj.Entity:ToPickup():GetVarData()
-					elseif EID.holdTabPlayer ~= nil then
+					if HodlingTab() then
 						for i = 0, 2 do
 							if EID.holdTabPlayer:GetActiveItem(i) == RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX then
 								varData = EID.holdTabPlayer:GetActiveItemDesc(i).VarData
 								break
 							end
 						end
+					elseif descObj.Entity and descObj.Entity:ToPickup() then
+						varData = descObj.Entity:ToPickup():GetVarData()
 					end
 					descObj.Description = descObj.Description:gsub("([^%d])6([^%d])", "%1"..tostring(6 - varData).."%2")
 				else
