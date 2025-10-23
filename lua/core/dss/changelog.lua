@@ -1,5 +1,9 @@
 local modname = "Restored Collection"
 
+DeadSeaScrollsMenu.AddChangelog(modname, "v1.25",[[{{FSIZE2}}fixed
+- eid errors]],
+{"restored", "collection", "", "v1.25", "update"}, false, false)
+
 DeadSeaScrollsMenu.AddChangelog(modname, "v1.24",[[{{FSIZE2}}added
 - safety bombs costume
 
