@@ -1,5 +1,11 @@
 local modname = "Restored Collection"
 
+DeadSeaScrollsMenu.AddChangelog(modname, "v1.26",[[{{FSIZE2}}fixed
+- incompatibility errors with
+different versions of library
+of isaac]],
+{"restored", "collection", "", "v1.26", "update"}, false, false)
+
 DeadSeaScrollsMenu.AddChangelog(modname, "v1.25",[[{{FSIZE2}}fixed
 - eid errors]],
 {"restored", "collection", "", "v1.25", "update"}, false, false)
