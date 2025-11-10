@@ -1,5 +1,10 @@
 local modname = "Restored Collection"
 
+DeadSeaScrollsMenu.AddChangelog(modname, "v1.27",[[{{FSIZE2}}fixed
+- constant sfx with dss opened
+in repentance+]],
+{"restored", "collection", "", "v1.27", "update"}, false, false)
+
 DeadSeaScrollsMenu.AddChangelog(modname, "v1.26",[[{{FSIZE2}}fixed
 - incompatibility errors with
 different versions of library
