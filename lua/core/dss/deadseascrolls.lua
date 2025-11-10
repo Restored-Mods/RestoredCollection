@@ -642,6 +642,9 @@ local function FreezeGame(unfreeze)
 		end
 
 		Isaac.GetPlayer(0):UseActiveItem(CollectibleType.COLLECTIBLE_PAUSE, UseFlag.USE_NOANIM)
+		if REPENTANCE_PLUS then
+            SFXManager():Stop(SoundEffect.SOUND_PAUSE_FREEZE)
+        end
 
 		Game().TimeCounter = OldTimer
 		Game().BossRushParTime = OldTimerBossRush
