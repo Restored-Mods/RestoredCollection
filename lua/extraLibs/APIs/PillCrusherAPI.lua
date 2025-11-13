@@ -116,11 +116,6 @@ local function load()
 	end
 	PillCrusher:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, PillCrusher.ResetCrushedPillPerRoom)
 
-	function PillCrusher:ResetCrushedPillPerRoom()
-		CrushedPillsRoom = {}
-	end
-	PillCrusher:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, PillCrusher.ResetCrushedPillPerRoom)
-
 	function PillCrusher:ModReset()
 		PillCrusher.Loaded = false
 	end

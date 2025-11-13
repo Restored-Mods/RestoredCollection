@@ -8,6 +8,18 @@ local blurspeed = 0.07
 local ActivateBloom = false
 local blankEffect = Isaac.GetPillEffectByName("Blank Pill Effect")
 
+local NeutralPills = {
+	PillEffect.PILLEFFECT_BOMBS_ARE_KEYS,
+	PillEffect.PILLEFFECT_EXPLOSIVE_DIARRHEA,
+	PillEffect.PILLEFFECT_I_FOUND_PILLS,
+	PillEffect.PILLEFFECT_PUBERTY,
+	PillEffect.PILLEFFECT_TELEPILLS,
+	PillEffect.PILLEFFECT_HEMATEMESIS,
+	PillEffect.PILLEFFECT_RELAX,
+	PillEffect.PILLEFFECT_HORF,
+	PillEffect.PILLEFFECT_EXPERIMENTAL,
+}
+
 local pillCrusherPathRoot = "lua.items.active.PillCrusher.pill_effects."
 --Vanilla pill effects
 include(pillCrusherPathRoot.."48HourEnergy")
@@ -65,6 +77,51 @@ local function Lerp(a, b, t)
 	return a + (b-a) * 0.2 * t
 end
 
+local function IsPillInPool(effect)
+	local pool = Game():GetItemPool()
+	if REPENTOGON then
+		return pool:GetPillColor(effect) ~= -1
+	end
+	for i = 1, 13 do
+		if pool:GetPillEffect(i) == effect then
+			return true
+		end
+	end
+	return false
+end
+
+if REPENTOGON then
+	if XMLData.GetNumEntries(XMLNode.PILL) > 49 then
+		for i = 50, XMLData.GetNumEntries(XMLNode.PILL) do
+			local data = XMLData.GetEntryById(XMLNode.PILL, i)
+			if data ~= nil and data.class ~= nil then
+				if data.class:match("^[0-3]$") ~= nil then
+					table.insert(NeutralPills, i)
+				end
+			end
+		end
+	end
+end
+
+local function ReplaceBlankEffect()
+	if not IsPillInPool(blankEffect) then
+		return -1
+	end
+	local rng = RNG()
+	rng:SetSeed(Game():GetSeeds():GetStartSeed(), 35)
+	
+	local effect = NeutralPills[1]
+	
+	repeat
+		effect = NeutralPills[rng:RandomInt(#NeutralPills) + 1]
+	until not IsPillInPool(effect)
+	
+	RestoredCollection:RunSave()["BlankPillReplacer"] = effect
+end
+
+local function GetBlankReplacer()
+	return type(RestoredCollection:RunSave()["BlankPillReplacer"]) == "number" and RestoredCollection:RunSave()["BlankPillReplacer"] or 0
+end
 
 function PillCrusherLocal:BloomShader(shader)
 	if shader == "PillCrusherBloom" then
@@ -92,6 +149,12 @@ function PillCrusherLocal:BloomShader(shader)
 end
 --RestoredCollection:AddCallback(ModCallbacks.MC_GET_SHADER_PARAMS, PillCrusherLocal.BloomShader)
 
+function PillCrusherLocal:BlankEffectRemoval(isContinue)
+	if not isContinue or type(RestoredCollection:RunSave()["BlankPillReplacer"]) ~= "number" then
+		ReplaceBlankEffect()
+	end
+end
+RestoredCollection:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, PillCrusherLocal.BlankEffectRemoval)
 
 ---@param rng RNG
 ---@param player EntityPlayer
@@ -102,7 +165,6 @@ function PillCrusherLocal:UsePillCrusher(_, rng, player)
 	local pillColorToCheckEffect = truePillColor
 	local itemPool = Game():GetItemPool()
 	local pillEffect = itemPool:GetPillEffect(pillColorToCheckEffect, player)
-
 	--Fiend folio compatibility bs (ffs why wouldn't they just make it an api)
 	if FiendFolio then
 		if PillCrusher:IsFiendFolioPill(truePillColor) then
@@ -216,8 +278,8 @@ else
 end
 
 function PillCrusherLocal:PreventBlankFromNormalPills(pillEffect, pillColor)
-    if pillEffect == blankEffect then
-        return 0
+    if pillEffect == blankEffect and GetBlankReplacer() ~= -1 then
+        return GetBlankReplacer()
     end
 end
 RestoredCollection:AddCallback(ModCallbacks.MC_GET_PILL_EFFECT, PillCrusherLocal.PreventBlankFromNormalPills)
