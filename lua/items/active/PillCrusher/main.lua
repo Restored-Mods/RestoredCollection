@@ -6,6 +6,7 @@ local hud = Game():GetHUD()
 local BloomAmount = 0
 local blurspeed = 0.07
 local ActivateBloom = false
+local blankEffect = Isaac.GetPillEffectByName("Blank Pill Effect")
 
 local pillCrusherPathRoot = "lua.items.active.PillCrusher.pill_effects."
 --Vanilla pill effects
@@ -157,7 +158,7 @@ function PillCrusherLocal:UsePillCrusher(_, rng, player)
 		sfx:Play(SoundEffect.SOUND_BONE_BREAK)
 	end
 
-	player:UsePill(Isaac.GetPillEffectByName("Blank Pill Effect"), PillColor.PILL_NULL, UseFlag.USE_NOANIM | UseFlag.USE_NOANNOUNCER | UseFlag.USE_NOHUD)
+	player:UsePill(blankEffect, PillColor.PILL_NULL, UseFlag.USE_NOANIM | UseFlag.USE_NOANNOUNCER | UseFlag.USE_NOHUD)
     --[[if REPENTOGON then
 		Game():SetBloom(30, 1)
 	end]]
@@ -214,6 +215,12 @@ else
 	RestoredCollection:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, PillCrusherLocal.AddPill)
 end
 
+function PillCrusherLocal:PreventBlankFromNormalPills(pillEffect, pillColor)
+    if pillEffect == blankEffect then
+        return 0
+    end
+end
+RestoredCollection:AddCallback(ModCallbacks.MC_GET_PILL_EFFECT, PillCrusherLocal.PreventBlankFromNormalPills)
 
 function PillCrusherLocal:spawnPill(rng, pos)
 	local room = Game():GetRoom()
@@ -242,7 +249,6 @@ function PillCrusherLocal:item_effect()
 	end
 end
 RestoredCollection:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, PillCrusherLocal.item_effect)
-
 
 function PillCrusherLocal:DefaultWispInit(wisp)
 	local player = wisp.Player
