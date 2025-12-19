@@ -37,41 +37,52 @@
 	<scale quality="3" scale="1.1"/>
 	<scale quality="4" scale="1.2"/>
 	
-	<!-- Stone Bombs -->
-	<locust id="5" tearFlags2="70" procChance2="0.25" locustFlags3="0" procChance3="0.25" gfx="anm2=locust_bomb.anm2&animation=locust_bomb" color="fly_grey"/>
+
 	<!-- Blank Bombs -->
 	<locust id="1" tearFlags2="34" procChance2="0.8" locustFlags3="0" procChance3="0.2" gfx="anm2=locust_bomb.anm2&animation=locust_bomb" color="fly_blue"/>
 	<!-- Checked Mate -->
 	<locust id="2" damageMultiplier="1.5" speed="0.8" color="fly_white"/>
-	<!-- Book of Despair -->
-	<locust id="20" collisionInterval="3" damageMultiplier="1" backGfx="drip.png" backColor="fly_lightblue" color="fly_bod" />
 	<!-- Dice Bombs -->
 	<locust id="3" mutexFlags2="3" locustFlags2="0" procChance2="0.2" locustFlags="3" procChance="0.4" gfx="anm2=locust_bomb.anm2&animation=locust_bomb&spritesheet=0-dice.png" />
-	<!-- Bowl of Tears -->
-	<locust id="21" count="3" damageMultiplier="0.6" backGfx="drip.png" backColor="fly_lightblue" color="fly_white"/>
 	<!-- Donkey Jawbone -->
 	<locust id="4" tearFlags2="120" procChance2="1" damageMultiplier="2" collisionInterval="30" scale="1.2" gfx="anm2=locust_larynx.anm2&animation=locust_larynx" color="1-fly_orange" />
-	<!-- Menorah -->
-	<locust id="28" tearFlags2="22" procChance2="0.5" damageMultiplier="0.75" count="3" scale="0.9" backGfx="flame.png" backColor="fly_lightblue" color="fly_yellow" />
+	<!-- Stone Bombs -->
+	<locust id="5" tearFlags2="70" procChance2="0.25" locustFlags3="0" procChance3="0.25" gfx="anm2=locust_bomb.anm2&animation=locust_bomb" color="fly_grey"/>
 	<!-- Ancient Revelation -->
 	<locust id="6" tearFlags="2" damageMultiplier="1.5" gfx="anm2=locust_holy.anm2&animation=locust_holy" color="0-fly_ancient&1-fly_white"  />
 	<!-- Beth's Heart -->
 	<locust id="7" tearFlags="15" color="fly_blue_heart" />
+	<!-- Keeper's Rope -->
+	<locust id="8" tearFlags2="53" procChance2="0.35" speed="0.5" gfx="anm2=locust_gold.anm2&animation=locust_gold" color="fly_grey" />
 	<!-- Lucky Seven -->
-	<locust id="9" tearFlags="74" procChance2="0.7" gfx="anm2=locust_gold.anm2&animation=locust_gold" color="fly_yellow" />
+	<locust id="9" tearFlags2="53" procChance2="0.27" gfx="anm2=locust_gold.anm2&animation=locust_gold" color="fly_yellow" />
 	<!-- Pacifist -->
 	<locust id="10" tearFlags="13" color="fly_pac" />
-	<!-- Voodoo Pin -->
-	<locust id="24" tearFlags="1" color="fly_black" />
-	<!-- Melted Candle -->
-	<locust id="26" tearFlags2="22" procChance2="0.5" gfx="anm2=locust_fire.anm2&animation=locust_fire" color="fly_white"/>
-	<!-- Keeper's Rope -->
-	<locust id="8" tearFlags="74" procChance2="0.5" gfx="anm2=locust_gold.anm2&animation=locust_gold" color="fly_grey" />
 	<!-- Safety Bombs -->
-	<locust id="11" tearFlags2="34" procChance2="1" locustFlags3="0" procChance3="0.1" gfx="anm2=locust_bomb.anm2&animation=locust_bomb" color="fly_gold" />
+	<locust id="11" tearFlags2="34" procChance2="1" locustFlags3="0" procChance3="0.1" gfx="anm2=locust_bomb.anm2&animation=locust_bomb" color="fly_yellow" />
 	<!-- Ol' Lopper -->
 	<locust id="12" tearFlags="83" tearFlags2="106" procChance2="0.5" backGfx="drip.png" backColor="fly_red" color="fly_grey" />
 	<!-- Max's Head -->
-	<locust id="13" damageMultiplier="0.8" earFlags="1" collisionInterval="8" color="brown" />
-
+	<locust id="13" damageMultiplier="0.9" collisionInterval="4" color="fly_brown" />
+	<!-- Lunch Box -->
+	<locust id="19" tearFlags="15" color="fly_white" />
+	<!-- Book of Despair -->
+	<locust id="20" collisionInterval="3" damageMultiplier="1" backGfx="drip.png" backColor="fly_lightblue" color="fly_bod" />
+	<!-- Bowl of Tears -->
+	<locust id="21" count="3" damageMultiplier="0.6" backGfx="drip.png" backColor="fly_lightblue" color="fly_white"/>
+	<!-- Book of Illusions -->
+	<locust id="22" locustFlags="2" tearFlags="1" color="fly_purple" />
+	<locust id="22" locustFlags="2" tearFlags="1" color="fly_purple" />
+	<!-- Pill Crusher -->
+	<locust id="23" locustFlags2="14" procChance2="0.5" color="fly_fart" />
+	<!-- Voodoo Pin -->
+	<locust id="24" tearFlags="1" color="fly_black" />
+	<!-- Pumpkin Mask -->
+	<locust id="25" tearFlags2="56" procChance="0.1" speed="1.2" color="fly_brown" />
+	<!-- Melted Candle -->
+	<locust id="26" tearFlags2="22" procChance2="0.5" gfx="anm2=locust_fire.anm2&animation=locust_fire" color="fly_white"/>
+	<!-- Tammy's Tail -->
+	<locust id="27" tearFlags2="15" procChance="0.7" collisionInterval="4" color="fly_white" />
+	<!-- Menorah -->
+	<locust id="28" tearFlags2="22" procChance2="0.5" damageMultiplier="0.75" count="3" scale="0.9" backGfx="flame.png" backColor="fly_lightblue" color="fly_yellow" />
 </locusts>
