@@ -65,13 +65,17 @@
 	<!-- Max's Head -->
 	<locust id="13" damageMultiplier="0.9" collisionInterval="4" color="fly_brown" />
 	<!-- Lunch Box -->
+	<locust id="14" tearFlags="15" color="fly_white" />
+	<locust id="15" tearFlags="15" color="fly_white" />
+	<locust id="16" tearFlags="15" color="fly_white" />
+	<locust id="17" tearFlags="15" color="fly_white" />
+	<locust id="18" tearFlags="15" color="fly_white" />
 	<locust id="19" tearFlags="15" color="fly_white" />
 	<!-- Book of Despair -->
 	<locust id="20" collisionInterval="3" damageMultiplier="1" backGfx="drip.png" backColor="fly_lightblue" color="fly_bod" />
 	<!-- Bowl of Tears -->
 	<locust id="21" count="3" damageMultiplier="0.6" backGfx="drip.png" backColor="fly_lightblue" color="fly_white"/>
 	<!-- Book of Illusions -->
-	<locust id="22" locustFlags="2" tearFlags="1" color="fly_purple" />
 	<locust id="22" locustFlags="2" tearFlags="1" color="fly_purple" />
 	<!-- Pill Crusher -->
 	<locust id="23" locustFlags2="14" procChance2="0.5" color="fly_fart" />

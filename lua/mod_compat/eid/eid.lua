@@ -6,7 +6,10 @@ local Helpers = RestoredCollection.Helpers
 EID:setModIndicatorName("Restored Collection")
 
 local function HodlingTab()
-	return EID.Config["ItemReminderEnabled"] and EID.holdTabCounter >= 30 and EID.TabDescThisFrame == false and EID.holdTabPlayer ~= nil
+	return EID.Config["ItemReminderEnabled"]
+		and EID.holdTabCounter >= 30
+		and EID.TabDescThisFrame == false
+		and EID.holdTabPlayer ~= nil
 end
 
 -- Items
@@ -62,27 +65,27 @@ local ItemDescriptions = {
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN] = {
 			Name = "Lucky Seven",
-			Description = "Whenever any pickup count ends in a 7, Isaac has a chance to shoot golden tears that turn enemies into special slot machines#The chance is increased the more pickup counts end in 7"
+			Description = "Whenever any pickup count ends in a 7, Isaac has a chance to shoot golden tears that turn enemies into special slot machines#The chance is increased the more pickup counts end in 7",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST] = {
 			Name = "Pacifist",
-			Description = "Combat rooms are cleared after 30 seconds of not damaging any enemies#Spawns chests at the start of each floor for each special room left unexplored on the previous floor"
+			Description = "Combat rooms are cleared after 30 seconds of not damaging any enemies#Spawns chests at the start of each floor for each special room left unexplored on the previous floor",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PILL_CRUSHER] = {
 			Name = "Pill Crusher",
-			Description = "{{Pill}} Gives a random pill when picked up#Increase pill drop rate when held#Consumes currently held pill and applies an effect to the entire room depending on the type of pill"
+			Description = "{{Pill}} Gives a random pill when picked up#Increase pill drop rate when held#Consumes currently held pill and applies an effect to the entire room depending on the type of pill",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_SAFETY_BOMBS] = {
 			Name = "Safety Bombs",
-			Description = "{{Bomb}} +5 Bombs#Placed bombs will not explode until the player leaves its explosion radius"
+			Description = "{{Bomb}} +5 Bombs#Placed bombs will not explode until the player leaves its explosion radius",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_VOODOO_PIN] = {
 			Name = "Voodoo Pin",
-			Description = "Throwable voodoo pin that swaps Isaac's hitbox with enemy hitboxes#Lasts until enemy is dead#Hitting bosses makes it last for 5 seconds"
+			Description = "Throwable voodoo pin that swaps Isaac's hitbox with enemy hitboxes#Lasts until enemy is dead#Hitting bosses makes it last for 5 seconds",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX] = {
 			Name = "Lunch Box",
-			Description = "Charged by collecting {{Heart}} Red Hearts#{{Collectible664}} Spawns a 'food' item#{{Warning}} Disappears after 6 uses"
+			Description = "Charged by collecting {{Heart}} Red Hearts#{{Collectible664}} Spawns a 'food' item#{{Warning}} Disappears after 6 uses",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MAXS_HEAD] = {
 			Name = "Max's Head",
@@ -156,27 +159,27 @@ local ItemDescriptions = {
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN] = {
 			Name = "Счастливая семерка",
-			Description = "Всякий раз, когда один из предметов игрока заканчивается на 7, у Айзека есть шанс выстрелить золотыми слезами, которые при попадании во врагов превращают их в особые игровые автоматы#Чем больше предметов заканчивается на 7, тем больше шанс"
+			Description = "Всякий раз, когда один из предметов игрока заканчивается на 7, у Айзека есть шанс выстрелить золотыми слезами, которые при попадании во врагов превращают их в особые игровые автоматы#Чем больше предметов заканчивается на 7, тем больше шанс",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST] = {
 			Name = "Пацифист",
-			Description = "Комнаты с врагами зачищаются после 30 секунд не нанося им урона#Сундуки появляются в начале каждого этажа за каждую непосещенную особую комнату на предыдущем этаже"
+			Description = "Комнаты с врагами зачищаются после 30 секунд не нанося им урона#Сундуки появляются в начале каждого этажа за каждую непосещенную особую комнату на предыдущем этаже",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PILL_CRUSHER] = {
 			Name = "Дробилка пилюль",
-			Description = "{{Pill}} Дает случайную пилюлю#Увеличивает шанс появления пилюль#Использует текущую пилюлю и накладывает зависимый от её типа эффект на всю комнату"
+			Description = "{{Pill}} Дает случайную пилюлю#Увеличивает шанс появления пилюль#Использует текущую пилюлю и накладывает зависимый от её типа эффект на всю комнату",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_SAFETY_BOMBS] = {
 			Name = "Безопасные бомбы",
-			Description = "{{Bomb}} +5 бомб#Размещенные бомбы не взорвутся, пока игрок не покинет радиус взрыва"
+			Description = "{{Bomb}} +5 бомб#Размещенные бомбы не взорвутся, пока игрок не покинет радиус взрыва",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_VOODOO_PIN] = {
 			Name = "Вуду булавка",
-			Description = "Бросаемая булавка вуду, которая меняет хитбоксы Айзека и врага местами#Еффект длится до смерти врага#При подании в босса действует 5 секунд"
+			Description = "Бросаемая булавка вуду, которая меняет хитбоксы Айзека и врага местами#Еффект длится до смерти врага#При подании в босса действует 5 секунд",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX] = {
 			Name = "Коробка c ланчем",
-			Description = "Заряжается подпором {{Heart}} красных сердец#{{Collectible664}} При использовании спавнит один из 'съедобных' предметов#{{Warning}} Исчезает после 6 использований"
+			Description = "Заряжается подпором {{Heart}} красных сердец#{{Collectible664}} При использовании спавнит один из 'съедобных' предметов#{{Warning}} Исчезает после 6 использований",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MAXS_HEAD] = {
 			Name = "Голова Макса",
@@ -250,27 +253,27 @@ local ItemDescriptions = {
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN] = {
 			Name = "7 de la suerte",
-			Description = "Si el numero de cualquier recolectable del jugador termina en 7, se tendrá la posibilidad de lanzar una lágrima dorada que genera una máquina tragaperras especial al golpear a un enemigo"
+			Description = "Si el numero de cualquier recolectable del jugador termina en 7, se tendrá la posibilidad de lanzar una lágrima dorada que genera una máquina tragaperras especial al golpear a un enemigo",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST] = {
 			Name = "Pacifista",
-			Description = "Genera recolectables en el siguiente piso en función a cuantas habitaciones no limpiaste en el piso actual"
+			Description = "Genera recolectables en el siguiente piso en función a cuantas habitaciones no limpiaste en el piso actual",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PILL_CRUSHER] = {
 			Name = "Triturador de Pildoras",
-			Description = "{{Pill}} Genera una píldora aleatoria al tomarlo#Las píldora aparecen con mas frecuencia#Consume la píldora que posees y aplica un efecto a la sala, basado en la píldora"
+			Description = "{{Pill}} Genera una píldora aleatoria al tomarlo#Las píldora aparecen con mas frecuencia#Consume la píldora que posees y aplica un efecto a la sala, basado en la píldora",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_SAFETY_BOMBS] = {
 			Name = "Bombas de Seguridad",
-			Description = "{{Bomb}} +5 Bombas#Las bombas que coloques no explotarán hasta que te alejes de su radio de explosión"
+			Description = "{{Bomb}} +5 Bombas#Las bombas que coloques no explotarán hasta que te alejes de su radio de explosión",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_VOODOO_PIN] = {
 			Name = "Pin de vudú",
-			Description = "Isaac sostiene un pin de vudú que puede ser lanzado al enemigo#Si el pin golpea a un monstruo, su hitbox será intercambiada por la de Isaac hasta que muera#Si golpea a un jefe, durará 5 segundos"
+			Description = "Isaac sostiene un pin de vudú que puede ser lanzado al enemigo#Si el pin golpea a un monstruo, su hitbox será intercambiada por la de Isaac hasta que muera#Si golpea a un jefe, durará 5 segundos",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX] = {
 			Name = "Caja del almuerzo",
-			Description = "Se carga colleccionando {{Heart}} corazones rojos#{{Collectible664}} Cuando se usa, aparece uno de los objetos de 'comida'#Desaparece después de 6 usos"
+			Description = "Se carga colleccionando {{Heart}} corazones rojos#{{Collectible664}} Cuando se usa, aparece uno de los objetos de 'comida'#Desaparece después de 6 usos",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MAXS_HEAD] = {
 			Name = "Cabeza de Max",
@@ -336,23 +339,23 @@ local ItemDescriptions = {
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN] = {
 			Name = "Sete Sortudo",
-			Description = "Se o número de qualquer um dos números de pickup do jogador acabar em um 7, Isaac terá a chance de atirar uma lágrima dourada que cria uma máquina Caça-níquel especial quando atingir um monstro"
+			Description = "Se o número de qualquer um dos números de pickup do jogador acabar em um 7, Isaac terá a chance de atirar uma lágrima dourada que cria uma máquina Caça-níquel especial quando atingir um monstro",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST] = {
 			Name = "Pacifista",
-			Description = "Gera pickups de recompensa no início do próximo andar baseado em quantas salas você não completou no andar anterior"
+			Description = "Gera pickups de recompensa no início do próximo andar baseado em quantas salas você não completou no andar anterior",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PILL_CRUSHER] = {
 			Name = "Triturador de Pílulas",
-			Description = "{{Pill}} Gera uma pílula aleatória quando pego#{{Pill}} Aumenta a taxa de queda de pílulas enquanto segurado# Consome a sua pílula atual e aplica um efeito na sala inteira dependendo no tipo de pílula consumida"
+			Description = "{{Pill}} Gera uma pílula aleatória quando pego#{{Pill}} Aumenta a taxa de queda de pílulas enquanto segurado# Consome a sua pílula atual e aplica um efeito na sala inteira dependendo no tipo de pílula consumida",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_SAFETY_BOMBS] = {
 			Name = "Bombas de Segurança",
-			Description = "{{Bombs}} +5 Bombas#Bombas não irão explodir até o jogador sair de sua área de explosão"
+			Description = "{{Bombs}} +5 Bombas#Bombas não irão explodir até o jogador sair de sua área de explosão",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_VOODOO_PIN] = {
 			Name = "Alfinete de Voodoo",
-			Description = "Isaac segura um alfinete de voodoo que pode ser atirado em um inimigo#Se o alfinete acertar um monstro, a sua hitbox será invertida com a hitbox do Isaac#Dura até o inimigo morrer#Acertar chefes fará o efeito durar por apenas 5 segundos"
+			Description = "Isaac segura um alfinete de voodoo que pode ser atirado em um inimigo#Se o alfinete acertar um monstro, a sua hitbox será invertida com a hitbox do Isaac#Dura até o inimigo morrer#Acertar chefes fará o efeito durar por apenas 5 segundos",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MAXS_HEAD] = {
 			Name = "Cabeça do Max",
@@ -418,27 +421,27 @@ local ItemDescriptions = {
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN] = {
 			Name = "幸运七",
-			Description = "当玩家的任何掉落物数量以7结尾时，玩家有机会发射金色眼泪，击中怪物时生成特殊老虎机"
+			Description = "当玩家的任何掉落物数量以7结尾时，玩家有机会发射金色眼泪，击中怪物时生成特殊老虎机",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST] = {
 			Name = "和平主义者",
-			Description = "根据上一层未清理的房间数量，在下一层开始时给予掉落物奖励"
+			Description = "根据上一层未清理的房间数量，在下一层开始时给予掉落物奖励",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PILL_CRUSHER] = {
 			Name = "药丸粉碎机",
-			Description = "{{Pill}} 拾取时给予一个随机药丸#持有时增加药丸掉落率#消耗当前持有的药丸并根据药丸类型对整个房间施加效果"
+			Description = "{{Pill}} 拾取时给予一个随机药丸#持有时增加药丸掉落率#消耗当前持有的药丸并根据药丸类型对整个房间施加效果",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_SAFETY_BOMBS] = {
 			Name = "安全炸弹",
-			Description = "{{Bomb}} +5 炸弹#放置的炸弹直到玩家离开爆炸范围才会爆炸"
+			Description = "{{Bomb}} +5 炸弹#放置的炸弹直到玩家离开爆炸范围才会爆炸",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_VOODOO_PIN] = {
 			Name = "巫毒针",
-			Description = "玩家拿着一个可以扔向敌人的巫毒针#如果针刺中怪物，它的碰撞箱将与玩家的碰撞箱交换，直到怪物死亡#击中boss会持续5秒"
+			Description = "玩家拿着一个可以扔向敌人的巫毒针#如果针刺中怪物，它的碰撞箱将与玩家的碰撞箱交换，直到怪物死亡#击中boss会持续5秒",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX] = {
 			Name = "午餐盒",
-			Description = "通过收集{{Heart}}红心充能#{{Collectible664}}使用时生成一个“食物”物品#使用6次后消失"
+			Description = "通过收集{{Heart}}红心充能#{{Collectible664}}使用时生成一个“食物”物品#使用6次后消失",
 		},
 		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MAXS_HEAD] = {
 			Name = "麦克斯的头",
@@ -461,35 +464,35 @@ local TrinketDescriptions = {
 			Name = "Game Sqiud",
 			Description = "{{Slow}} 8% chance to a shoot slowing tear that leaves black creep on impact #{{Luck}} 100% chance at 18 luck",
 			GoldenDescription = "↑ +3% on top for every trinket multiplier",
-		}
+		},
 	},
 	ru = {
 		[RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC] = {
 			Name = "Игровой кальмар",
 			Description = "{{Slow}} 8% шанс выстрелить замедляющей слезой, которая оставляет черную лужу при столкновении #{{Luck}} 100% шанс с 18 удачи",
 			GoldenDescription = "↑ +3% дополнительно за каждый множитель брелка",
-		}
+		},
 	},
 	spa = {
 		[RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC] = {
 			Name = "Juego de calamar",
 			Description = "{{Slow}} 8% de disparar una lágrima ralentizada que deja un charco negro cuando impacta",
 			GoldenDescription = "↑ +3% cuando se usa con cualquier trinket de multiplicador",
-		}
+		},
 	},
 	pt_br = {
 		[RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC] = {
 			Name = "Lula dos Games",
 			Description = "{{Slow}} 8% de chance de disparar uma lágrima que desascelera e deixa uma poça preta no impacto",
 			GoldenDescription = "↑ +3% de chance por cada multiplicador de trinkets",
-		}
+		},
 	},
 	zh_cn = {
 		[RestoredCollection.Enums.TrinketType.TRINKET_GAME_SQUID_TC] = {
 			Name = "游戏鱿鱼",
 			Description = "{{Slow}} 8%发射减速眼泪，在击中时留下黑色水迹",
 			GoldenDescription = "↑每个饰品乘数上限+3%",
-		}
+		},
 	},
 }
 
@@ -655,16 +658,24 @@ do
 			end,
 			HardCondition = function(descObj)
 				local diff = RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX - descObj.ObjSubType
-				
-				return (descObj.Entity ~= nil or HodlingTab()) and descObj.ObjType == 5
-				and descObj.ObjVariant == 100 and (diff > 0 and diff < 6)
+
+				return (descObj.Entity ~= nil or HodlingTab())
+					and descObj.ObjType == 5
+					and descObj.ObjVariant == 100
+					and (diff > 0 and diff < 6)
 			end,
 			Modifier = function(descObj)
-				if REPENTOGON and descObj.ObjSubType == RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX then
+				if
+					REPENTOGON
+					and descObj.ObjSubType == RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX
+				then
 					local varData = 0
 					if HodlingTab() then
 						for i = 0, 2 do
-							if EID.holdTabPlayer:GetActiveItem(i) == RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX then
+							if
+								EID.holdTabPlayer:GetActiveItem(i)
+								== RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX
+							then
 								varData = EID.holdTabPlayer:GetActiveItemDesc(i).VarData
 								break
 							end
@@ -672,10 +683,12 @@ do
 					elseif descObj.Entity and descObj.Entity:ToPickup() then
 						varData = descObj.Entity:ToPickup():GetVarData()
 					end
-					descObj.Description = descObj.Description:gsub("([^%d])6([^%d])", "%1"..tostring(6 - varData).."%2")
+					descObj.Description =
+						descObj.Description:gsub("([^%d])6([^%d])", "%1" .. tostring(6 - varData) .. "%2")
 				else
 					local diff = RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX - descObj.ObjSubType
-					descObj.Description = descObj.Description:gsub("([^%d])6([^%d])", "%1"..tostring(6 - diff).."%2")
+					descObj.Description =
+						descObj.Description:gsub("([^%d])6([^%d])", "%1" .. tostring(6 - diff) .. "%2")
 				end
 				return descObj
 			end,
@@ -686,11 +699,13 @@ do
 	for id, data in pairs(modifiers) do
 		EID:addDescriptionModifier(data.Name, function(descObj)
 			return descObj
-				and (descObj.ObjType == 5
-				and descObj.ObjVariant == 100
-				and descObj.ObjSubType == id
-				and (type(data.Condition) == "function" and data.Condition(descObj) or data.Condition == nil)
-				or (type(data.HardCondition) == "function" and data.HardCondition(descObj)))
+				and (
+					descObj.ObjType == 5
+						and descObj.ObjVariant == 100
+						and descObj.ObjSubType == id
+						and (type(data.Condition) == "function" and data.Condition(descObj) or data.Condition == nil)
+					or (type(data.HardCondition) == "function" and data.HardCondition(descObj))
+				)
 		end, data.Modifier)
 	end
 
@@ -726,7 +741,7 @@ for lang, item in pairs(ItemDescriptions) do
 	for id, data in pairs(item) do
 		EID:addCollectible(id, data.Description, data.Name, lang)
 		if id == RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX then
-			for i = 1,5 do
+			for i = 1, 5 do
 				EID:addCollectible(id - i, data.Description, data.Name, lang)
 			end
 		end
@@ -759,20 +774,20 @@ local function AddXmlLocustInfo(
 	damageMult1,
 	damageMult2
 )
-	amount = amount or 1
-	scale = scale or 1
-	speed = speed or 1
+	amount = tonumber(amount) or 1
+	scale = tonumber(scale) or 1
+	speed = tonumber(speed) or 1
 	flags1 = flags1 or { -1 }
 	flags2 = flags2 or { -1 }
 	flags3 = flags3 or { -1 }
 	tearFlags1 = tearFlags1 or { -1 }
 	tearFlags2 = tearFlags2 or { -1 }
 	tearFlags3 = tearFlags3 or { -1 }
-	procChance1 = procChance1 or 1
-	procChance2 = procChance2 or 1
-	procChance3 = procChance3 or 1
-	damageMult1 = damageMult1 or 1
-	damageMult2 = damageMult2 or 1
+	procChance1 = tonumber(procChance1) or 1
+	procChance2 = tonumber(procChance2) or 1
+	procChance3 = tonumber(procChance3) or 1
+	damageMult1 = tonumber(damageMult1) or 1
+	damageMult2 = tonumber(damageMult2) or 1
 	if id > 732 then
 		EID.XMLLocusts[id] = {
 			amount,
@@ -793,185 +808,439 @@ local function AddXmlLocustInfo(
 	end
 end
 
-local locustData = {
-	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS] = {
-		1,
-		1,
-		1,
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		{ 70 },
-		{ -1 },
-		{ -1 },
-		1,
-		1,
-		1,
-		1,
-		1,
-	},
-	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_DESPAIR] = {
-		1,
-		1,
-		2,
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		1,
-		1,
-		1,
-		1,
-		1,
-	},
-	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOWL_OF_TEARS] = {
-		3,
-		1,
-		1,
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		1,
-		1,
-		1,
-		0.5,
-		1,
-	},
-	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DONKEY_JAWBONE] = {
-		1,
-		2,
-		1,
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		1,
-		1,
-		1,
-		4,
-		1,
-	},
-	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH] = {
-		2,
-		0.75,
-		1,
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		1,
-		1,
-		1,
-		0.75,
-		1,
-	},
-	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_ANCIENT_REVELATION] = {
-		1,
-		1,
-		1,
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		{ 2 },
-		{ -1 },
-		{ -1 },
-		1,
-		1,
-		1,
-		1,
-		1,
-	},
-	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BETHS_HEART] = {
-		1,
-		1,
-		1,
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		{ 15 },
-		{ -1 },
-		{ -1 },
-		1,
-		1,
-		1,
-		1,
-		1,
-	},
-	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN] = {
-		1,
-		1,
-		1,
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		{ 74 },
-		{ -1 },
-		{ -1 },
-		1,
-		1,
-		1,
-		1,
-		1,
-	},
-	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST] = {
-		1,
-		1,
-		1,
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		{ 13 },
-		{ -1 },
-		{ -1 },
-		1,
-		1,
-		1,
-		1,
-		1,
-	},
-	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MELTED_CANDLE] = {
-		1,
-		1,
-		1,
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		{ 22 },
-		{ -1 },
-		1,
-		0.4,
-		1,
-		1,
-		1,
-	},
-	[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BLANK_BOMBS] = {
-		1,
-		1,
-		1,
-		{ -1 },
-		{ -1 },
-		{ -1 },
-		{ 34 },
-		{ -1 },
-		{ -1 },
-		1,
-		1,
-		1,
-		1,
-		1,
-	},
-}
-
-for col, data in pairs(locustData) do
-	AddXmlLocustInfo(col, table.unpack(data))
+if REPENTOGON then
+	local function StringToNumberArray(str)
+		if str == "" or str == nil then
+			return { -1 }
+		end
+		local tab = {}
+		for num in str:gmatch("[^%s]+") do
+			table.insert(tab, tonumber(num))
+		end
+		if #tab == 0 then
+			tab = { -1 }
+		end
+		return tab
+	end
+	for _, id in pairs(RestoredCollection.Enums.CollectibleType) do
+		local data = XMLData.GetEntryById(XMLNode.LOCUST, id)
+		AddXmlLocustInfo(
+			id,
+			data.count,
+			data.scale,
+			data.speed,
+			StringToNumberArray(data.locustflags),
+			StringToNumberArray(data.locustflags2),
+			StringToNumberArray(data.locustflags3),
+			StringToNumberArray(data.tearflags),
+			StringToNumberArray(data.tearflags2),
+			StringToNumberArray(data.tearflags3),
+			data.procchance,
+			data.procchance2,
+			data.procchance3,
+			data.damagemultiplier,
+			data.damagemultiplier2
+		)
+		if id == RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX then
+			for i = 1, 5 do
+				local lunch_data = XMLData.GetEntryById(XMLNode.LOCUST, id - i)
+				AddXmlLocustInfo(
+					id - i,
+					lunch_data.count,
+					lunch_data.scale,
+					lunch_data.speed,
+					StringToNumberArray(lunch_data.locustflags),
+					StringToNumberArray(lunch_data.locustflags2),
+					StringToNumberArray(lunch_data.locustflags3),
+					StringToNumberArray(lunch_data.tearflags),
+					StringToNumberArray(lunch_data.tearflags2),
+					StringToNumberArray(lunch_data.tearflags3),
+					lunch_data.procchance,
+					lunch_data.procchance2,
+					lunch_data.procchance3,
+					lunch_data.damagemultiplier,
+					lunch_data.damagemultiplier2
+				)
+			end
+		end
+	end
+else
+	local locustData = {
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BLANK_BOMBS] = {
+			1, --amount
+			1, --scale
+			1, --speed
+			{ -1 }, --locustFlags
+			{ -1 }, --locustFlags2
+			{ 0 }, --locustFlags3
+			{ -1 }, --tearFlags
+			{ 34 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			0.8, --procChance2
+			0.2, --procChance3
+			1, --damageMultiplier
+			1, --damageMultiplier2
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_CHECKED_MATE] = {
+			1, --amount
+			1, --scale
+			0.8, --speed
+			{ -1 }, --locustFlags
+			{ -1 }, --locustFlags2
+			{ -1 }, --locustFlags3
+			{ -1 }, --tearFlags
+			{ -1 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			1, --procChance2
+			1, --procChance3
+			1.5, --damageMultiplier
+			1, --damageMultiplier2
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DICE_BOMBS] = {
+			1, --amount
+			1, --scale
+			1, --speed
+			{ -1 }, --locustFlags
+			{ 0 }, --locustFlags2
+			{ 3 }, --locustFlags3
+			{ -1 }, --tearFlags
+			{ -1 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			0.2, --procChance2
+			0.4, --procChance3
+			1, --damageMultiplier
+			1, --damageMultiplier2
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_DONKEY_JAWBONE] = {
+			1, --amount
+			1.2, --scale
+			1, --speed
+			{ -1 }, --locustFlags
+			{ -1 }, --locustFlags2
+			{ -1 }, --locustFlags3
+			{ -1 }, --tearFlags
+			{ 120 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			1, --procChance2
+			1, --procChance3
+			2, --damageMultiplier
+			1, --damageMultiplier2
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_STONE_BOMBS] = {
+			1, --amount
+			1, --scale
+			1, --speed
+			{ -1 }, --locustFlags
+			{ -1 }, --locustFlags2
+			{ 0 }, --locustFlags3
+			{ -1 }, --tearFlags
+			{ 70 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			0.25, --procChance2
+			0.25, --procChance3
+			1, --damageMultiplier
+			1, --damageMultiplier2
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_ANCIENT_REVELATION] = {
+			1, --amount
+			1, --scale
+			1, --speed
+			{ -1 }, --locustFlags
+			{ -1 }, --locustFlags2
+			{ -1 }, --locustFlags3
+			{ 2 }, --tearFlags
+			{ -1 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			1, --procChance2
+			1, --procChance3
+			1.5, --damageMultiplier
+			1, --damageMultiplier2
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BETHS_HEART] = {
+			1, --amount
+			1, --scale
+			1, --speed
+			{ -1 }, --locustFlags
+			{ -1 }, --locustFlags2
+			{ -1 }, --locustFlags3
+			{ 15 }, --tearFlags
+			{ -1 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			1, --procChance2
+			1, --procChance3
+			1, --damageMultiplier
+			1, --damageMultiplier2
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_KEEPERS_ROPE] = {
+			1, --amount
+			1, --scale
+			0.5, --speed
+			{ -1 }, --locustFlags
+			{ -1 }, --locustFlags2
+			{ -1 }, --locustFlags3
+			{ -1 }, --tearFlags
+			{ 53 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			0.35, --procChance2
+			1, --procChance3
+			1, --damageMultiplier
+			1, --damageMultiplier2
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUCKY_SEVEN] = {
+			1, --amount
+			1, --scale
+			1, --speed
+			{ -1 }, --locustFlags
+			{ -1 }, --locustFlags2
+			{ -1 }, --locustFlags3
+			{ -1 }, --tearFlags
+			{ 53 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			0.27, --procChance2
+			1, --procChance3
+			1, --damageMultiplier
+			1, --damageMultiplier2
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PACIFIST] = {
+			1, --amount
+			1, --scale
+			1, --speed
+			{ -1 }, --locustFlags
+			{ -1 }, --locustFlags2
+			{ -1 }, --locustFlags3
+			{ 13 }, --tearFlags
+			{ -1 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			1, --procChance2
+			1, --procChance3
+			1, --damageMultiplier
+			1, --damageMultiplier2
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_SAFETY_BOMBS] = {
+			1, --amount
+			1, --scale
+			1, --speed
+			{ -1 }, --locustFlags
+			{ -1 }, --locustFlags2
+			{ 0 }, --locustFlags3
+			{ -1 }, --tearFlags
+			{ 34 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			1, --procChance2
+			0.1, --procChance3
+			1, --damageMultiplier
+			1, --damageMultiplier2
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_OL_LOPPER] = {
+			1, --amount
+			1, --scale
+			1, --speed
+			{ -1 }, --locustFlags
+			{ -1 }, --locustFlags2
+			{ -1 }, --locustFlags3
+			{ 83 }, --tearFlags
+			{ 106 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			0.5, --procChance2
+			1, --procChance3
+			1, --damageMultiplier
+			1, --damageMultiplier2
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MAXS_HEAD] = {
+			1, --amount
+			1, --scale
+			1, --speed
+			{ -1 }, --locustFlags
+			{ -1 }, --locustFlags2
+			{ -1 }, --locustFlags3
+			{ -1 }, --tearFlags
+			{ -1 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			1, --procChance2
+			1, --procChance3
+			0.9, --damageMultiplier
+			1, --damageMultiplier2
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX] = {
+			1, --amount
+			1, --scale
+			1, --speed
+			{ -1 }, --locustFlags
+			{ -1 }, --locustFlags2
+			{ -1 }, --locustFlags3
+			{ 15 }, --tearFlags
+			{ -1 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			1, --procChance2
+			1, --procChance3
+			1, --damageMultiplier
+			1, --damageMultiplier2
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_DESPAIR] = {
+			1, --amount
+			1, --scale
+			1, --speed
+			{ -1 }, --locustFlags
+			{ -1 }, --locustFlags2
+			{ -1 }, --locustFlags3
+			{ -1 }, --tearFlags
+			{ -1 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			1, --procChance2
+			1, --procChance3
+			1, --damageMultiplier
+			1, --damageMultiplier2
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOWL_OF_TEARS] = {
+			3, --amount
+			1, --scale
+			1, --speed
+			{ -1 }, --locustFlags
+			{ -1 }, --locustFlags2
+			{ -1 }, --locustFlags3
+			{ -1 }, --tearFlags
+			{ -1 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			1, --procChance2
+			1, --procChance3
+			0.6, --damageMultiplier
+			1, --damageMultiplier2
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_BOOK_OF_ILLUSIONS] = {
+			1, --amount
+			1, --scale
+			1, --speed
+			{ 2 }, --locustFlags
+			{ -1 }, --locustFlags2
+			{ -1 }, --locustFlags3
+			{ 1 }, --tearFlags
+			{ -1 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			1, --procChance2
+			1, --procChance3
+			1, --damageMultiplier
+			1, --damageMultiplier2
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PILL_CRUSHER] = {
+			1, --amount
+			1, --scale
+			1, --speed
+			{ -1 }, --locustFlags
+			{ 14 }, --locustFlags2
+			{ -1 }, --locustFlags3
+			{ -1 }, --tearFlags
+			{ -1 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			0.5, --procChance2
+			1, --procChance3
+			1, --damageMultiplier
+			1, --damageMultiplier2
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_VOODOO_PIN] = {
+			1, --amount
+			1, --scale
+			1, --speed
+			{ -1 }, --locustFlags
+			{ -1 }, --locustFlags2
+			{ -1 }, --locustFlags3
+			{ 1 }, --tearFlags
+			{ -1 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			1, --procChance2
+			1, --procChance3
+			1, --damageMultiplier
+			1, --damageMultiplier2
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_PUMPKIN_MASK] = {
+			1, --amount
+			1, --scale
+			1.2, --speed
+			{ -1 }, --locustFlags
+			{ -1 }, --locustFlags2
+			{ -1 }, --locustFlags3
+			{ -1 }, --tearFlags
+			{ 56 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			0.1, --procChance2
+			1, --procChance3
+			1, --damageMultiplier
+			1, --damageMultiplier2
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MELTED_CANDLE] = {
+			1, --amount
+			1, --scale
+			1, --speed
+			{ -1 }, --locustFlags
+			{ -1 }, --locustFlags2
+			{ -1 }, --locustFlags3
+			{ -1 }, --tearFlags
+			{ 22 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			0.5, --procChance2
+			1, --procChance3
+			1, --damageMultiplier
+			1, --damageMultiplier2
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_TAMMYS_TAIL_TC] = {
+			1, --amount
+			1, --scale
+			1, --speed
+			{ -1 }, --locustFlags
+			{ -1 }, --locustFlags2
+			{ -1 }, --locustFlags3
+			{ -1 }, --tearFlags
+			{ 15 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			0.7, --procChance2
+			1, --procChance3
+			1, --damageMultiplier
+			1, --damageMultiplier2
+		},
+		[RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH] = {
+			3, --amount
+			0.9, --scale
+			1, --speed
+			{ -1 }, --locustFlags
+			{ -1 }, --locustFlags2
+			{ -1 }, --locustFlags3
+			{ -1 }, --tearFlags
+			{ 22 }, --tearFlags2
+			{ -1 }, --tearFlags3
+			1, --procChance
+			0.5, --procChance2
+			1, --procChance3
+			0.75, --damageMultiplier
+			1, --damageMultiplier2
+		},
+	}
+	for col, data in pairs(locustData) do
+		if col == RestoredCollection.Enums.CollectibleType.COLLECTIBLE_LUNCH_BOX then
+			for i = 1, 5 do
+				AddXmlLocustInfo(col - i, table.unpack(data))
+			end
+		end
+		AddXmlLocustInfo(col, table.unpack(data))
+	end
 end
