@@ -757,10 +757,27 @@ function Helpers.IsItemDisabled(item)
 	return false
 end
 
+---@param trinket TrinketType | integer
+---@return boolean
+function Helpers.IsTrinketDisabled(trinket)
+	for _, disabledTrinket in ipairs(RestoredCollection:GetDefaultFileSave("DisabledTrinkets")) do
+        if trinket == RestoredCollection.Enums.TrinketType[disabledTrinket] then
+            return true
+        end
+    end
+	return false
+end
+
 ---@param collectible CollectibleType | integer
 ---@return boolean
 function Helpers.DoesAnyPlayerHasItem(collectible)
 	return REPENTOGON and PlayerManager.AnyoneHasCollectible(collectible) or #Helpers.Filter(Helpers.GetPlayers(), function(_, player) return player:HasCollectible(collectible) end) > 0
+end
+
+---@param trinket TrinketType | integer
+---@return boolean
+function Helpers.DoesAnyPlayerHasTrinket(trinket)
+	return REPENTOGON and PlayerManager.AnyoneHasTrinket(trinket) or #Helpers.Filter(Helpers.GetPlayers(), function(_, player) return player:HasTrinket(trinket) end) > 0
 end
 
 RestoredCollection.Helpers = Helpers

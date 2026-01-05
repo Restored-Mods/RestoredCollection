@@ -135,9 +135,11 @@ local function GetItemsEnum(id)
 end
 
 local orderedItems = {}
+local orderedTrinkets = {}
 
 local function InitBlacklistItems()
 	orderedItems = {}
+	orderedTrinkets = {}
 	local itemConfig = Isaac.GetItemConfig()
 	---@type ItemConfigItem[]
 	for _, collectible in pairs(RestoredCollection.Enums.CollectibleType) do
@@ -147,20 +149,30 @@ local function InitBlacklistItems()
 	table.sort(orderedItems, function(a, b)
 		return RemoveZeroWidthSpace(a.Name) < RemoveZeroWidthSpace(b.Name)
 	end)
+	
+	for _, trinket in pairs(RestoredCollection.Enums.TrinketType) do
+		local trinketConf = itemConfig:GetCollectible(trinket)
+		orderedTrinkets[#orderedTrinkets + 1] = trinketConf
+	end
+	table.sort(orderedTrinkets, function(a, b)
+		return RemoveZeroWidthSpace(a.Name) < RemoveZeroWidthSpace(b.Name)
+	end)
 end
 
 InitBlacklistItems()
 
-local function InitDisableMenu()
+local function InitDisableMenu(t)
 	local itemTogglesMenu = {}
+	local disabledSaveString = t == "items" and "DisabledItems" or "DisabledTrinkets"
 	itemTogglesMenu = {
-		{str = 'choose what items show up', fsize = 2, nosel = true},
+		{str = 'choose what '..t..' show up', fsize = 2, nosel = true},
         {str = '(disabled - in blacklist)', fsize = 2, nosel = true},
 		{ str = "", fsize = 2, nosel = true },
 	}
+	local orderedTab = t == "items" and orderedItems or orderedTrinkets
 
-	for _, collectible in pairs(orderedItems) do
-		local split = SplitStr(string.lower(collectible.Name))
+	for _, itemConf in pairs(orderedTab) do
+		local split = SplitStr(string.lower(itemConf.Name))
 
 		local tooltipStr = { "enable", "" }
 		for _, word in ipairs(split) do
@@ -173,14 +185,19 @@ local function InitDisableMenu()
 		end
 		tooltipStr[#tooltipStr] = tooltipStr[#tooltipStr]:sub(0, tooltipStr[#tooltipStr]:len() - 1)
 
-		local itemSprite = Sprite()
-		itemSprite:Load("gfx/ui/dss_item.anm2", false)
-		itemSprite:ReplaceSpritesheet(0, collectible.GfxFileName)
-		itemSprite:LoadGraphics()
-		itemSprite:SetFrame("Idle", 0)
+		local sprite = Sprite()
+		sprite:Load("gfx/ui/dss_item.anm2", false)
+		sprite:ReplaceSpritesheet(0, itemConf.GfxFileName)
+		sprite:LoadGraphics()
+		sprite:SetFrame("Idle", 0)
 
-		local collectibleOption = {
-			str = string.lower(RemoveZeroWidthSpace(collectible.Name)),
+		local variable = "Item"
+		if t == "trinkets" then
+			variable = "Trinket"
+		end
+
+		local itemConfOption = {
+			str = string.lower(RemoveZeroWidthSpace(itemConf.Name)),
 
 			-- The "choices" tag on a button allows you to create a multiple-choice setting
 			choices = { "enabled", "disabled" },
@@ -188,16 +205,16 @@ local function InitDisableMenu()
 			setting = 1,
 
 			-- "variable" is used as a key to story your setting; just set it to something unique for each setting!
-			variable = "ToggleItem" .. collectible.Name,
+			variable = "Toggle".. variable .. itemConf.Name,
 
 			-- When the menu is opened, "load" will be called on all settings-buttons
 			-- The "load" function for a button should return what its current setting should be
 			-- This generally means looking at your mod's save data, and returning whatever setting you have stored
 			load = function()
 				for _, disabledItem in
-					ipairs(RestoredCollection:GetDefaultFileSave("DisabledItems"))
+					ipairs(RestoredCollection:GetDefaultFileSave(disabledSaveString))
 				do
-					if disabledItem == GetItemsEnum(collectible.ID) then
+					if disabledItem == GetItemsEnum(itemConf.ID) then
 						return 2
 					end
 				end
@@ -207,9 +224,9 @@ local function InitDisableMenu()
 			-- When the menu is closed, "store" will be called on all settings-buttons
 			-- The "store" function for a button should save the button's setting (passed in as the first argument) to save data!
 			store = function(var)
-				local disabledItems = RestoredCollection:GetDefaultFileSave("DisabledItems")
+				local disabledItems = RestoredCollection:GetDefaultFileSave(disabledSaveString)
 				for index, disabledItem in ipairs(disabledItems) do
-					if disabledItem == GetItemsEnum(collectible.ID) then
+					if disabledItem == GetItemsEnum(itemConf.ID) then
 						if var == 1 then
 							table.remove(disabledItems, index)
 						end
@@ -218,7 +235,7 @@ local function InitDisableMenu()
 				end
 
 				if var == 2 then
-					table.insert(disabledItems, GetItemsEnum(collectible.ID))
+					table.insert(disabledItems, GetItemsEnum(itemConf.ID))
 				end
 			end,
 
@@ -227,7 +244,7 @@ local function InitDisableMenu()
 				buttons = {
 					{
 						spr = {
-							sprite = itemSprite,
+							sprite = sprite,
 							centerx = 16,
 							centery = 16,
 							width = 32,
@@ -242,9 +259,17 @@ local function InitDisableMenu()
 			},
 		}
 
-		itemTogglesMenu[#itemTogglesMenu + 1] = collectibleOption
+		itemTogglesMenu[#itemTogglesMenu + 1] = itemConfOption
 	end
 	return itemTogglesMenu
+end
+
+local function InitDisableItemMenu()
+	return InitDisableMenu("items")
+end
+
+local function InitDisableTrinketMenu()
+	return InitDisableMenu("trinkets")
 end
 
 local function UpdateImGuiMenu(IsDataInitialized)
@@ -254,8 +279,12 @@ local function UpdateImGuiMenu(IsDataInitialized)
 			ImGui.RemoveElement("restotredCollectionSettingsNoWay")
 		end
 
-		if ImGui.ElementExists("restotredCollectionBlacklistNoWay") then
-			ImGui.RemoveElement("restotredCollectionBlacklistNoWay")
+		if ImGui.ElementExists("restotredCollectionBlacklistNoWayItems") then
+			ImGui.RemoveElement("restotredCollectionBlacklistNoWayItems")
+		end
+
+		if ImGui.ElementExists("restotredCollectionBlacklistNoWayTrinkets") then
+			ImGui.RemoveElement("restotredCollectionBlacklistNoWayTrinkets")
 		end
 
 		if ImGui.ElementExists("restoredCollectionSettingsIllusionPlaceBombs") then
@@ -366,12 +395,65 @@ local function UpdateImGuiMenu(IsDataInitialized)
 				ImGui.UpdateData(elemName, ImGuiData.Value, val)
 			end)
 		end
+
+		for _, trinket in pairs(orderedTrinkets) do
+			local tooltipStr = "Enable " .. RemoveZeroWidthSpace(trinket.Name) .. "\nin item pools"
+
+			local elemName = "restoredCollection" .. string.gsub(trinket.Name, " ", "") .. "Blacklist"
+			if ImGui.ElementExists(elemName) then
+				ImGui.RemoveElement(elemName)
+			end
+
+			ImGui.AddCheckbox(
+				"restoredCollectionTrinketsBlacklistWindow",
+				elemName,
+				RemoveZeroWidthSpace(trinket.Name),
+				function(val)
+					local disabledTrinkets = RestoredCollection:GetDefaultFileSave("DisabledTrinkets")
+					for indexItem, disabledItem in ipairs(disabledTrinkets) do
+						if disabledItem == GetItemsEnum(trinket.ID) then
+							if val then
+								table.remove(disabledTrinkets, indexItem)
+							end
+							break
+						end
+					end
+
+					if not val then
+						table.insert(disabledTrinkets, GetItemsEnum(trinket.ID))
+					end
+				end,
+				true
+			)
+
+			ImGui.SetTooltip(elemName, tooltipStr)
+			ImGui.AddCallback(elemName, ImGuiCallback.Render, function()
+				local val = true
+				for indexTrinket, disabledTrinkets in
+					ipairs(RestoredCollection:GetDefaultFileSave("DisabledTrinkets"))
+				do
+					if disabledTrinkets == GetItemsEnum(trinket.ID) then
+						val = false
+						break
+					end
+				end
+				ImGui.UpdateData(elemName, ImGuiData.Value, val)
+			end)
+		end
 	else
 
 		ImGui.RemoveCallback("restoredCollectionMenu", ImGuiCallback.Render)
 
 		for _, collectible in pairs(orderedItems) do
 			local elemName = "restoredCollection" .. string.gsub(collectible.Name, " ", "") .. "Blacklist"
+			if ImGui.ElementExists(elemName) then
+				ImGui.RemoveCallback(elemName, ImGuiCallback.Render)
+				ImGui.RemoveElement(elemName)
+			end
+		end
+
+		for _, trinket in pairs(orderedTrinkets) do
+			local elemName = "restoredCollection" .. string.gsub(trinket.Name, " ", "") .. "Blacklist"
 			if ImGui.ElementExists(elemName) then
 				ImGui.RemoveCallback(elemName, ImGuiCallback.Render)
 				ImGui.RemoveElement(elemName)
@@ -394,8 +476,12 @@ local function UpdateImGuiMenu(IsDataInitialized)
 			ImGui.AddText("restoredCollectionSettingsWindow", "Options will be available after loading the game.", true, "restotredCollectionSettingsNoWay")
 		end
 
-		if not ImGui.ElementExists("restotredCollectionBlacklistNoWay") then
-			ImGui.AddText("restoredCollectionItemsBlacklistWindow", "Options will be available after loading the game.", true, "restotredCollectionBlacklistNoWay")
+		if not ImGui.ElementExists("restotredCollectionBlacklistNoWayItems") then
+			ImGui.AddText("restoredCollectionItemsBlacklistWindow", "Options will be available after loading the game.", true, "restotredCollectionBlacklistNoWayItems")
+		end
+
+		if not ImGui.ElementExists("restotredCollectionBlacklistNoWayTrinkets") then
+			ImGui.AddText("restoredCollectionTrinketsBlacklistWindow", "Options will be available after loading the game.", true, "restotredCollectionBlacklistNoWayTrinkets")
 		end
 	end
 end
@@ -435,11 +521,27 @@ local function InitImGuiMenu()
 		)
 	end
 
+	if not ImGui.ElementExists("restoredCollectionTrinketsBlacklistSettings") then
+		ImGui.AddElement(
+			"restoredCollectionMenu",
+			"restoredCollectionTrinketsBlacklistSettings",
+			ImGuiElement.MenuItem,
+			"\u{f05e} Trinkets blacklist"
+		)
+	end
+
 	if not ImGui.ElementExists("restoredCollectionItemsBlacklistWindow") then
 		ImGui.CreateWindow("restoredCollectionItemsBlacklistWindow", "Restored Collection items blacklist")
 		ImGui.LinkWindowToElement("restoredCollectionItemsBlacklistWindow", "restoredCollectionItemsBlacklistSettings")
 
 		ImGui.SetWindowSize("restoredCollectionItemsBlacklistWindow", 350, 600)
+	end
+
+	if not ImGui.ElementExists("restoredCollectionTrinketsBlacklistWindow") then
+		ImGui.CreateWindow("restoredCollectionTrinketsBlacklistWindow", "Restored Collection items blacklist")
+		ImGui.LinkWindowToElement("restoredCollectionTrinketsBlacklistWindow", "restoredCollectionTrinketsBlacklistSettings")
+
+		ImGui.SetWindowSize("restoredCollectionTrinketsBlacklistWindow", 350, 600)
 	end
 
 
@@ -468,6 +570,8 @@ local restoreditemsdirectory = {
 			{ str = "settings", dest = "settings" },
 
 			{ str = "items blacklist", dest = "items" },
+
+			{ str = "trinkets blacklist", dest = "trinkets" },
 			-- A few default buttons are provided in the table returned from DSSInitializerFunction.
 			-- They're buttons that handle generic menu features, like changelogs, palette, and the menu opening keybind
 			-- They'll only be visible in your menu if your menu is the only mod menu active; otherwise, they'll show up in the outermost Dead Sea Scrolls menu that lets you pick which mod menu to open.
@@ -483,7 +587,12 @@ local restoreditemsdirectory = {
 	items = {
 		title = "items blacklist",
 
-		buttons = InitDisableMenu(),
+		buttons = InitDisableItemMenu(),
+	},
+	trinkets = {
+		title = "trinkets blacklist",
+
+		buttons = InitDisableTrinketMenu(),
 	},
 	illusionsoptions = {
 		title = "illusion options",

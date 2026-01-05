@@ -48,6 +48,7 @@ RestoredCollection:AddCallback(RestoredCollection.SaveManager.SaveCallbacks.PRE_
 	if not luaMod then
         local settings = {
 			["DisabledItems"] = {},
+			["DisabledTrinkets"] = {},
 			["MaxsHead"] = 1,
 			["IllusionCanPlaceBomb"] = IllusionMod.CanPlaceBomb,
 			["IllusionPerfectIllusion"] = IllusionMod.PerfectIllusion,
