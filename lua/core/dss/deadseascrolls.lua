@@ -24,7 +24,6 @@ local function GenerateTooltip(str)
 end
 -- Thanks to catinsurance for those functions
 
-
 -- Every MenuProvider function below must have its own implementation in your mod, in order to handle menu save data.
 local MenuProvider = {}
 
@@ -33,73 +32,73 @@ function MenuProvider.SaveSaveData()
 end
 
 function MenuProvider.GetPaletteSetting()
-    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
-    return dssSave and dssSave.MenuPalette or nil
+	local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+	return dssSave and dssSave.MenuPalette or nil
 end
 
 function MenuProvider.SavePaletteSetting(var)
-    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
-    dssSave.MenuPalette = var
+	local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+	dssSave.MenuPalette = var
 end
 
 function MenuProvider.GetGamepadToggleSetting()
-    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
-    return dssSave and dssSave.GamepadToggle or nil
+	local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+	return dssSave and dssSave.GamepadToggle or nil
 end
 
 function MenuProvider.SaveGamepadToggleSetting(var)
-    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
-    dssSave.GamepadToggle = var
+	local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+	dssSave.GamepadToggle = var
 end
 
 function MenuProvider.GetMenuKeybindSetting()
-    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
-    return dssSave and dssSave.MenuKeybind or nil
+	local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+	return dssSave and dssSave.MenuKeybind or nil
 end
 
 function MenuProvider.SaveMenuKeybindSetting(var)
-    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
-    dssSave.MenuKeybind = var
+	local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+	dssSave.MenuKeybind = var
 end
 
 function MenuProvider.GetMenuHintSetting()
-    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
-    return dssSave and dssSave.MenuHint or nil
+	local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+	return dssSave and dssSave.MenuHint or nil
 end
 
 function MenuProvider.SaveMenuHintSetting(var)
-    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
-    dssSave.MenuHint = var
+	local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+	dssSave.MenuHint = var
 end
 
 function MenuProvider.GetMenuBuzzerSetting()
-    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
-    return dssSave and dssSave.MenuBuzzer or nil
+	local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+	return dssSave and dssSave.MenuBuzzer or nil
 end
 
 function MenuProvider.SaveMenuBuzzerSetting(var)
-    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
-    dssSave.MenuBuzzer = var
+	local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+	dssSave.MenuBuzzer = var
 end
 
 function MenuProvider.GetMenusNotified()
-    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
-    return dssSave and dssSave.MenusNotified or nil
+	local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+	return dssSave and dssSave.MenusNotified or nil
 end
 
 function MenuProvider.SaveMenusNotified(var)
-    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
-    dssSave.MenusNotified = var
+	local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+	dssSave.MenusNotified = var
 end
 
 function MenuProvider.GetMenusPoppedUp()
-    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
-    return dssSave and dssSave.MenusPoppedUp or nil
+	local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+	return dssSave and dssSave.MenusPoppedUp or nil
 end
 
 function MenuProvider.SaveMenusPoppedUp(var)
-    local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
-   dssSave.MenusPoppedUp = var
+	local dssSave = RestoredCollection.SaveManager.GetDeadSeaScrollsSave()
+	dssSave.MenusPoppedUp = var
 end
 
 local DSSInitializerFunction = include("lua.core.dss.dssmenucore")
@@ -134,6 +133,15 @@ local function GetItemsEnum(id)
 	return ""
 end
 
+local function GetTrinketsEnum(id)
+	for enum, trinket in pairs(RestoredCollection.Enums.TrinketType) do
+		if id == trinket then
+			return enum
+		end
+	end
+	return ""
+end
+
 local orderedItems = {}
 local orderedTrinkets = {}
 
@@ -144,15 +152,19 @@ local function InitBlacklistItems()
 	---@type ItemConfigItem[]
 	for _, collectible in pairs(RestoredCollection.Enums.CollectibleType) do
 		local collectibleConf = itemConfig:GetCollectible(collectible)
-		orderedItems[#orderedItems + 1] = collectibleConf
+		if collectibleConf then
+			orderedItems[#orderedItems + 1] = collectibleConf
+		end
 	end
 	table.sort(orderedItems, function(a, b)
 		return RemoveZeroWidthSpace(a.Name) < RemoveZeroWidthSpace(b.Name)
 	end)
-	
+
 	for _, trinket in pairs(RestoredCollection.Enums.TrinketType) do
-		local trinketConf = itemConfig:GetCollectible(trinket)
-		orderedTrinkets[#orderedTrinkets + 1] = trinketConf
+		local trinketConf = itemConfig:GetTrinket(trinket)
+		if trinketConf then
+			orderedTrinkets[#orderedTrinkets + 1] = trinketConf
+		end
 	end
 	table.sort(orderedTrinkets, function(a, b)
 		return RemoveZeroWidthSpace(a.Name) < RemoveZeroWidthSpace(b.Name)
@@ -163,13 +175,17 @@ InitBlacklistItems()
 
 local function InitDisableMenu(t)
 	local itemTogglesMenu = {}
-	local disabledSaveString = t == "items" and "DisabledItems" or "DisabledTrinkets"
 	itemTogglesMenu = {
-		{str = 'choose what '..t..' show up', fsize = 2, nosel = true},
-        {str = '(disabled - in blacklist)', fsize = 2, nosel = true},
+		{ str = "choose which " .. t, fsize = 2, nosel = true },
+		{ str = "show up", fsize = 2, nosel = true },
+		{ str = "(disabled - in blacklist)", fsize = 2, nosel = true },
 		{ str = "", fsize = 2, nosel = true },
 	}
 	local orderedTab = t == "items" and orderedItems or orderedTrinkets
+	local lookupTable = t == "items" and RestoredCollection.Enums.CollectibleType
+		or RestoredCollection.Enums.TrinketType
+	local disabledSaveString = t == "items" and "DisabledItems" or "DisabledTrinkets"
+	local enumFunc = t == "items" and GetItemsEnum or GetTrinketsEnum
 
 	for _, itemConf in pairs(orderedTab) do
 		local split = SplitStr(string.lower(itemConf.Name))
@@ -205,37 +221,36 @@ local function InitDisableMenu(t)
 			setting = 1,
 
 			-- "variable" is used as a key to story your setting; just set it to something unique for each setting!
-			variable = "Toggle".. variable .. itemConf.Name,
+			variable = "Toggle" .. variable .. itemConf.Name,
 
 			-- When the menu is opened, "load" will be called on all settings-buttons
 			-- The "load" function for a button should return what its current setting should be
 			-- This generally means looking at your mod's save data, and returning whatever setting you have stored
 			load = function()
-				for _, disabledItem in
-					ipairs(RestoredCollection:GetDefaultFileSave(disabledSaveString))
-				do
-					if disabledItem == GetItemsEnum(itemConf.ID) then
+				for indexItem, disabledItem in pairs(RestoredCollection:GetDefaultFileSave(disabledSaveString)) do
+					if lookupTable[indexItem] == itemConf.ID then
 						return 2
 					end
 				end
+
 				return 1
 			end,
 
 			-- When the menu is closed, "store" will be called on all settings-buttons
 			-- The "store" function for a button should save the button's setting (passed in as the first argument) to save data!
 			store = function(var)
-				local disabledItems = RestoredCollection:GetDefaultFileSave(disabledSaveString)
-				for index, disabledItem in ipairs(disabledItems) do
-					if disabledItem == GetItemsEnum(itemConf.ID) then
-						if var == 1 then
-							table.remove(disabledItems, index)
+				local disabledTable = RestoredCollection:GetDefaultFileSave(disabledSaveString)
+				if var == 1 then
+					for indexItem, disabledItem in pairs(disabledTable) do
+						if lookupTable[indexItem] == itemConf.ID then
+							disabledTable[indexItem] = nil
+							break
 						end
-						break
 					end
 				end
 
 				if var == 2 then
-					table.insert(disabledItems, GetItemsEnum(itemConf.ID))
+					disabledTable[enumFunc(itemConf.ID)] = true
 				end
 			end,
 
@@ -273,8 +288,23 @@ local function InitDisableTrinketMenu()
 end
 
 local function UpdateImGuiMenu(IsDataInitialized)
+	local orderedTables = {
+		Items = {
+			Value = "Item",
+			OrderedTable = orderedItems,
+			DisableTable = "DisabledItems",
+			LookupTable = RestoredCollection.Enums.CollectibleType,
+			EnumFunc = GetItemsEnum,
+		},
+		Trinkets = {
+			Value = "Trinket",
+			OrderedTable = orderedTrinkets,
+			DisableTable = "DisabledTrinkets",
+			LookupTable = RestoredCollection.Enums.TrinketType,
+			EnumFunc = GetTrinketsEnum,
+		},
+	}
 	if IsDataInitialized then
-
 		if ImGui.ElementExists("restotredCollectionSettingsNoWay") then
 			ImGui.RemoveElement("restotredCollectionSettingsNoWay")
 		end
@@ -334,16 +364,8 @@ local function UpdateImGuiMenu(IsDataInitialized)
 		ImGui.SetTooltip("restoredCollectionSettingsMaxsHeads", "Allow Max's head emojis appear when shooting tears.")
 
 		ImGui.AddCallback("restoredCollectionSettingsWindow", ImGuiCallback.Render, function()
-			ImGui.UpdateData(
-				"restoredCollectionSettingsIllusionPlaceBombs",
-				ImGuiData.Value,
-				IllusionMod.CanPlaceBomb
-			)
-			ImGui.UpdateData(
-				"restoredCollectionSettingsIllusionPerfect",
-				ImGuiData.Value,
-				IllusionMod.PerfectIllusion
-			)
+			ImGui.UpdateData("restoredCollectionSettingsIllusionPlaceBombs", ImGuiData.Value, IllusionMod.CanPlaceBomb)
+			ImGui.UpdateData("restoredCollectionSettingsIllusionPerfect", ImGuiData.Value, IllusionMod.PerfectIllusion)
 			ImGui.UpdateData(
 				"restoredCollectionSettingsMaxsHeads",
 				ImGuiData.Value,
@@ -351,112 +373,64 @@ local function UpdateImGuiMenu(IsDataInitialized)
 			)
 		end)
 
-		for _, collectible in pairs(orderedItems) do
-			local tooltipStr = "Enable " .. RemoveZeroWidthSpace(collectible.Name) .. "\nin item pools"
+		for pool, t in pairs(orderedTables) do
+			for _, item in pairs(t.OrderedTable) do
+				local tooltipStr = "Enable "
+					.. RemoveZeroWidthSpace(item.Name)
+					.. "\nin "
+					.. t.Value:lower()
+					.. " pools"
 
-			local elemName = "restoredCollection" .. string.gsub(collectible.Name, " ", "") .. "Blacklist"
-			if ImGui.ElementExists(elemName) then
-				ImGui.RemoveElement(elemName)
-			end
+				local elemName = "restoredCollection" .. t.Value .. string.gsub(item.Name, " ", "") .. "Blacklist"
+				if ImGui.ElementExists(elemName) then
+					ImGui.RemoveElement(elemName)
+				end
 
-			ImGui.AddCheckbox(
-				"restoredCollectionItemsBlacklistWindow",
-				elemName,
-				RemoveZeroWidthSpace(collectible.Name),
-				function(val)
-					local disabledItems = RestoredCollection:GetDefaultFileSave("DisabledItems")
-					for indexItem, disabledItem in ipairs(disabledItems) do
-						if disabledItem == GetItemsEnum(collectible.ID) then
-							if val then
-								table.remove(disabledItems, indexItem)
+				ImGui.AddCheckbox(
+					"restoredCollection" .. pool .. "BlacklistWindow",
+					elemName,
+					RemoveZeroWidthSpace(item.Name),
+					function(val)
+						local disabledItems = RestoredCollection:GetDefaultFileSave(t.DisableTable)
+						if val then
+							for indexItem, disabledItem in pairs(disabledItems) do
+								if t.LookupTable[indexItem] == item.ID then
+									disabledItems[indexItem] = nil
+									break
+								end
 							end
+						end
+
+						if not val then
+							disabledItems[t.EnumFunc(item.ID)] = true
+						end
+					end,
+					true
+				)
+
+				ImGui.SetTooltip(elemName, tooltipStr)
+				ImGui.AddCallback(elemName, ImGuiCallback.Render, function()
+					local val = true
+					for indexItem, disabledItem in pairs(RestoredCollection:GetDefaultFileSave(t.DisableTable)) do
+						if t.LookupTable[indexItem] == item.ID then
+							val = false
 							break
 						end
 					end
-
-					if not val then
-						table.insert(disabledItems, GetItemsEnum(collectible.ID))
-					end
-				end,
-				true
-			)
-
-			ImGui.SetTooltip(elemName, tooltipStr)
-			ImGui.AddCallback(elemName, ImGuiCallback.Render, function()
-				local val = true
-				for indexItem, disabledItem in
-					ipairs(RestoredCollection:GetDefaultFileSave("DisabledItems"))
-				do
-					if disabledItem == GetItemsEnum(collectible.ID) then
-						val = false
-						break
-					end
-				end
-				ImGui.UpdateData(elemName, ImGuiData.Value, val)
-			end)
-		end
-
-		for _, trinket in pairs(orderedTrinkets) do
-			local tooltipStr = "Enable " .. RemoveZeroWidthSpace(trinket.Name) .. "\nin item pools"
-
-			local elemName = "restoredCollection" .. string.gsub(trinket.Name, " ", "") .. "Blacklist"
-			if ImGui.ElementExists(elemName) then
-				ImGui.RemoveElement(elemName)
+					ImGui.UpdateData(elemName, ImGuiData.Value, val)
+				end)
 			end
-
-			ImGui.AddCheckbox(
-				"restoredCollectionTrinketsBlacklistWindow",
-				elemName,
-				RemoveZeroWidthSpace(trinket.Name),
-				function(val)
-					local disabledTrinkets = RestoredCollection:GetDefaultFileSave("DisabledTrinkets")
-					for indexItem, disabledItem in ipairs(disabledTrinkets) do
-						if disabledItem == GetItemsEnum(trinket.ID) then
-							if val then
-								table.remove(disabledTrinkets, indexItem)
-							end
-							break
-						end
-					end
-
-					if not val then
-						table.insert(disabledTrinkets, GetItemsEnum(trinket.ID))
-					end
-				end,
-				true
-			)
-
-			ImGui.SetTooltip(elemName, tooltipStr)
-			ImGui.AddCallback(elemName, ImGuiCallback.Render, function()
-				local val = true
-				for indexTrinket, disabledTrinkets in
-					ipairs(RestoredCollection:GetDefaultFileSave("DisabledTrinkets"))
-				do
-					if disabledTrinkets == GetItemsEnum(trinket.ID) then
-						val = false
-						break
-					end
-				end
-				ImGui.UpdateData(elemName, ImGuiData.Value, val)
-			end)
 		end
 	else
-
 		ImGui.RemoveCallback("restoredCollectionMenu", ImGuiCallback.Render)
 
-		for _, collectible in pairs(orderedItems) do
-			local elemName = "restoredCollection" .. string.gsub(collectible.Name, " ", "") .. "Blacklist"
-			if ImGui.ElementExists(elemName) then
-				ImGui.RemoveCallback(elemName, ImGuiCallback.Render)
-				ImGui.RemoveElement(elemName)
-			end
-		end
-
-		for _, trinket in pairs(orderedTrinkets) do
-			local elemName = "restoredCollection" .. string.gsub(trinket.Name, " ", "") .. "Blacklist"
-			if ImGui.ElementExists(elemName) then
-				ImGui.RemoveCallback(elemName, ImGuiCallback.Render)
-				ImGui.RemoveElement(elemName)
+		for pool, t in pairs(orderedTables) do
+			for _, item in pairs(t.OrderedTable) do
+				local elemName = "restoredCollection" .. t.Value .. string.gsub(item.Name, " ", "") .. "Blacklist"
+				if ImGui.ElementExists(elemName) then
+					ImGui.RemoveCallback(elemName, ImGuiCallback.Render)
+					ImGui.RemoveElement(elemName)
+				end
 			end
 		end
 
@@ -473,15 +447,30 @@ local function UpdateImGuiMenu(IsDataInitialized)
 		end
 
 		if not ImGui.ElementExists("restotredCollectionSettingsNoWay") then
-			ImGui.AddText("restoredCollectionSettingsWindow", "Options will be available after loading the game.", true, "restotredCollectionSettingsNoWay")
+			ImGui.AddText(
+				"restoredCollectionSettingsWindow",
+				"Options will be available after loading the game.",
+				true,
+				"restotredCollectionSettingsNoWay"
+			)
 		end
 
 		if not ImGui.ElementExists("restotredCollectionBlacklistNoWayItems") then
-			ImGui.AddText("restoredCollectionItemsBlacklistWindow", "Options will be available after loading the game.", true, "restotredCollectionBlacklistNoWayItems")
+			ImGui.AddText(
+				"restoredCollectionItemsBlacklistWindow",
+				"Options will be available after loading the game.",
+				true,
+				"restotredCollectionBlacklistNoWayItems"
+			)
 		end
 
 		if not ImGui.ElementExists("restotredCollectionBlacklistNoWayTrinkets") then
-			ImGui.AddText("restoredCollectionTrinketsBlacklistWindow", "Options will be available after loading the game.", true, "restotredCollectionBlacklistNoWayTrinkets")
+			ImGui.AddText(
+				"restoredCollectionTrinketsBlacklistWindow",
+				"Options will be available after loading the game.",
+				true,
+				"restotredCollectionBlacklistNoWayTrinkets"
+			)
 		end
 	end
 end
@@ -531,20 +520,21 @@ local function InitImGuiMenu()
 	end
 
 	if not ImGui.ElementExists("restoredCollectionItemsBlacklistWindow") then
-		ImGui.CreateWindow("restoredCollectionItemsBlacklistWindow", "Restored Collection items blacklist")
+		ImGui.CreateWindow("restoredCollectionItemsBlacklistWindow", "RC items blacklist")
 		ImGui.LinkWindowToElement("restoredCollectionItemsBlacklistWindow", "restoredCollectionItemsBlacklistSettings")
 
 		ImGui.SetWindowSize("restoredCollectionItemsBlacklistWindow", 350, 600)
 	end
 
 	if not ImGui.ElementExists("restoredCollectionTrinketsBlacklistWindow") then
-		ImGui.CreateWindow("restoredCollectionTrinketsBlacklistWindow", "Restored Collection items blacklist")
-		ImGui.LinkWindowToElement("restoredCollectionTrinketsBlacklistWindow", "restoredCollectionTrinketsBlacklistSettings")
+		ImGui.CreateWindow("restoredCollectionTrinketsBlacklistWindow", "RC trinkets blacklist")
+		ImGui.LinkWindowToElement(
+			"restoredCollectionTrinketsBlacklistWindow",
+			"restoredCollectionTrinketsBlacklistSettings"
+		)
 
 		ImGui.SetWindowSize("restoredCollectionTrinketsBlacklistWindow", 350, 600)
 	end
-
-
 end
 
 -- Creating a menu like any other DSS menu is a simple process.
@@ -741,23 +731,23 @@ local function FreezeGame(unfreeze)
 		end
 	else
 		if not OldTimer then
-			OldTimer = Game().TimeCounter
+			OldTimer = RestoredCollection.Game.TimeCounter
 		end
 		if not OldTimerBossRush then
-			OldTimerBossRush = Game().BossRushParTime
+			OldTimerBossRush = RestoredCollection.Game.BossRushParTime
 		end
 		if not OldTimerHush then
-			OldTimerHush = Game().BlueWombParTime
+			OldTimerHush = RestoredCollection.Game.BlueWombParTime
 		end
 
 		Isaac.GetPlayer(0):UseActiveItem(CollectibleType.COLLECTIBLE_PAUSE, UseFlag.USE_NOANIM)
 		if REPENTANCE_PLUS then
-            SFXManager():Stop(SoundEffect.SOUND_PAUSE_FREEZE)
-        end
+			SFXManager():Stop(SoundEffect.SOUND_PAUSE_FREEZE)
+		end
 
-		Game().TimeCounter = OldTimer
-		Game().BossRushParTime = OldTimerBossRush
-		Game().BlueWombParTime = OldTimerHush
+		RestoredCollection.Game.TimeCounter = OldTimer
+		RestoredCollection.Game.BossRushParTime = OldTimerBossRush
+		RestoredCollection.Game.BlueWombParTime = OldTimerHush
 		DeleteParticles()
 	end
 end

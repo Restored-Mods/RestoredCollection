@@ -180,7 +180,8 @@ RestoredCollection:AddCallback(
 
 ---@param florian EntityNPC
 function GameSquid:SpawnSquid(florian)
-    if florian.Variant ~= 2 then
+    local disabledTrinkets = RestoredCollection:GetDefaultFileSave("DisabledTrinkets")
+    if florian.Variant ~= 2 or disabledTrinkets.TRINKET_GAME_SQUID_TC then
         return
     end
     for __,pickup in ipairs(Isaac.FindByType(5, PickupVariant.PICKUP_KEY)) do

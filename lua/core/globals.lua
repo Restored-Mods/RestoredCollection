@@ -23,7 +23,8 @@ end
 RestoredCollection.Room = function()
 	return RestoredCollection.Game:GetRoom()
 end
-
+RestoredCollection.ItemPool = RestoredCollection.Game:GetItemPool()
+RestoredCollection.HUD = RestoredCollection.Game:GetHUD()
 RestoredCollection.RNG = RNG()
 
 RestoredCollection:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function()
