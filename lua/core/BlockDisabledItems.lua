@@ -5,10 +5,14 @@ function BlockDisabledItems:OnGameStart(isContinue)
     if isContinue then return end
 
     for disabledIndex, disabledItem in pairs(RestoredCollection:GetDefaultFileSave("DisabledItems")) do
-        RestoredCollection.ItemPool:RemoveCollectible(RestoredCollection.Enums.CollectibleType[disabledIndex])
+        if RestoredCollection.Enums.CollectibleType[disabledIndex] then
+            RestoredCollection.ItemPool:RemoveCollectible(RestoredCollection.Enums.CollectibleType[disabledIndex])
+        end
     end
     for indexTrinket, disabledTrinket in pairs(RestoredCollection:GetDefaultFileSave("DisabledTrinkets")) do
-        RestoredCollection.ItemPool:RemoveTrinket(RestoredCollection.Enums.TrinketType[indexTrinket])
+        if RestoredCollection.Enums.TrinketType[indexTrinket] then
+            RestoredCollection.ItemPool:RemoveTrinket(RestoredCollection.Enums.TrinketType[indexTrinket])
+        end
     end
 end
 RestoredCollection:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, BlockDisabledItems.OnGameStart)
