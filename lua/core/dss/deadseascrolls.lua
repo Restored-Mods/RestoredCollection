@@ -145,7 +145,7 @@ end
 local orderedItems = {}
 local orderedTrinkets = {}
 
-local function InitBlacklistItems()
+local function InitTogglesItems()
 	orderedItems = {}
 	orderedTrinkets = {}
 	local itemConfig = Isaac.GetItemConfig()
@@ -171,14 +171,13 @@ local function InitBlacklistItems()
 	end)
 end
 
-InitBlacklistItems()
+InitTogglesItems()
 
 local function InitDisableMenu(t)
 	local itemTogglesMenu = {}
 	itemTogglesMenu = {
 		{ str = "choose which " .. t, fsize = 2, nosel = true },
 		{ str = "show up", fsize = 2, nosel = true },
-		{ str = "(disabled - in blacklist)", fsize = 2, nosel = true },
 		{ str = "", fsize = 2, nosel = true },
 	}
 	local orderedTab = t == "items" and orderedItems or orderedTrinkets
@@ -309,12 +308,12 @@ local function UpdateImGuiMenu(IsDataInitialized)
 			ImGui.RemoveElement("restotredCollectionSettingsNoWay")
 		end
 
-		if ImGui.ElementExists("restotredCollectionBlacklistNoWayItems") then
-			ImGui.RemoveElement("restotredCollectionBlacklistNoWayItems")
+		if ImGui.ElementExists("restotredCollectionTogglesNoWayItems") then
+			ImGui.RemoveElement("restotredCollectionTogglesNoWayItems")
 		end
 
-		if ImGui.ElementExists("restotredCollectionBlacklistNoWayTrinkets") then
-			ImGui.RemoveElement("restotredCollectionBlacklistNoWayTrinkets")
+		if ImGui.ElementExists("restotredCollectionTogglesNoWayTrinkets") then
+			ImGui.RemoveElement("restotredCollectionTogglesNoWayTrinkets")
 		end
 
 		if ImGui.ElementExists("restoredCollectionSettingsIllusionPlaceBombs") then
@@ -381,13 +380,13 @@ local function UpdateImGuiMenu(IsDataInitialized)
 					.. t.Value:lower()
 					.. " pools"
 
-				local elemName = "restoredCollection" .. t.Value .. string.gsub(item.Name, " ", "") .. "Blacklist"
+				local elemName = "restoredCollection" .. t.Value .. string.gsub(item.Name, " ", "") .. "Toggles"
 				if ImGui.ElementExists(elemName) then
 					ImGui.RemoveElement(elemName)
 				end
 
 				ImGui.AddCheckbox(
-					"restoredCollection" .. pool .. "BlacklistWindow",
+					"restoredCollection" .. pool .. "TogglesWindow",
 					elemName,
 					RemoveZeroWidthSpace(item.Name),
 					function(val)
@@ -426,7 +425,7 @@ local function UpdateImGuiMenu(IsDataInitialized)
 
 		for pool, t in pairs(orderedTables) do
 			for _, item in pairs(t.OrderedTable) do
-				local elemName = "restoredCollection" .. t.Value .. string.gsub(item.Name, " ", "") .. "Blacklist"
+				local elemName = "restoredCollection" .. t.Value .. string.gsub(item.Name, " ", "") .. "Toggles"
 				if ImGui.ElementExists(elemName) then
 					ImGui.RemoveCallback(elemName, ImGuiCallback.Render)
 					ImGui.RemoveElement(elemName)
@@ -455,21 +454,21 @@ local function UpdateImGuiMenu(IsDataInitialized)
 			)
 		end
 
-		if not ImGui.ElementExists("restotredCollectionBlacklistNoWayItems") then
+		if not ImGui.ElementExists("restotredCollectionTogglesNoWayItems") then
 			ImGui.AddText(
-				"restoredCollectionItemsBlacklistWindow",
+				"restoredCollectionItemsTogglesWindow",
 				"Options will be available after loading the game.",
 				true,
-				"restotredCollectionBlacklistNoWayItems"
+				"restotredCollectionTogglesNoWayItems"
 			)
 		end
 
-		if not ImGui.ElementExists("restotredCollectionBlacklistNoWayTrinkets") then
+		if not ImGui.ElementExists("restotredCollectionTogglesNoWayTrinkets") then
 			ImGui.AddText(
-				"restoredCollectionTrinketsBlacklistWindow",
+				"restoredCollectionTrinketsTogglesWindow",
 				"Options will be available after loading the game.",
 				true,
-				"restotredCollectionBlacklistNoWayTrinkets"
+				"restotredCollectionTogglesNoWayTrinkets"
 			)
 		end
 	end
@@ -501,39 +500,39 @@ local function InitImGuiMenu()
 		ImGui.SetWindowSize("restoredCollectionSettingsWindow", 600, 420)
 	end
 
-	if not ImGui.ElementExists("restoredCollectionItemsBlacklistSettings") then
+	if not ImGui.ElementExists("restoredCollectionItemsTogglesSettings") then
 		ImGui.AddElement(
 			"restoredCollectionMenu",
-			"restoredCollectionItemsBlacklistSettings",
+			"restoredCollectionItemsTogglesSettings",
 			ImGuiElement.MenuItem,
-			"\u{f05e} Items blacklist"
+			"\u{f05e} Items Toggles"
 		)
 	end
 
-	if not ImGui.ElementExists("restoredCollectionTrinketsBlacklistSettings") then
+	if not ImGui.ElementExists("restoredCollectionTrinketsTogglesSettings") then
 		ImGui.AddElement(
 			"restoredCollectionMenu",
-			"restoredCollectionTrinketsBlacklistSettings",
+			"restoredCollectionTrinketsTogglesSettings",
 			ImGuiElement.MenuItem,
-			"\u{f05e} Trinkets blacklist"
+			"\u{f05e} Trinkets Toggles"
 		)
 	end
 
-	if not ImGui.ElementExists("restoredCollectionItemsBlacklistWindow") then
-		ImGui.CreateWindow("restoredCollectionItemsBlacklistWindow", "RC items toggles")
-		ImGui.LinkWindowToElement("restoredCollectionItemsBlacklistWindow", "restoredCollectionItemsBlacklistSettings")
+	if not ImGui.ElementExists("restoredCollectionItemsTogglesWindow") then
+		ImGui.CreateWindow("restoredCollectionItemsTogglesWindow", "RC Items Toggles")
+		ImGui.LinkWindowToElement("restoredCollectionItemsTogglesWindow", "restoredCollectionItemsTogglesSettings")
 
-		ImGui.SetWindowSize("restoredCollectionItemsBlacklistWindow", 350, 600)
+		ImGui.SetWindowSize("restoredCollectionItemsTogglesWindow", 350, 600)
 	end
 
-	if not ImGui.ElementExists("restoredCollectionTrinketsBlacklistWindow") then
-		ImGui.CreateWindow("restoredCollectionTrinketsBlacklistWindow", "RC trinkets toggles")
+	if not ImGui.ElementExists("restoredCollectionTrinketsTogglesWindow") then
+		ImGui.CreateWindow("restoredCollectionTrinketsTogglesWindow", "RC Trinkets Toggles")
 		ImGui.LinkWindowToElement(
-			"restoredCollectionTrinketsBlacklistWindow",
-			"restoredCollectionTrinketsBlacklistSettings"
+			"restoredCollectionTrinketsTogglesWindow",
+			"restoredCollectionTrinketsTogglesSettings"
 		)
 
-		ImGui.SetWindowSize("restoredCollectionTrinketsBlacklistWindow", 350, 600)
+		ImGui.SetWindowSize("restoredCollectionTrinketsTogglesWindow", 350, 600)
 	end
 end
 

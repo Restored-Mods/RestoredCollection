@@ -1,5 +1,25 @@
 local modname = "Restored Collection"
 
+DeadSeaScrollsMenu.AddChangelog(modname, "v1.28",[[{{FSIZE2}}repentance+ only update
+- now mod requires repenatnace+
+to properly function
+
+{{FSIZE2}}changes
+- item blacklists renamed to
+toggles
+
+{{FSIZE2}}added
+
+- new locusts and reworked old
+ones for repentance+ update
+
+{{FSIZE2}}fixes
+
+- fixed blank pill effect appearing
+in pill rotation pool
+]],
+{"restored", "collection", "", "v1.28", "update"}, false, false)
+
 DeadSeaScrollsMenu.AddChangelog(modname, "v1.27",[[{{FSIZE2}}fixed
 - constant sfx with dss opened
 in repentance+]],
