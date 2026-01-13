@@ -13,6 +13,9 @@ toggles
 - new locusts and reworked old
 ones for repentance+ update
 
+- trinkets toggle to
+enable/disable in game
+
 {{FSIZE2}}fixes
 
 - fixed blank pill effect appearing
