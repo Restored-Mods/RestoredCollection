@@ -14,12 +14,13 @@ toggles
 ones for repentance+ update
 
 - trinkets toggle to
-enable/disable in game
+enable/disable for run
 
 {{FSIZE2}}fixes
 
-- fixed blank pill effect appearing
-in pill rotation pool
+- blank pill effect no longer
+appears in pill effect rotation
+pool
 ]],
 {"restored", "collection", "", "v1.28", "update"}, false, false)
 
