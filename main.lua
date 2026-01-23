@@ -10,7 +10,7 @@ end
 
 
 include("lua.helpers.Helpers")
-include("lua.extraLibs.hellfirejuneMSHack")
+--include("lua.extraLibs.hellfirejuneMSHack")
 
 RestoredCollection.SaveManager = include("lua.core.save_manager")
 RestoredCollection.SaveManager.Init(RestoredCollection)

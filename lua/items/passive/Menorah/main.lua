@@ -77,7 +77,7 @@ if REPENTOGON then
 		return false
 	end
 
-	function Menorah:MultiShotUpdate(player)
+	--[[function Menorah:MultiShotUpdate(player)
 		local data = RestoredCollection:RunSave(player)
 		local weapon = player:GetWeapon(1)
 		local weaponType = weapon:GetWeaponType()
@@ -106,7 +106,27 @@ if REPENTOGON then
 		ModCallbacks.MC_POST_PLAYER_GET_MULTI_SHOT_PARAMS,
 		CallbackPriority.EARLY,
 		Menorah.MultiShotUpdate
-	)
+	)]] --Legacy callback
+
+	function Menorah:MultiShotEvaluate(player, multiShotParams, weaponType)
+		local data = RestoredCollection:RunSave(player)
+		if
+			data.MenorahFlames
+			and data.MenorahFlames > 1
+			and player:HasCollectible(RestoredCollection.Enums.CollectibleType.COLLECTIBLE_MENORAH)
+		then
+			multiShotParams:SetNumTears(multiShotParams:GetNumTears() * data.MenorahFlames)
+			multiShotParams:SetNumLanesPerEye(multiShotParams:GetNumLanesPerEye() * data.MenorahFlames)
+			if not IsBlacklistedWeaponType(weaponType) then
+				multiShotParams:SetSpreadAngle(
+					weaponType,
+					multiShotParams:GetSpreadAngle(weaponType) + 3 * data.MenorahFlames
+				)
+			end
+			return multiShotParams
+		end
+	end
+	RestoredCollection:AddCallback(ModCallbacks.MC_EVALUATE_MULTI_SHOT_PARAMS, Menorah.MultiShotEvaluate)
 else
 	local function DupeTear(tear)
 		local nt = Isaac.Spawn(tear.Type, tear.Variant, tear.SubType, tear.Position, tear.Velocity, tear):ToTear()
