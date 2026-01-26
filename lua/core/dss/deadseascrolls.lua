@@ -251,6 +251,7 @@ local function InitDisableMenu(t)
 				if var == 2 then
 					disabledTable[enumFunc(itemConf.ID)] = true
 				end
+				RestoredCollection.SaveManager.Save()
 			end,
 
 			-- A simple way to define tooltips is using the "strset" tag, where each string in the table is another line of the tooltip
@@ -326,6 +327,7 @@ local function UpdateImGuiMenu(IsDataInitialized)
 			"Illusions can place bombs",
 			function(val)
 				IllusionMod.CanPlaceBomb = val
+				RestoredCollection.SaveManager.Save()
 			end,
 			false
 		)
@@ -341,6 +343,7 @@ local function UpdateImGuiMenu(IsDataInitialized)
 			"Perfect illusion",
 			function(val)
 				IllusionMod.PerfectIllusion = val
+				RestoredCollection.SaveManager.Save()
 			end,
 			false
 		)
@@ -357,6 +360,7 @@ local function UpdateImGuiMenu(IsDataInitialized)
 			function(val)
 				local newOption = val and 2 or 1
 				RestoredCollection:AddDefaultFileSave("MaxsHead", newOption)
+				RestoredCollection.SaveManager.Save()
 			end,
 			false
 		)
@@ -403,6 +407,7 @@ local function UpdateImGuiMenu(IsDataInitialized)
 						if not val then
 							disabledItems[t.EnumFunc(item.ID)] = true
 						end
+						RestoredCollection.SaveManager.Save()
 					end,
 					true
 				)
@@ -599,6 +604,7 @@ local restoreditemsdirectory = {
 
 				store = function(newOption)
 					IllusionMod.CanPlaceBomb = newOption == 2
+					RestoredCollection.SaveManager.Save()
 				end,
 
 				tooltip = { strset = { "can illusions", "place bombs?" } },
@@ -617,6 +623,7 @@ local restoreditemsdirectory = {
 
 				store = function(newOption)
 					IllusionMod.PerfectIllusion = newOption == 2
+					RestoredCollection.SaveManager.Save()
 				end,
 
 				tooltip = { strset = { "create perfect", "illusions for", "modded", "characters?" } },
@@ -647,6 +654,7 @@ local restoreditemsdirectory = {
 
 				store = function(newOption)
 					RestoredCollection:AddDefaultFileSave("MaxsHead", newOption)
+					RestoredCollection.SaveManager.Save()
 				end,
 
 				tooltip = { strset = { "allow max's", "head emojis to", "appear when", "shooting tears" } },
