@@ -1,5 +1,10 @@
 local modname = "Restored Collection"
 
+DeadSeaScrollsMenu.AddChangelog(modname, "v1.29",[[{{FSIZE2}}fixes
+- fixed dss toggles not saving
+]],
+{"restored", "collection", "", "v1.29", "update"}, false, false)
+
 DeadSeaScrollsMenu.AddChangelog(modname, "v1.28",[[{{FSIZE2}}repentance+ only update
 - now mod requires repenatnace+
 to properly function
