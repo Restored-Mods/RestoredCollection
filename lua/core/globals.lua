@@ -39,22 +39,22 @@ RestoredCollection:AddCallback(RestoredCollection.SaveManager.SaveCallbacks.PRE_
 			},
 		},
 	}
-    if not REPENTOGON then
-        newData.game.run.HiddenItemManager = RestoredCollection.HiddenItemManager:GetSaveData()
-    end
+	if not REPENTOGON then
+		newData.game.run.HiddenItemManager = RestoredCollection.HiddenItemManager:GetSaveData()
+	end
 	return RestoredCollection.SaveManager.Utility.PatchSaveFile(newData, data)
 end)
 
 RestoredCollection:AddCallback(RestoredCollection.SaveManager.SaveCallbacks.PRE_DATA_LOAD, function(_, data, luaMod)
 	if not luaMod then
-        local settings = {
+		local settings = {
 			["DisabledItems"] = {},
 			["DisabledTrinkets"] = {},
 			["MaxsHead"] = 1,
 			["IllusionCanPlaceBomb"] = IllusionMod.CanPlaceBomb,
 			["IllusionPerfectIllusion"] = IllusionMod.PerfectIllusion,
 		}
-		for k,v in pairs(settings) do
+		for k, v in pairs(settings) do
 			if data.file.other[k] == nil then
 				data.file.other[k] = v
 			end
@@ -67,8 +67,27 @@ RestoredCollection:AddCallback(RestoredCollection.SaveManager.SaveCallbacks.POST
 	if not luaMod then
 		if not REPENTOGON then
 			RestoredCollection.HiddenItemManager:LoadData(data.game.run.HiddenItemManager)
+		else
+			local itemConfig = Isaac.GetItemConfig()
+			for disabledSaveString, data in pairs({
+				["DisabledItems"] = {
+					Func = itemConfig.GetCollectible,
+					LookupTable = RestoredCollection.Enums.CollectibleType,
+				},
+				["DisabledTrinkets"] = { Func = itemConfig.GetTrinket, LookupTable = RestoredCollection.Enums.TrinketType },
+			}) do
+				for enum, item in pairs(data.LookupTable) do
+					local conf = data.Func(itemConfig, item)
+					local disabledTab = RestoredCollection:GetDefaultFileSave(disabledSaveString)
+					if disabledTab[enum] ~= nil then
+						conf.Tags = conf.Tags | ItemConfig.TAG_NO_EDEN
+					else
+						conf.Tags = conf.Tags & ~ItemConfig.TAG_NO_EDEN
+					end
+				end
+			end
 		end
-        IllusionMod.LoadSaveData(data.game.run.IllusionData)
+		IllusionMod.LoadSaveData(data.game.run.IllusionData)
 		IllusionMod.CanPlaceBomb = data.file.other.IllusionCanPlaceBomb
 		IllusionMod.PerfectIllusion = data.file.other.IllusionPerfectIllusion
 	end

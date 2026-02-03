@@ -1,5 +1,11 @@
 local modname = "Restored Collection"
 
+DeadSeaScrollsMenu.AddChangelog(modname, "v1.30",[[{{FSIZE2}}fixes
+- fixed toggled off items and
+trinkets appearing on eden start
+]],
+{"restored", "collection", "", "v1.30", "update"}, false, false)
+
 DeadSeaScrollsMenu.AddChangelog(modname, "v1.29",[[{{FSIZE2}}fixes
 - fixed dss toggles not saving
 ]],

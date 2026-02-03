@@ -243,6 +243,9 @@ local function InitDisableMenu(t)
 					for indexItem, disabledItem in pairs(disabledTable) do
 						if lookupTable[indexItem] == itemConf.ID then
 							disabledTable[indexItem] = nil
+							if REPENTOGON then
+								itemConf.Tags = itemConf.Tags & ~ItemConfig.TAG_NO_EDEN
+							end
 							break
 						end
 					end
@@ -250,6 +253,9 @@ local function InitDisableMenu(t)
 
 				if var == 2 then
 					disabledTable[enumFunc(itemConf.ID)] = true
+					if REPENTOGON then
+						itemConf.Tags = itemConf.Tags | ItemConfig.TAG_NO_EDEN
+					end
 				end
 				RestoredCollection.SaveManager.Save()
 			end,
@@ -399,6 +405,7 @@ local function UpdateImGuiMenu(IsDataInitialized)
 							for indexItem, disabledItem in pairs(disabledItems) do
 								if t.LookupTable[indexItem] == item.ID then
 									disabledItems[indexItem] = nil
+									item.Tags = item.Tags & ~ItemConfig.TAG_NO_EDEN
 									break
 								end
 							end
@@ -406,6 +413,7 @@ local function UpdateImGuiMenu(IsDataInitialized)
 
 						if not val then
 							disabledItems[t.EnumFunc(item.ID)] = true
+							item.Tags = item.Tags | ItemConfig.TAG_NO_EDEN
 						end
 						RestoredCollection.SaveManager.Save()
 					end,
